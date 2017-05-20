@@ -13,3 +13,12 @@ Feedback:
   * Tailor newsletter to student interest (if time)
 
 FORMAT: topherM -- 2999-12-31 23:59
+
+
+roddaRJ -- 2017-05-20 <some time in the morning>
+* "merged development branch and master branch"
+* RODDA EXPLAIN YOURSELF
+
+williamX -- 2017-05-20 18:00
+* Finalized merge
+* Actually got all the requirements installed without running into an error
