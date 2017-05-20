@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+        <script src="/static/js/main.js"></script>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">The Blumm Project</a>
+                </div>
+                <div id="main-navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if "username" in session %}
+                        <li><a href="/logout">Logout</a></li>
+                        {% else %}
+                        <li><a href="/register">Register</a></li>
+                        <li><a href="/login">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% block head %}
+        {% endblock %}
+    </head>
+
+    <body>
+        <div class="container">
+            {% block body %}
+            {% endblock %}
+            {% block things %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
