@@ -1,3 +1,7 @@
+# Virtualenv
+env/
+env/*
+
 # Temp files
 *~
 *\#

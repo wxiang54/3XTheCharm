@@ -3,7 +3,7 @@ from app.core.authentication import require_login, require_role
 
 from oauth2client.client import flow_from_clientsecrets, OAuth2Credentials
 
-from flask import g, url_for, request, session, current_app, redirect
+from flask import g, url_for, request, session, current_app, redirect, render_template
 
 from httplib2 import Http
 
@@ -16,6 +16,10 @@ LOG = logging.getLogger(__name__)
 @auth_mod.route('/')
 def index():
     return 'auth blueprint test'
+
+@auth_mod.route('/test')
+def test():
+    return render_template("base.html")
 
 @auth_mod.route('/login')
 def login():
@@ -32,3 +36,5 @@ def login():
         session['credentials'] = credentials.to_json()
         
         return redirect(url_for('auth.controller.login'))
+
+
