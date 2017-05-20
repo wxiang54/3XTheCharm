@@ -91,3 +91,53 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Python schtuff
+__pycache__/
+*.py[cod]
+
+# Distribution schtuff
+.Python
+env/
+bin/
+build/
+dist/
+lib/
+lib64/
+sdist/
+var/
+logs/
+
+# Installer log schtuff
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Log stuff
+*.log
+logs/
+
+# Scratchpad schtuff
+*.scratch
+
+# Emacs schtuff
+*~
+
+# Unittest/coverage stuff
+.cache
+htmlcov/
+
+# Coverage
+.coverage
+
+# Database data files
+app/data/
+app/testing_data/
+*.db
+
+# Secret keys
+app/static/oauth/client_secrets.json
+
+# Documentation stuff
+docs/_build/*
+
+
