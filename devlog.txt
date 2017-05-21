@@ -22,3 +22,10 @@ roddaRJ -- 2017-05-20 <some time in the morning>
 williamX -- 2017-05-20 18:00
 * Finalized merge
 * Actually got all the requirements installed without running into an error
+
+williamX -- 2017-05-20 23:13
+* Added filler data for /student/opportunities and /student/opportunity routes to assist frontend dev (before real fxnaliy established)
+  * /opportunities returns a list of dicts called 'data'
+  * /opportunity returns a single dict (also called 'data')
+  * Dict keys are: "name", "description", "organization", "start_time", "end_time", "hours", "deadline", "required_materials", "tags", "users_following", "link"
+    
