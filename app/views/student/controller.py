@@ -25,7 +25,11 @@ def opportunities(page = 1):
 
     # Implement the whole suggestion thing
     opportunities = Opportunity.query.filter_by().paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-    
+
+    #fillerdata
+    keys = ["name", "description", "organization", "start_time", "end_time", "hours", "deadline", "required_materials", "tags", "users_following", "link"]
+    filler = {key: "%s%03d" % (key,i) for key in keys}
+    return render_template("opportunities.html", data=filler)
     return 'student.controller.opportunities'
 
 @student_mod.route('/my_opportunities/<int:page>')
@@ -54,14 +58,17 @@ def starred_opportunities(page = 1):
     
     return 'student.controller.starred_opportunities'
 
-@student_mod.route('/opportunity/<int:id>')
-def opportunity(id = 0):
+@student_mod.route('/opportunity/<int:op_id>')
+def opportunity(op_id = 0):
     """ Returns a single opportunity to display information
     
     :param id: ID of the opportunity to display information of
     :type id: int
     """
-
+    #filler data
+    keys = ["name", "description", "organization", "start_time", "end_time", "hours", "deadline", "required_materials", "tags", "users_following", "link"]
+    filler = [{key: "%s%03d" % (key,i) for key in keys} for i in xrange(5)]
+    return render_template("opportunity.html", data=filler)
     return 'student.controller.opportunity'
 
 @student_mod.route('/search/<int:page>')
