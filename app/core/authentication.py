@@ -15,6 +15,14 @@ import logging
 
 LOG = logging.getLogger(__name__)
 
+def parametrized(dec):
+    """ Utility function to allow for decorators with arguments """
+    def layer(*args, **kwargs):
+        def repl(f):
+            return dec(f, *args, **kwargs)
+        return repl
+    return layer
+
 def email_in_organization(email = '', organization = ''):
     """ Checks whether an email is part of a specified organization 
     
@@ -53,17 +61,19 @@ def require_login(f):
 
     If user is logged in run the route
 
-    If user is not logged in display a message to the user and redirect to the 'index' route
+    If user is not logged in display a message to the user and redirect to the 'index' ro
+ute
     """
     @functools.wraps(f)
     def wrapper(*args, **kwargs):
-        if not is_logged_in():
+        if not g.user:
             LOG.debug('You are not logged in')
             flash('You are not logged in')
             return redirect(url_for('public.controller.index'))
         return f(*args, **kwargs)
     return wrapper
 
+@parametrized
 def require_role(f, role):
     """ require_role(f, role)
     Authentication decorator
