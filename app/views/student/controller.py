@@ -35,7 +35,7 @@ def opportunities(page = 1):
     #keys = ["name", "description", "organization", "start_time", "end_time", "hours", "deadline", "required_materials", "tags", "users_following", "link"]
     #filler = {key: "%s%03d" % (key,i) for key in keys}
     
-    return render_template("opportunities.html", data=opportunities)
+    return render_template("opportunities.html", opportunities = opportunities)
 
 @student_mod.route('/my_opportunities/<int:page>')
 @require_login

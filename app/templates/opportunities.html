@@ -1,15 +1,32 @@
 {% extends "base.html" %}
 {% block body %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Organization</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for o in opportunities.items %}
+    <tr>
+      <td>{{ o.name }}</td>
+      <td>{{ o.description }}</td>
+      <td>{{ o.organization }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% macro render_pagination(pagination, endpoint) %}
   <div class=pagination>
   {%- for page in pagination.iter_pages() %}
     {% if page %}
-{#      {% if page != pagination.page %}
+      {% if page != pagination.page %}
         <a href="{{ url_for(endpoint, page=page) }}">{{ page }}</a>
 	{% else %}
-#}
         <strong>{{ page }}</strong>
-{#      {% endif %} #}
+      {% endif %}
     {% else %}
       <span class=ellipsis>…</span>
     {% endif %}
@@ -17,5 +34,5 @@
   </div>
 {% endmacro %}
 
-{{ render_pagination(data, ".opportunity") }}
+{{ render_pagination(opportunities, ".opportunity") }}
 {% endblock body %}
