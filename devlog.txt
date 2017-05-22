@@ -29,3 +29,6 @@ williamX -- 2017-05-20 23:13
   * /opportunity returns a single dict (also called 'data')
   * Dict keys are: "name", "description", "organization", "start_time", "end_time", "hours", "deadline", "required_materials", "tags", "users_following", "link"
     
+jiaqiG -- 2017-05-21 00:00
+* Created template structure of main html page with bootstrap
+* Added materialize framework because Rodda likes that stuff and told me to

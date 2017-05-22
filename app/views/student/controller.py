@@ -24,11 +24,11 @@ def opportunities(page = 1):
     """
 
     # Implement the whole suggestion thing
-    opportunities = Opportunity.query.filter_by().paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
     #fillerdata
-    keys = ["name", "description", "organization", "start_time", "end_time", "hours", "deadline", "required_materials", "tags", "users_following", "link"]
-    filler = [{key: "%s%03d" % (key,i) for key in keys} for i in xrange(10)]
+    #keys = ["name", "description", "organization", "start_time", "end_time", "hours", "deadline", "required_materials", "tags", "users_following", "link"]
+    #filler = {key: "%s%03d" % (key,i) for key in keys}
     
     return render_template("opportunities.html", data=opportunities)
 

@@ -1,6 +1,6 @@
 """ File managing decorators managing who is logged in and not, as well as permission handling as well as functions decorated with before_app_request """
 
-from flask import g, session, flash, redirect
+from flask import g, session, flash, redirect, current_app
 
 import logging
 
@@ -37,7 +37,8 @@ def load_user():
     if 'id' in session:
         user = User.query.filter_by(id = session['id']).first()
 
-    g.user = user
+    with current_app.app_context():
+        g.user = user
 
 def require_login(f):
     """ require_login(f)
