@@ -29,8 +29,8 @@ def opportunities(page = 1):
     #fillerdata
     keys = ["name", "description", "organization", "start_time", "end_time", "hours", "deadline", "required_materials", "tags", "users_following", "link"]
     filler = {key: "%s%03d" % (key,i) for key in keys}
+    
     return render_template("opportunities.html", data=filler)
-    return 'student.controller.opportunities'
 
 @student_mod.route('/my_opportunities/<int:page>')
 def my_opportunities(page = 1):
@@ -55,6 +55,8 @@ def starred_opportunities(page = 1):
     :param page: Page to return
     :type page: int
     """
+
+    opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     
     return 'student.controller.starred_opportunities'
 
@@ -62,13 +64,12 @@ def starred_opportunities(page = 1):
 def opportunity(op_id = 0):
     """ Returns a single opportunity to display information
     
-    :param id: ID of the opportunity to display information of
-    :type id: int
+    :param op_id: ID of the opportunity to display information of
+    :type op_id: int
     """
-    #filler data
-    keys = ["name", "description", "organization", "start_time", "end_time", "hours", "deadline", "required_materials", "tags", "users_following", "link"]
-    filler = [{key: "%s%03d" % (key,i) for key in keys} for i in xrange(5)]
-    return render_template("opportunity.html", data=filler)
+
+    opportunity = Opportunity.query.filter_by(id = op_id).first()
+    
     return 'student.controller.opportunity'
 
 @student_mod.route('/search/<int:page>')
