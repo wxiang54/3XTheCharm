@@ -4,10 +4,12 @@ from flask import session
 
 from oauth2client.client import OAuth2Credentials
 
+import json
+
 from httplib2 import Http
 
-def get_email(credentials):
-    """ Given credentials, it will return the email address of the person logged in
+def get_user_information(credentials):
+    """ Given credentials, it will return the json information object of the person logged in
 
     :param credentials: The jsonnable string usually stored in session
     :type credentials: str
@@ -20,5 +22,5 @@ def get_email(credentials):
     
     c = json.loads(content)
     
-    return c['email']
+    return c
 

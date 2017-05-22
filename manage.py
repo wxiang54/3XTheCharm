@@ -9,12 +9,14 @@ COMMANDS:
     createdb              Create the database
     migratedb             Migrates and upgrads the database
     shell                 Starts a python shell in app context
+    gen_opportunities     Generates test users and opportunities
 
 USAGE:
     manage.py devserver [-p NUM] [-l DIR] [--config_prod]
     manage.py createdb [--config_prod]
     manage.py migratedb [--config_prod]
     manage.py shell [--config_prod]
+    manage.py gen_opportunities [--config_prod]
 
 OPTIONS:
     --config_prod         Load the production configurations instead of development
@@ -213,6 +215,34 @@ def shell():
     app.app_context().push()
     Shell(make_context=lambda: dict(app=app, db=db)).run(no_ipython=False, no_bpython=False)
 
+@command
+def gen_opportunities():
+    import app.models as models
+    
+    app = create_app(parse_options())
+    app.app_context().push()
+
+    o1 = models.opportunities.Opportunity(name = '1',
+                                              description = '1d',
+                                              organization = '1o')
+    o2 = models.opportunities.Opportunity(name = '2',
+                                              description = '2d',
+                                              organization = '2o')
+    o3 = models.opportunities.Opportunity(name = '3',
+                                              description = '3d',
+                                              organization = '3o')    
+    o4 = models.opportunities.Opportunity(name = '4',
+                                              description = '4d',
+                                              organization = '4o')
+
+    db.session.add(o1)
+    db.session.add(o2)
+    db.session.add(o3)
+    db.session.add(o4)
+    db.session.commit()
+
+    print 'INFO: Added opportunities'
+
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, lambda *_: sys.exit(0)) # Catches SIGINT and exits "theoretically" nicely
     
@@ -220,3 +250,5 @@ if __name__ == '__main__':
         print('ERROR: Port should be a number.')
         sys.exit(1)
     getattr(command, 'chosen')()
+
+

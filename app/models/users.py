@@ -19,15 +19,15 @@ class User(Base):
         """
         return "<User ID: %d>" % self.id
 
-    fname = Column(String(64), unique = False, nullable = False)
-    """ Column to store first name. """
+    #fname = Column(String(64), unique = False, nullable = False)
+    #""" Column to store first name. """
+    #
+    #lname = Column(String(64), unique = False, nullable = False)
+    #""" Column to store last name. """
+
+    email = Column(String(64), unique = False, nullable = False)
+    """ Column to store the email """
     
-    lname = Column(String(64), unique = False, nullable = False)
-    """ Column to store last name. """
-
-    password = Column(String(128), unique = False, nullable = True)
-    """ Column to store hashed password. """
-
     roles = relationship('Role', backref = 'user')
     """ Relationship Column creating the one-to-many relationship.  It operates like a list. """
 
@@ -40,30 +40,6 @@ class User(Base):
                                            secondary = opportunities_following,
                                            back_populates = 'users_following')
     """ Relationship Column to store the many to many to the opportunities.  It operates like a list. """
-
-    def set_password(self, pwd):
-        """ Sets the password for a user.
-
-        Uses the werkzeug hash method to hash the password.
-
-        :param pwd: The new password
-        :type pwd: str
-        """
-        
-        self.password = generate_password_hash(pwd)
-        db.session.commit()
-
-    def check_password(self, pwd):
-        """ Checks a password.
-
-        Uses the werkzeug check password method.
-
-        :param pwd: The password to check.
-        :type pwd: str
-        :returns: bool -- true if the password is valid, false if otherwise.
-        """
-        
-        return check_password_hash(self.password, pwd)
 
     def add_role(self, role):
         """ Adds the role to the user

@@ -1,9 +1,12 @@
 from app.blueprints import auth_mod
-from app.core.authentication import require_login, require_role
+from app.core.authentication import require_login, require_role, email_in_organization
+from app.core.oauth_api import get_user_information
+from app.models.users import User
+from app.extensions import db
 
 from oauth2client.client import flow_from_clientsecrets, OAuth2Credentials
 
-from flask import g, url_for, request, session, current_app, redirect, render_template
+from flask import g, url_for, request, session, current_app, redirect, render_template, flash
 
 from httplib2 import Http
 
@@ -32,9 +35,29 @@ def login():
         return redirect(auth_uri)
     else:
         auth_code = request.args.get('code')
-        credentials = flow.step2_exchange(auth_code)
+        credentials = flow.step2_exchange(auth_code)    
+
+        user_information = get_user_information(credentials.to_json())
+
+        if not email_in_organization(user_information['email'], 'stuy.edu'):
+            flash('You must user a stuy.edu email address')
+            return redirect(url_for('public.controller.index'))
+
         session['credentials'] = credentials.to_json()
+
+        user = User.query.filter_by(email = user_information['email']).first()
+
+        LOG.info(user_information)
+
+        if not user:
+            u = User(email = user_information['email'])
+            u.add_role('student')
+
+            db.session.add(u)
+            db.session.commit()
+
+            session['id'] = u.id
         
-        return redirect(url_for('auth.controller.login'))
+        return redirect(url_for('public.controller.index'))
 
 
