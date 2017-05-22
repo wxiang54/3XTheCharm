@@ -40,6 +40,7 @@ def login():
         user_information = get_user_information(credentials.to_json())
 
         if not email_in_organization(user_information['email'], 'stuy.edu'):
+            LOG.debug('Non stuy.edu email')
             flash('You must user a stuy.edu email address')
             return redirect(url_for('public.controller.index'))
 
