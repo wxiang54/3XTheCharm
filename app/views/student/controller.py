@@ -10,12 +10,17 @@ import logging
 LOG = logging.getLogger(__name__)
 
 @student_mod.route('/')
+@require_login
+@require_role('student')
 def index():
     """ Student dashboard """
     
     return 'student_index'
 
+@student_mod.route('/opportunities')
 @student_mod.route('/opportunities/<int:page>')
+@require_login
+@require_role('student')
 def opportunities(page = 1):
     """ Returns all opportunities for a student (paginated) seperated by either tag, but sorted in the recommendation order (see neural net fun times) 
 
@@ -33,6 +38,8 @@ def opportunities(page = 1):
     return render_template("opportunities.html", data=opportunities)
 
 @student_mod.route('/my_opportunities/<int:page>')
+@require_login
+@require_role('student')
 def my_opportunities(page = 1):
     """ Returns all opportunities that a user has suggesterd 
     
@@ -45,6 +52,8 @@ def my_opportunities(page = 1):
     return 'student.controller.my_opportunities'
 
 @student_mod.route('/starred_opportunities/<int:page>')
+@require_login
+@require_role('student')
 def starred_opportunities(page = 1):
     """ Returns all the opportunities that a user is specifically following
     
@@ -61,6 +70,8 @@ def starred_opportunities(page = 1):
     return 'student.controller.starred_opportunities'
 
 @student_mod.route('/opportunity/<int:op_id>')
+@require_login
+@require_role('student')
 def opportunity(op_id = 0):
     """ Returns a single opportunity to display information
     
@@ -74,6 +85,8 @@ def opportunity(op_id = 0):
     return 'student.controller.opportunity'
 
 @student_mod.route('/search/<int:page>')
+@require_login
+@require_role('student')
 def search(page = 1):
     """ Returns a paginated list of opportunities as pursuant to the search parameters given by the GET parameters
     

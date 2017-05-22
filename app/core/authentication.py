@@ -1,6 +1,6 @@
 """ File managing decorators managing who is logged in and not, as well as permission handling as well as functions decorated with before_app_request """
 
-from flask import g, session, flash, redirect, current_app
+from flask import g, session, flash, redirect, url_for
 
 import logging
 
@@ -10,6 +10,18 @@ from app.models.users import User
 from app.blueprints import auth_mod
 
 import functools
+
+import logging
+
+LOG = logging.getLogger(__name__)
+
+def parametrized(dec):
+    """ Utility function to allow for decorators with arguments """
+    def layer(*args, **kwargs):
+        def repl(f):
+            return dec(f, *args, **kwargs)
+        return repl
+    return layer
 
 def email_in_organization(email = '', organization = ''):
     """ Checks whether an email is part of a specified organization 
@@ -37,8 +49,7 @@ def load_user():
     if 'id' in session:
         user = User.query.filter_by(id = session['id']).first()
 
-    with current_app.app_context():
-        g.user = user
+    g.user = user
 
 def require_login(f):
     """ require_login(f)
@@ -50,17 +61,19 @@ def require_login(f):
 
     If user is logged in run the route
 
-    If user is not logged in display a message to the user and redirect to the 'index' route
+    If user is not logged in display a message to the user and redirect to the 'index' ro
+ute
     """
     @functools.wraps(f)
     def wrapper(*args, **kwargs):
         if not g.user:
+            LOG.debug('You are not logged in')
             flash('You are not logged in')
-            return redirect('index')
+            return redirect(url_for('public.controller.index'))
         return f(*args, **kwargs)
     return wrapper
 
-@require_login
+@parametrized
 def require_role(f, role):
     """ require_role(f, role)
     Authentication decorator
@@ -79,7 +92,7 @@ def require_role(f, role):
     def wrapper(*args, **kwargs):
         if not g.user.check_role(role):
             flash('You do not have the required role')
-            return redirect('index')
+            return redirect(url_for('public.controller.index'))
         return f(*args, **kwargs)
     return wrapper
 
