@@ -1,5 +1,5 @@
 from app.blueprints import student_mod
-from flask import url_for, request, session, current_app, redirect, g
+from flask import url_for, request, session, current_app, redirect, g, render_template
 
 from app.models.opportunities import Opportunity
 
@@ -28,9 +28,9 @@ def opportunities(page = 1):
 
     #fillerdata
     keys = ["name", "description", "organization", "start_time", "end_time", "hours", "deadline", "required_materials", "tags", "users_following", "link"]
-    filler = {key: "%s%03d" % (key,i) for key in keys}
+    filler = [{key: "%s%03d" % (key,i) for key in keys} for i in xrange(10)]
     
-    return render_template("opportunities.html", data=filler)
+    return render_template("opportunities.html", data=opportunities)
 
 @student_mod.route('/my_opportunities/<int:page>')
 def my_opportunities(page = 1):
@@ -69,7 +69,8 @@ def opportunity(op_id = 0):
     """
 
     opportunity = Opportunity.query.filter_by(id = op_id).first()
-    
+    return opportunity
+    print opportunity
     return 'student.controller.opportunity'
 
 @student_mod.route('/search/<int:page>')
