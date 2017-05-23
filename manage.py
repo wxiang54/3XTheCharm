@@ -10,6 +10,7 @@ COMMANDS:
     migratedb             Migrates and upgrads the database
     shell                 Starts a python shell in app context
     gen_opportunities     Generates test users and opportunities
+    rm_opportunities      Remove all opportunities
 
 USAGE:
     manage.py devserver [-p NUM] [-l DIR] [--config_prod]
@@ -17,6 +18,7 @@ USAGE:
     manage.py migratedb [--config_prod]
     manage.py shell [--config_prod]
     manage.py gen_opportunities [--config_prod]
+    manage.py rm_opportunities 
 
 OPTIONS:
     --config_prod         Load the production configurations instead of development
@@ -218,31 +220,34 @@ def shell():
 @command
 def gen_opportunities():
     import app.models as models
-    
+    import random
     app = create_app(parse_options())
     app.app_context().push()
 
-    o1 = models.opportunities.Opportunity(name = '1',
-                                              description = '1d',
-                                              organization = '1o')
-    o2 = models.opportunities.Opportunity(name = '2',
-                                              description = '2d',
-                                              organization = '2o')
-    o3 = models.opportunities.Opportunity(name = '3',
-                                              description = '3d',
-                                              organization = '3o')    
-    o4 = models.opportunities.Opportunity(name = '4',
-                                              description = '4d',
-                                              organization = '4o')
-
-    db.session.add(o1)
-    db.session.add(o2)
-    db.session.add(o3)
-    db.session.add(o4)
+    f_name = open("filler/name.txt", "r")
+    f_desc = open("filler/desc.txt", "r")
+    f_orgs = open("filler/orgs.txt", "r")
+    L_name = f_name.read().split("\n")
+    L_desc = f_desc.read().split("\n")
+    L_orgs = f_orgs.read().split("\n")
+    for i in xrange(4):
+        o = models.opportunities.Opportunity(name = random.choice(L_name),
+                                             description = random.choice(L_desc),
+                                             organization = random.choice(L_orgs))
+        db.session.add(o)
     db.session.commit()
-
+    
     print 'INFO: Added opportunities'
+    f_name.close()
+    f_desc.close()
+    f_orgs.close()
+    
 
+@command
+def rm_opportunities():
+    db.session.commit()
+    
+    
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, lambda *_: sys.exit(0)) # Catches SIGINT and exits "theoretically" nicely
     
