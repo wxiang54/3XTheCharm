@@ -36,3 +36,7 @@ jiaqiG -- 2017-05-21 00:00
 roddaRJ(mostly) + williamX -- 2017-05-22 11:00
 * Finalized pagination and added functionality for generating filler data in database
 * Got ourselves some API credentials NOT tied to any big organizations that could potentially have caused unintended consequences
+
+jiaqiG -- 2017-05-22 00:00
+* Created frontend design for main opportunities page with bootstrap
+* Removed materialize framework 
