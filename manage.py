@@ -18,7 +18,7 @@ USAGE:
     manage.py migratedb [--config_prod]
     manage.py shell [--config_prod]
     manage.py gen_opportunities [--config_prod]
-    manage.py rm_opportunities 
+    manage.py rm_opportunities [--config_prod]
 
 OPTIONS:
     --config_prod         Load the production configurations instead of development
@@ -245,6 +245,9 @@ def gen_opportunities():
 
 @command
 def rm_opportunities():
+    for u in Opportunity.query.all():
+        db.session.delete(u)
+    
     db.session.commit()
     
     
