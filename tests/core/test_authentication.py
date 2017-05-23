@@ -42,15 +42,15 @@ def test_require_role():
 
     db.session.add(user)
     db.session.commit()
-    
+
+    @require_role('testing')
     def testing_function():
         return 'Success'
 
     with app.test_request_context(''): # Tests with proper role
         session['id'] = user.id # This is how the load_user method loads the user
         app.preprocess_request()
-
-        assert parametrized(require_role(testing_function, 'testing'))() == 'Success'
+        assert testing_function() == 'Success'
         
     with app.test_request_context(''): # Tests without role
         session['id'] = user.id # This is how the load_user method loads the user
@@ -59,7 +59,7 @@ def test_require_role():
         user.remove_role('testing') # Removes the role to test without the desired role
         db.session.commit()
         
-        assert 'Redirecting' in require_role(testing_function, 'testing')().data # Redirecting to 'index' as defined in app.core.authentication
+        assert 'Redirecting' in testing_function().data # Redirecting to 'index' as defined in app.core.authentication
 
     db.session.delete(user)
     db.session.commit()
