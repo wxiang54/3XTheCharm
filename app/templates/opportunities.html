@@ -1,26 +1,73 @@
 {% extends "base.html" %}
 {% block body %}
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Organization</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for o in opportunities.items %}
-      <tr>
-	<td>{{ o.name }}</td>
-	<td>{{ o.description }}</td>
-	<td>{{ o.organization }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+
+<h1>Student Opportunities Bulletin</h1>
+<h4><i>Please note there are offerings in many different fields, and remember that many deadlines are coming up fast. </i></h4>
+<br>
+
+    <div class="col-lg-6 pull-left">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Search</button>
+      </span>
+    </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+
+   
+<div class="btn-group offset-lg-6 pull-right">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Sort by <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Soonest Deadline</a></li>
+    <li><a href="#">Latest Deadline</a></li>
+    <li><a href="#">Recent</a></li>
+  </ul>
+</div>
+
+<br><br><br>
+<div class="row">
+  <div class="container col-md-2">
+    <button class="accordion">Category</button>
+    <div class="panel">
+      <br>
+      <input type="checkbox"><label>&nbsp; Technology</label> <br>
+      <input type="checkbox"><label>&nbsp; Theater</label> <br>
+      <input type="checkbox"><label>&nbsp; Volunteering</label> <br>
+      <input type="checkbox"><label>&nbsp; Research</label> <br>
+    </div>
+    <button class="accordion">Grade level</button>
+    <div class="panel">
+      <br>
+      <input type="checkbox"><label> &nbsp; 9th grade</label> <br>
+      <input type="checkbox"><label> &nbsp; 10th grade</label> <br>
+      <input type="checkbox"><label> &nbsp; 11th grade</label> <br>
+      <input type="checkbox"><label> &nbsp; 12th grade</label> <br>
+    </div>
+    <button class="accordion">Type</button>
+    <div class="panel">
+      <br>
+      <input type="checkbox"><label>&nbsp; Paid</label> <br>
+      <input type="checkbox"><label>&nbsp; Unpaid</label> <br>
+    </div>
+  </div>
+
+<div class="col-md-8 offset-md-4">
+  {% for o in opportunities.items %}
+  <div class="container opp">
+    <h3>{{ o.name }}</h3>
+    <p>{{ o.description }}</p>
+    <p>{{ o.organization }}</p>
+  </div>
+
+  {% endfor %}
+</div>
+</div>
+
 {% macro render_pagination(pagination, endpoint) %}
   
-  <ul class="pagination">
+  <ul class="pagination pull-right">
 
     {% if pagination.has_prev %}
       <li>
