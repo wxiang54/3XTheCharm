@@ -8,3 +8,16 @@ PR #04: Viz Due ? 2017-06-?, 8:00am, EST.
 * Rodda John
 * Nancy Cao
 * Jiaqi Gao
+
+
+## How to run the project (in its current state)
+1. Install all dependencies:  `$make setup`
+  * If you get an `mysql_config` error, that means you need to install the appropriate mysql package for your OS
+    * OSX: `$brew install mysql`
+    * Linux: `$apt-get install libmysqlclient-dev`
+    * Windows: `xd`
+  * If you get more errors, especially involving `egg_info`, it just might be over for you.
+2. Create the database:  `$./manage.py createdb`
+3. Migrate the database:  `$./manage.py migratedb`
+4. (Optional) Generate filler data:  `$./manage.py gen_opportunities`
+5. Run the server:  `$make run`
