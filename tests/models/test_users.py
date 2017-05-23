@@ -3,7 +3,6 @@
 Tests creating a user
 Tests all fields for a user
 Tests simple querying
-Tests password setting and checking
 Tests role setting and checking
 Tests __repr__
 """
@@ -23,26 +22,9 @@ def test_users():
     db.session.add(new_user)
     db.session.commit()
 
-    query = db.session.query(User).filter_by(fname = 'testing').order_by(User.id.desc()).first()
+    query = db.session.query(User).filter_by(email = 'testing@stuy.edu').order_by(User.id.desc()).first()
 
     assert query.id == new_user.id
-
-def test_password():
-    """ Basic tests on password hash
-
-    Setting password
-    Checking password 
-
-    No need to actually save this user to the database as this simply tests class methods
-    """
-
-    new_user = create_test_user()
-    
-    new_user.set_password('test')
-    
-    assert new_user.password is not None
-    assert new_user.check_password('test')
-    assert not new_user.check_password('TEST')
 
 def test_role_checking():
     """ Basic role check test

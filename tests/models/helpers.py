@@ -27,7 +27,7 @@ def create_test_user():
     :returns: app.models.user.User the created user object
     """
 
-    u = User(fname = 'testing', lname = 'blah')
+    u = User(email = 'testing@stuy.edu')
 
     return u
 

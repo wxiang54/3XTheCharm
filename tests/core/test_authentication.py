@@ -8,7 +8,7 @@ from tests.models.helpers import create_test_user
 from tests.conftest import app
 
 from app.extensions import db
-from app.core.authentication import load_user, require_login, require_role
+from app.core.authentication import load_user, require_login, require_role, parametrized
 
 def test_require_login():
     """ Tests the require_login decorator """
@@ -50,7 +50,7 @@ def test_require_role():
         session['id'] = user.id # This is how the load_user method loads the user
         app.preprocess_request()
 
-        assert (require_role(testing_function, 'testing')()) == 'Success'
+        assert parametrized(require_role(testing_function, 'testing'))() == 'Success'
         
     with app.test_request_context(''): # Tests without role
         session['id'] = user.id # This is how the load_user method loads the user

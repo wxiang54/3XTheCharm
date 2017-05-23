@@ -47,9 +47,12 @@ def load_user():
     user = None
     
     if 'id' in session:
+        LOG.debug('Found the user')
         user = User.query.filter_by(id = session['id']).first()
 
     g.user = user
+    #    LOG.debug(session['id'])
+    LOG.debug(g.user)
 
 def require_login(f):
     """ require_login(f)

@@ -46,18 +46,18 @@ def login():
 
         session['credentials'] = credentials.to_json()
 
-        user = User.query.filter_by(email = user_information['email']).first()
+        u = User.query.filter_by(email = user_information['email']).first()
 
         LOG.info(user_information)
 
-        if not user:
+        if not u:
             u = User(email = user_information['email'])
             u.add_role('student')
 
             db.session.add(u)
             db.session.commit()
 
-            session['id'] = u.id
+        session['id'] = u.id
         
         return redirect(url_for('public.controller.index'))
 
