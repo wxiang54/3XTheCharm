@@ -32,3 +32,7 @@ williamX -- 2017-05-20 23:13
 jiaqiG -- 2017-05-21 00:00
 * Created template structure of main html page with bootstrap
 * Added materialize framework because Rodda likes that stuff and told me to
+
+roddaRJ(mostly) + williamX -- 2017-05-22 11:00
+* Finalized pagination and added functionality for generating filler data in database
+* Got ourselves some API credentials NOT tied to any big organizations that could potentially have caused unintended consequences
