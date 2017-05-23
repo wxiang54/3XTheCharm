@@ -22,11 +22,11 @@ PR #04: Viz Due ? 2017-06-?, 8:00am, EST.
 2. Create the database:  `$./manage.py createdb`
 
 3. Migrate the database:  `$./manage.py migratedb`
-  
+  
+4. (Optional) Generate filler data:  `$./manage.py gen_opportunities`
+
   >  This generates four entries only. Therefore, given n is the number of times the command is run, your entries in the database will total to the partial sum of the arithmetic sequence a_n = a_1 + 4n 
   
   >  --Stern
-  
-4. (Optional) Generate filler data:  `$./manage.py gen_opportunities`
 
 5. Run the server:  `$make run`
