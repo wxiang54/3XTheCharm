@@ -40,3 +40,6 @@ roddaRJ(mostly) + williamX -- 2017-05-22 11:00
 jiaqiG -- 2017-05-22 00:00
 * Created frontend design for main opportunities page with bootstrap
 * Removed materialize framework 
+
+williamX -- 2017-05-24 14:00
+* Localized css/js sources to /static directory (instead of from CDN)
