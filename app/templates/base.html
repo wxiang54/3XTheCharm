@@ -11,10 +11,12 @@
     {% block head %} {% endblock %}
   </head>
 
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/">The Blumm Project</a>
+         <a class="navbar-brand" href="#">
+        <img id="logo" alt="logo" src="/../static/logo.png" width="300px">
+      </a>
       </div>
       <div id="main-navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
@@ -25,6 +27,7 @@
     </div>
   </nav>
 
+    <br>
   <body>
     <div class="container">
       {% with messages = get_flashed_messages() %} {% if messages %}
