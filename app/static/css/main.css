@@ -31,3 +31,12 @@ div.panel {
     background-color: white;
 }
 
+.navbar {
+	position: absolute;
+	top: 0px;
+}
+
+#logo {
+      position: relative;
+      top: -8px;
+}
