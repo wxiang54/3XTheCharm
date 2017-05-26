@@ -22,6 +22,6 @@ Introduction
 =================
 
 .. note::
-   This is a work in progress -- nothing is final yet, please contact Rodda John with any questions or issues.
+   This is a work in progress -- nothing is final yet, please contact peeps with any questions or issues.
 
 Check out Github for the installation guide.
