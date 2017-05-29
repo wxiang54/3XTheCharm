@@ -23,6 +23,7 @@ def _factory(partial_module_string, url_prefix):
 auth_mod = _factory('auth.controller', '/auth')
 public_mod = _factory('public.controller', '/')
 student_mod = _factory('student.controller', '/student')
+admin_mod = _factory('admin.controller', '/admin')
 
-all_blueprints = (auth_mod, public_mod, student_mod)
+all_blueprints = (auth_mod, public_mod, student_mod, admin_mod)
 """ List of all blueprints (all have been instantiated through the factory function) """
