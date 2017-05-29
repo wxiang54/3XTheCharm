@@ -48,3 +48,7 @@ williamX -- 2017-05-24 14:00
 
 nancyC -- 2017-05-24 15:30
 * fixed up some front-end and added logo
+
+nancyC -- 2017-05-29 15:00
+* Created routes for admin 
+* Changed logo

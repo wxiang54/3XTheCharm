@@ -1,12 +1,12 @@
 -=-= BLUEPRINT VIEWS by Drake =-=-
 
-/student/opportunities and /admin/opportunities
+/student/opportunities and /admin/opportunities : CREATED
   - For student, List APPROVED opportunties by neural net recommender system
     - Could possibly be subdivided into followed tags
   - For admin, should show a list of unapproved opportunities
 
 /student/my_opportunities
-OR /admin/my_opportunities
+OR /admin/my_opportunities : CREATED
   - For student: lists opportunities created
   - For admin: lists opportunities created or approved
 
@@ -17,26 +17,26 @@ OR /student/opportunity/<name> but it should redirect to /<id> anyway
 /student/starred-opportunities
   - Hmm what could this mean
 
-/admin/opportunity/<id>
+/admin/opportunity/<id> : CREATED
 OR /admin/opportunity/<name>
   - Same as student but template should have editing/removing fxnality
   - Should have fxnality to approve an unapproved opportunity
 
-/admin/add-opportunity
+/admin/add-opportunity : CREATED
 OR /student/suggest-opportunity
   - Interface for admins (and students) to create opportunities
 
-/admin/edit-opportunity/<id> or /<name>
+/admin/edit-opportunity/<id> or /<name>  : CREATED
   - Use AJAX to update info on an opportunity
   - JS should pass list of field-value pairs:
     - field: one of many edits: 'name', 'desc', 'date', etc.
     - value: updated value of field(s)
 
-/admin/remove-opportunity/<id> or /<name>
+/admin/remove-opportunity/<id> or /<name> : CREATED
   - Will be a POST request from frontend
   - ID of opp. to remove can be inferred from request.referrer in flask
 
-/student/search and /admin/search
+/student/search and /admin/search : CREATED
   - Will be a GET request from HTML
     - Frontend should pass:
       - list of selected tags selected
