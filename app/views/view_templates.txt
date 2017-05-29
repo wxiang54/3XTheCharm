@@ -5,16 +5,16 @@
     - Could possibly be subdivided into followed tags
   - For admin, should show a list of unapproved opportunities
 
-/student/my_opportunities
+/student/my_opportunities : CREATED
 OR /admin/my_opportunities : CREATED
   - For student: lists opportunities created
   - For admin: lists opportunities created or approved
 
-/student/opportunity/<id>
+/student/opportunity/<id> : CREATED
 OR /student/opportunity/<name> but it should redirect to /<id> anyway
   - Display specific data of a single opportunity
 
-/student/starred-opportunities
+/student/starred-opportunities : CREATED
   - Hmm what could this mean
 
 /admin/opportunity/<id> : CREATED

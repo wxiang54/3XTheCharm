@@ -78,11 +78,14 @@ def search(page = 1):
 
     return 'admin.controller.search'
 
-@admin_mod.route('/add-opportunity')
+@admin_mod.route('/add-opportunity/<int:op_id>')
 @require_login
 @require_role('admin')
-def add_opportunity(): # init param?
-    """ Returns a interface for admins to create opportunities """
+def add_opportunity(op_id = 0): # init param?
+    """ Returns a interface for admins to create opportunities
+        :param op_id: ID of the opportunity to add information of
+        :type op_id: int
+    """
 
     return 'admin.controller.add_opportunity'
 
@@ -91,7 +94,7 @@ def add_opportunity(): # init param?
 @require_role('admin')
 def edit_opportunity(op_id = 0):
     """ Returns a interface for admins to edit opportunities
-    :param op_id: ID of the opportunity to display information of
+    :param op_id: ID of the opportunity to edit information of
     :type op_id: int
     """
 
@@ -102,7 +105,7 @@ def edit_opportunity(op_id = 0):
 @require_role('admin')
 def remove_opportunity(op_id = 0):
     """ Returns a interface for admins to remove opportunities
-        :param op_id: ID of the opportunity to display information of
+        :param op_id: ID of the opportunity to remove information of
         :type op_id: int
     """
 
