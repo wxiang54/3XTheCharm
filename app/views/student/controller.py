@@ -33,7 +33,7 @@ def opportunities(page = 1):
     # Implement the whole suggestion thing
     opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
-    return render_template("opportunities.html", opportunities = opportunities)
+    return render_template("student/student_opportunities.html", opportunities = opportunities)
 
 @student_mod.route('/my_opportunities/<int:page>')
 @require_login
@@ -65,7 +65,7 @@ def starred_opportunities(page = 1):
 
     opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
-    return render_template("starred_opportunities.html", opportunities = opportunities)
+    return render_template("student/starred_opportunities.html", opportunities = opportunities)
 
 @student_mod.route('/opportunity/<int:op_id>')
 @require_login
@@ -78,8 +78,8 @@ def opportunity(op_id = 0):
     """
 
     opportunity = Opportunity.query.filter_by(id = op_id).first()
-    
-    return 'student.controller.opportunity'
+
+    return render_template("student/student_opportunity.html", opportunity = opportunity)
 
 @student_mod.route('/search')
 @student_mod.route('/search/<int:page>')
@@ -117,5 +117,5 @@ def suggest_opportunity():
     """ Inerface for student to suggest opportunities
     """
 
-    
+
     return 'student.controller.suggest_opportunity'

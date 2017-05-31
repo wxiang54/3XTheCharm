@@ -1,0 +1,126 @@
+{% extends "admin/admin_base.html" %}
+{% block body %}
+
+<h1>Student Opportunities Bulletin</h1>
+<h4><i>Please note there are offerings in many different fields, and remember that many deadlines are coming up fast. </i></h4>
+<br>
+
+    <div class="col-lg-6 pull-left">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Search</button>
+      </span>
+    </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+
+
+<div class="btn-group offset-lg-6 pull-right">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Sort by <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Soonest Deadline</a></li>
+    <li><a href="#">Latest Deadline</a></li>
+    <li><a href="#">Recent</a></li>
+  </ul>
+</div>
+
+<br><br><br>
+<div class="row">
+  <div class="container col-md-2">
+    <button class="accordion">Category</button>
+    <div class="panel">
+      <br>
+      <input type="checkbox"><label>&nbsp; Technology</label> <br>
+      <input type="checkbox"><label>&nbsp; Theater</label> <br>
+      <input type="checkbox"><label>&nbsp; Volunteering</label> <br>
+      <input type="checkbox"><label>&nbsp; Research</label> <br>
+    </div>
+    <button class="accordion">Grade level</button>
+    <div class="panel">
+      <br>
+      <input type="checkbox"><label> &nbsp; 9th grade</label> <br>
+      <input type="checkbox"><label> &nbsp; 10th grade</label> <br>
+      <input type="checkbox"><label> &nbsp; 11th grade</label> <br>
+      <input type="checkbox"><label> &nbsp; 12th grade</label> <br>
+    </div>
+    <button class="accordion">Type</button>
+    <div class="panel">
+      <br>
+      <input type="checkbox"><label>&nbsp; Paid</label> <br>
+      <input type="checkbox"><label>&nbsp; Unpaid</label> <br>
+    </div>
+  </div>
+
+<div class="col-md-8 offset-md-4">
+  {% for o in opportunities.items %}
+  <div class="container opp">
+    <div class="row">
+      <div class="col-md-10">
+        <h3> <a href="../opportunity/{{o.id}}">{{ o.name }}</a> </h3>
+      </div>
+      <div class="col-md-2">
+        <input class="tog" type="checkbox" />
+        <label class="toggle" id="tog"+opportunities.items[loop.index0]>Edit</label>
+      </div>
+    </div>
+    <p>{{ o.description }}</p>
+    <p>{{ o.organization }}</p>
+  </div>
+
+  {% endfor %}
+</div>
+</div>
+
+{% macro render_pagination(pagination, endpoint) %}
+
+  <ul class="pagination pull-right">
+
+    {% if pagination.has_prev %}
+      <li>
+        <a href="{{ url_for(endpoint, page=pagination.prev_num) }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="disabled">
+          <span aria-hidden="true">&laquo;</span>
+      </li>
+    {% endif %}
+
+    {% for p in pagination.iter_pages(left_edge=1, left_current=2, right_current=3, right_edge=1) %}
+      {% if p %}
+        {% if p != pagination.page %}
+          <li>
+            <a href="{{ url_for(endpoint, page=p) }}">{{ p }}</a>
+          </li>
+        {% else %}
+          <li class="active">
+            <a href="{{ url_for(endpoint, page=p) }}">{{ p }}</a>
+          </li>
+        {% endif %}
+      {% else %}
+        <li class="disabled">
+          <span class="ellipsis">&hellip;</span>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {% if pagination.has_next %}
+      <li>
+        <a href="{{ url_for(endpoint, page=pagination.next_num) }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="disabled">
+        <span aria-hidden="true">&raquo;</span>
+      </li>
+    {% endif %}
+
+  </ul>
+{% endmacro %}
+
+{{ render_pagination(opportunities, ".opportunities") }}
+{% endblock body %}

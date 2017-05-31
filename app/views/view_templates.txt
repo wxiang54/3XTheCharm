@@ -23,7 +23,7 @@ OR /admin/opportunity/<name>
   - Should have fxnality to approve an unapproved opportunity
 
 /admin/add-opportunity : CREATED
-OR /student/suggest-opportunity
+OR /student/suggest-opportunity: CREATED
   - Interface for admins (and students) to create opportunities
 
 /admin/edit-opportunity/<id> or /<name>  : CREATED

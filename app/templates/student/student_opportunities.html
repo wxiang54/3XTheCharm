@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "student/student_base.html" %}
 {% block body %}
 
 <h1>Student Opportunities Bulletin</h1>
@@ -58,11 +58,11 @@
   <div class="container opp">
     <div class="row">
       <div class="col-md-10">
-        <h3>{{ o.name }}</h3>
+        <h3> <a href="../opportunity/{{o.id}}">{{ o.name }}</a> </h3>
       </div>
       <div class="col-md-2">
         <input class="tog" type="checkbox" />
-        <label class="toggle" id="tog"+opportunities.items[loop.index0]>Save</label>
+        <label class="toggle" id="tog"+opportunities.items[loop.index0]>Star</label>
       </div>
     </div>
     <p>{{ o.description }}</p>
