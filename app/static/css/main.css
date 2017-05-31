@@ -24,7 +24,19 @@ button.accordion {
 }
 
 button.accordion.active, button.accordion:hover {
-    background-color: #ddd; 
+    background-color: #ddd;
+}
+
+button.accordion:after {
+    content: '\025C0'; /* "<" sign */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after {
+    content: "\025BC"; /* "v" sign */
 }
 
 div.panel {
@@ -34,11 +46,26 @@ div.panel {
 }
 
 .navbar {
-	position: absolute;
-	top: 0px;
+    position: absolute;
+    top: 0px;
 }
 
 .logo{
-	font-family: 'Dancing Script', cursive;
-	font-size: 2.3vw;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.3vw;
 }
+
+.tog {
+    position: absolute;
+    left: -100vw;
+    align-self: right;
+}
+
+.toggle {
+    color: #aab8c2;
+    font-size: 1vw;
+    padding-top: 1vw;
+    padding-left: 4vw;
+    cursor: pointer;
+}
+

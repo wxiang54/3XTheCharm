@@ -1,4 +1,4 @@
-window.onclick = function(event) {
+window.onload = function(event) {
     var acc = document.getElementsByClassName("accordion");
     var i;
 
@@ -14,3 +14,17 @@ window.onclick = function(event) {
 	}
     }
 }
+
+/*
+var items = document.getElementsByClassName('toggle');
+console.log(items);
+
+for (var i = 0; i < items.length; i++){
+    items[i].addEventListener("click",function(){
+      //console.log(document.getElementById("tog" + i));
+      //console.log("tog"+i);
+	      //document.getElementById("tog" + i.toString()).innerHTML = "saved";
+      items[i].innerHTML = 'saved';
+    },false);
+}
+*/

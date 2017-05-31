@@ -52,3 +52,8 @@ nancyC -- 2017-05-24 15:30
 nancyC -- 2017-05-29 15:00
 * Created routes for admin 
 * Changed logo
+
+williamX -- 2017-05-31 0:00
+* Added small icon next to collapsible menus
+* Hopefully cleaned up .DS_Store's twice and for all
+* Changed window.onclick to window.onload in the js (i think this was intended?)

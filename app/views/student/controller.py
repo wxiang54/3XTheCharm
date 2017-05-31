@@ -38,7 +38,7 @@ def opportunities(page = 1):
 @student_mod.route('/my_opportunities/<int:page>')
 @require_login
 @require_role('student')
-def my_opportunities(page = 1):
+def my_opportunities(page = 1): ##UNNECESSARY?
     """ Returns all opportunities that a user has suggesterd
 
     :param page: Page to return
@@ -65,7 +65,7 @@ def starred_opportunities(page = 1):
 
     opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
-    return 'student.controller.starred_opportunities'
+    return render_template("starred_opportunities.html", opportunities = opportunities)
 
 @student_mod.route('/opportunity/<int:op_id>')
 @require_login
