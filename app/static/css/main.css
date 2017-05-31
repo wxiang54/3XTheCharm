@@ -27,6 +27,18 @@ button.accordion.active, button.accordion:hover {
     background-color: #ddd; 
 }
 
+button.accordion:after {
+    content: '\025C0'; /* "<" sign */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after {
+    content: "\025BC"; /* "v" sign */
+}
+
 div.panel {
     padding: 0 18px;
     display: none;
@@ -34,8 +46,8 @@ div.panel {
 }
 
 .navbar {
-	position: absolute;
-	top: 0px;
+    position: absolute;
+    top: 0px;
 }
 
 .logo{
