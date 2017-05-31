@@ -56,7 +56,15 @@
 <div class="col-md-8 offset-md-4">
   {% for o in opportunities.items %}
   <div class="container opp">
-    <h3>{{ o.name }}</h3>
+    <div class="row">
+      <div class="col-md-10">
+        <h3>{{ o.name }}</h3>
+      </div>
+      <div class="col-md-2">
+        <input class="tog" type="checkbox" />
+        <label class="toggle" id="tog"+opportunities.items[loop.index0]>Save</label>
+      </div>
+    </div>
     <p>{{ o.description }}</p>
     <p>{{ o.organization }}</p>
   </div>

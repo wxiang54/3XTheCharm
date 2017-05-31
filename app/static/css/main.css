@@ -24,7 +24,7 @@ button.accordion {
 }
 
 button.accordion.active, button.accordion:hover {
-    background-color: #ddd; 
+    background-color: #ddd;
 }
 
 button.accordion:after {
@@ -51,6 +51,21 @@ div.panel {
 }
 
 .logo{
-	font-family: 'Dancing Script', cursive;
-	font-size: 2.3vw;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.3vw;
 }
+
+.tog {
+    position: absolute;
+    left: -100vw;
+    align-self: right;
+}
+
+.toggle {
+    color: #aab8c2;
+    font-size: 1vw;
+    padding-top: 1vw;
+    padding-left: 4vw;
+    cursor: pointer;
+}
+
