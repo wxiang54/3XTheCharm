@@ -4,9 +4,11 @@ Currently just opportunity"""
 
 from sqlalchemy import Column, String, DateTime, Integer
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from app.models.helpers import Base
 from app.models.required_material import RequiredMaterial
+from app.models.tag import Tag
 from app.models.relationships import tags, opportunities_following
 from app.extensions import db
 
@@ -88,16 +90,67 @@ class Opportunity(Base):
 
         return deleted
 
-    def check_required_material(self, required_material):
-        """ Checks the required material for a user.
+    def add_tag(self, tag):
+        """ Adds the tag to the opportunity
 
-        :param required_material: The required material to check.
-        :type required_material: str
-        :returns: bool -- true if the user has the required material, false if otherwise
+        :param tag: The tag to add.
+        :type tag: str
+        """
+
+        self.tags.append(Tag(name = tag))
+        db.session.commit()
+
+    def remove_tag(self, tag):
+        """ Removes the tag from the user
+
+        Returns true if the opportunity had the tag and successfully deleted it.
+        Returns false if the opportunity doesn't have the tag.
+
+        :param tag: The tag to remove.
+        :type tag: str
+        :returns: bool - true if the tag was successfully deleted, false if the opportunity didn't have the tag
+        """
+        deleted = False
+
+        for r in self.tags:
+            if r.name == tag:
+                db.session.delete(r)
+                deleted = True
+                
+        db.session.commit()
+
+        return deleted
+
+    @hybrid_property
+    def has_tag(self, tag):
+        """ Checks for use in a sql query whether an opportunity has a tag.
+
+        :param self: The opportunity to test
+        :type self: app.models.opportunities.Opportunity
+        :param tag: The tag to check
+        :type tag: str
+        :return: bool -- true if the organization has a tag that's equal to tag, false if not.
         """
         
-        for r in self.required_materials:
-            if r.name == required_material:
+        for t in self.tags.all():
+            if t.tag == tag:
                 return True
+        return False
+
+    @hybrid_property
+    def has_tag_list(self, list_of_tags):
+        """ Checks for whether any tag in a list of tags has been tagged by the opportunity
+
+        :param self: The opportunity to test
+        :type self: app.models.opportunities.Opportunity
+        :param list_of_tags: The list of tags to check
+        :type list_of_tags: list
+        :return: bool -- true if the organization has a tag that's equal to any tag in list_of_tags, false if not.
+        """
+        
+        for tag in list_of_tags:
+            for t in self.tags.all():
+                if t.tag == tag:
+                    return True
         return False
 

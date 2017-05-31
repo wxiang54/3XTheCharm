@@ -106,7 +106,7 @@ def search(page = 1):
         or_(Opportunity.name.like('%' + search_field + '%'),
             Opportunity.description.like('%' + search_field + '%'),
             Opportunity.organization.like('%' + search_field + '%')
-        )).all()
+        ).filter()).all()
 
     return str(type(opportunities))
 
