@@ -1,4 +1,4 @@
-window.onclick = function(event) {
+window.onload = function(event) {
     var acc = document.getElementsByClassName("accordion");
     var i;
 
