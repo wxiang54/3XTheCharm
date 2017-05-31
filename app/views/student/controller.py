@@ -1,5 +1,7 @@
 from app.blueprints import student_mod
-from flask import url_for, request, session, current_app, redirect, g, render_template
+from flask import url_for, request, session, current_app, redirect, g, render_template, request
+
+from sqlalchemy import or_
 
 from app.models.opportunities import Opportunity
 
@@ -76,10 +78,10 @@ def opportunity(op_id = 0):
     """
 
     opportunity = Opportunity.query.filter_by(id = op_id).first()
-    return opportunity
-    print opportunity
+    
     return 'student.controller.opportunity'
 
+@student_mod.route('/search')
 @student_mod.route('/search/<int:page>')
 @require_login
 @require_role('student')
@@ -94,15 +96,26 @@ def search(page = 1):
     :type page: int
     """
 
-    return 'student.controller.search'
+    search_field = request.args.get('search') if 'search' in request.args else ''
+    tags = request.args.get('tags') if 'tags' in request.args else ''
 
-@student_mod.route('/suggest-opportunity/<int:op_id>')
+    LOG.debug('Search Field: ' + search_field)
+    LOG.debug('Tags: ' + tags)
+
+    opportunities = Opportunity.query.filter(
+        or_(Opportunity.name.like('%' + search_field + '%'),
+            Opportunity.description.like('%' + search_field + '%'),
+            Opportunity.organization.like('%' + search_field + '%')
+        )).all()
+
+    return str(type(opportunities))
+
+@student_mod.route('/suggest-opportunity')
 @require_login
 @require_role('student')
-def suggest_opportunity(op_id = 0):
+def suggest_opportunity():
     """ Inerface for student to suggest opportunities
-
-    :param op_id: ID of the opportunity to display information of
-    :type op_id: int
     """
+
+    
     return 'student.controller.suggest_opportunity'
