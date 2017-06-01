@@ -53,6 +53,11 @@ nancyC -- 2017-05-29 15:00
 * Created routes for admin 
 * Changed logo
 
+jiaqiG -- 2017-05-30 00:00
+* Deleted logo and imported a font to substitute
+* Added a footer
+* Created page for admin opportunities page
+
 williamX -- 2017-05-31 0:00
 * Added small icon next to collapsible menus
 * Hopefully cleaned up .DS_Store's twice and for all
