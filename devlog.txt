@@ -69,3 +69,6 @@ jiaqiG -- 2017-05-310 0:10
 nancyC -- 2017-05-31 17:00
 * created opportunity.html
 * reorganized templates folder - separated admin and student templates
+
+nancyC -- 2017-06-01 14:00
+* created form for editing opportunity
