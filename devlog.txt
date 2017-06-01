@@ -31,7 +31,7 @@ williamX -- 2017-05-20 23:13
   * /opportunity returns a single dict (also called 'data')
   * Dict keys are: "name", "description", "organization", "start_time", "end_time", "hours", "deadline", "required_materials", "tags", "users_following", "link"
     
-jiaqiG -- 2017-05-21 00:00
+jiaqiG -- 2017-05-21 0:00
 * Created template structure of main html page with bootstrap
 * Added materialize framework because Rodda likes that stuff and told me to
 
@@ -39,7 +39,7 @@ roddaRJ(mostly) + williamX -- 2017-05-22 11:00
 * Finalized pagination and added functionality for generating filler data in database
 * Got ourselves some API credentials NOT tied to any big organizations that could potentially have caused unintended consequences
 
-jiaqiG -- 2017-05-22 00:00
+jiaqiG -- 2017-05-22 0:00
 * Created frontend design for main opportunities page with bootstrap
 * Removed materialize framework 
 
@@ -53,7 +53,7 @@ nancyC -- 2017-05-29 15:00
 * Created routes for admin 
 * Changed logo
 
-jiaqiG -- 2017-05-30 00:00
+jiaqiG -- 2017-05-30 0:00
 * Deleted logo and imported a font to substitute
 * Added a footer
 * Created page for admin opportunities page
@@ -62,6 +62,9 @@ williamX -- 2017-05-31 0:00
 * Added small icon next to collapsible menus
 * Hopefully cleaned up .DS_Store's twice and for all
 * Changed window.onclick to window.onload in the js (i think this was intended?)
+
+jiaqiG -- 2017-05-310 0:10
+* Started working on starred opportunities front-end
 
 nancyC -- 2017-05-31 17:00
 * created opportunity.html
