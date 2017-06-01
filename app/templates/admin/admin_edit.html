@@ -16,21 +16,20 @@
 
     <br> <br> <br>
 
-
     <div class="col-md-8">
         <div class="row">
           <div class="col-md-10">
-            <h3> {{ opportunity.name }} </h3>
-          </div>
-          <div class="col-md-2">
-            <a class="toggle" id="tog"+opportunities.items[loop.index0] href="/admin/edit-opportunity/{{opportunity.id}}">
-              Edit
-            </a>
+            <form>
+              <h3>
+              <input type="text" value="{{opportunity.name}}">
+            </h3>
           </div>
         </div>
-        <p>{{ opportunity.description }}</p>
-        <p>{{ opportunity.organization }}</p>
-    </div>
+        <p> <input type="text" value="{{opportunity.description}}"> </p>
+        <p><input type="text" value="{{opportunity.organization}}"></p>
+        <input type="submit" value="Submit">
+
+      </div>
     </div>
 
 {% endblock body %}

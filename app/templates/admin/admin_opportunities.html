@@ -61,8 +61,9 @@
         <h3> <a href="../opportunity/{{o.id}}">{{ o.name }}</a> </h3>
       </div>
       <div class="col-md-2">
-        <input class="tog" type="checkbox" />
-        <label class="toggle" id="tog"+opportunities.items[loop.index0]>Edit</label>
+        <a class="toggle" id="tog"+opportunities.items[loop.index0] href="/admin/edit-opportunity/{{o.id}}">
+          Edit
+        </a>
       </div>
     </div>
     <p>{{ o.description }}</p>

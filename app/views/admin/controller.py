@@ -93,19 +93,20 @@ def add_opportunity(op_id = 0): # init param?
     return 'admin.controller.add_opportunity'
 
 # IN PROG
-@admin_mod.route('edit-opportunity/<int:op_id>')
+@admin_mod.route('/edit-opportunity/<int:op_id>')
 @require_login
-@require_role('admin')
+#@require_role('admin')
 def edit_opportunity(op_id = 0):
     """ Returns a interface for admins to edit opportunities
     :param op_id: ID of the opportunity to edit information of
     :type op_id: int
     """
 
-    return 'admin.controller.edit_opportunity'
+    opportunity = Opportunity.query.filter_by(id = op_id).first()
+    return render_template("admin/admin_edit.html", opportunity = opportunity)
 
 # IN PROG
-@admin_mod.route('remove-opportunity/<int:op_id>')
+@admin_mod.route('/remove-opportunity/<int:op_id>')
 @require_login
 @require_role('admin')
 def remove_opportunity(op_id = 0):
