@@ -1,0 +1,35 @@
+{% extends "admin/admin_base.html" %}
+{% block body %}
+
+<h1>Student Opportunities Bulletin</h1>
+<h4><i>Please note there are offerings in many different fields, and remember that many deadlines are coming up fast. </i></h4>
+<br>
+
+    <div class="col-lg-6 pull-left">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Search</button>
+      </span>
+    </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+
+    <br> <br> <br>
+
+
+    <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-10">
+            <h3> {{ opportunity.name }} </h3>
+          </div>
+          <div class="col-md-2">
+            <input class="tog" type="checkbox" />
+            <label class="toggle" id="tog"+opportunities.items[loop.index0]>Edit</label>
+          </div>
+        </div>
+        <p>{{ opportunity.description }}</p>
+        <p>{{ opportunity.organization }}</p>
+    </div>
+    </div>
+
+{% endblock body %}

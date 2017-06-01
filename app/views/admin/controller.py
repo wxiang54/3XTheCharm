@@ -17,10 +17,11 @@ def index():
 
     return 'admin_index'
 
+# DONE
 @admin_mod.route('/opportunities')
 @admin_mod.route('/opportunities/<int:page>')
 @require_login
-@require_role('admin')
+#@require_role('admin')
 def opportunities(page = 1):
     """ Returns all opportunities for a admin (paginated) seperated by either tag, but sorted in the recommendation order (see neural net fun times)
 
@@ -31,8 +32,9 @@ def opportunities(page = 1):
     # Implement the whole suggestion thing
     opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
-    return render_template("opportunities.html", opportunities = opportunities)
+    return render_template("admin/admin_opportunities.html", opportunities = opportunities)
 
+# IN PROG
 @admin_mod.route('/my_opportunities/<int:page>')
 @require_login
 @require_role('admin')
@@ -47,9 +49,10 @@ def my_opportunities(page = 1):
 
     return 'admin.controller.my_opportunities'
 
+# DONE
 @admin_mod.route('/opportunity/<int:op_id>')
 @require_login
-@require_role('admin')
+#@require_role('admin')
 def opportunity(op_id = 0):
     """ Returns a single opportunity to display information
         **EDITING AND REMOVING FXN**
@@ -58,9 +61,9 @@ def opportunity(op_id = 0):
     """
 
     opportunity = Opportunity.query.filter_by(id = op_id).first()
-    
-    return 'admin.controller.opportunity'
+    return render_template("admin/admin_opportunity.html", opportunity = opportunity)
 
+# IN PROG
 @admin_mod.route('/search/<int:page>')
 @require_login
 @require_role('admin')
@@ -77,6 +80,7 @@ def search(page = 1):
 
     return 'admin.controller.search'
 
+# IN PROG
 @admin_mod.route('/add-opportunity/<int:op_id>')
 @require_login
 @require_role('admin')
@@ -88,6 +92,7 @@ def add_opportunity(op_id = 0): # init param?
 
     return 'admin.controller.add_opportunity'
 
+# IN PROG
 @admin_mod.route('edit-opportunity/<int:op_id>')
 @require_login
 @require_role('admin')
@@ -99,6 +104,7 @@ def edit_opportunity(op_id = 0):
 
     return 'admin.controller.edit_opportunity'
 
+# IN PROG
 @admin_mod.route('remove-opportunity/<int:op_id>')
 @require_login
 @require_role('admin')

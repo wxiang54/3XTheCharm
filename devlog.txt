@@ -57,3 +57,7 @@ williamX -- 2017-05-31 0:00
 * Added small icon next to collapsible menus
 * Hopefully cleaned up .DS_Store's twice and for all
 * Changed window.onclick to window.onload in the js (i think this was intended?)
+
+nancyC -- 2017-05-31 17:00
+* created opportunity.html
+* reorganized templates folder - separated admin and student templates
