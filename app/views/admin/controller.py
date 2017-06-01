@@ -58,8 +58,7 @@ def opportunity(op_id = 0):
     """
 
     opportunity = Opportunity.query.filter_by(id = op_id).first()
-    return opportunity
-    print opportunity
+    
     return 'admin.controller.opportunity'
 
 @admin_mod.route('/search/<int:page>')
