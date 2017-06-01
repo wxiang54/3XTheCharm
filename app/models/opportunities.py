@@ -90,6 +90,20 @@ class Opportunity(Base):
 
         return deleted
 
+
+    def check_required_material(self, required_material):
+        """ Checks the required material for a user.
+
+        :param required_material: The required material to check.
+        :type required_material: str
+        :returns: bool -- true if the user has the required material, false if otherwise
+        """
+        
+        for r in self.required_materials:
+            if r.name == required_material:
+                return True
+        return False    
+
     def add_tag(self, tag):
         """ Adds the tag to the opportunity
 
