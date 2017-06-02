@@ -19,16 +19,15 @@
     <div class="col-md-8">
         <div class="row">
           <div class="col-md-10">
-            <form>
+            <form action="/admin/edit-opportunity/{{opportunity.id}}" method="POST">
               <h3>
-              <input type="text" value="{{opportunity.name}}">
+              <input type="text" name="name" value="{{opportunity.name}}">
             </h3>
           </div>
         </div>
-        <p> <input type="text" value="{{opportunity.description}}"> </p>
-        <p><input type="text" value="{{opportunity.organization}}"></p>
+        <p> <input type="text" name="description" value="{{opportunity.description}}"> </p>
+        <p><input type="text" name="organization" value="{{opportunity.organization}}"></p>
         <input type="submit" value="Submit">
-
       </div>
     </div>
 
