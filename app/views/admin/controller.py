@@ -121,7 +121,7 @@ def edit_opportunity(op_id = 0):
     organization = request.form["organization"]
     # CHANGE DB ENTRY
 
-    return redirect(url_for("admin.controller.opportunity", op_id = op_id) 
+    return redirect(url_for("admin.controller.opportunity", op_id = op_id))
 
 # IN PROG
 @admin_mod.route('/remove-opportunity/<int:op_id>')
