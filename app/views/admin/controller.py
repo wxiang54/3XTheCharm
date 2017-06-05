@@ -88,7 +88,7 @@ def search(page = 1):
 @admin_mod.route('/add-opportunity/', methods=['GET', 'POST'])
 @require_login
 #@require_role('admin')
-def add_opportunity(): # init param?
+def add_opportunity(op_id = 0): # init param?
     """ Returns a interface for admins to create opportunities
 
     Everything is a string
@@ -131,11 +131,9 @@ def add_opportunity(): # init param?
         db.session.add(o)
         db.session.commit()
 
-        return 'success'
-        """
+        # how to get op_id of newest entry?
         opportunity = Opportunity.query.filter_by(id = op_id).first()
-        return render_template("admin/admin_opportunity.html", opportunity = opportunity)
-        """
+        return redirect(url_for("admin.controller.opportunity", op_id = op_id))
     return render_template("admin/admin_add.html")
 
 # DONE
