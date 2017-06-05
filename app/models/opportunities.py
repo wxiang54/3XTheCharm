@@ -49,7 +49,7 @@ class Opportunity(Base):
                                    back_populates = 'opportunities_following')
     """ Relationship Column to store the many to many to the users.  It operates like a list. """
 
-    link = Column(DateTime, unique = False, nullable = True)
+    link = Column(String(512), unique = False, nullable = True)
     """ Column to store the link to either information about an opportunity, or the application. """
 
     def __repr__(self):
