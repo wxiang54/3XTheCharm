@@ -7,6 +7,8 @@ from app.models.opportunities import Opportunity
 
 from app.core.authentication import require_login, require_role
 
+from app.extensions import db
+
 import logging
 
 LOG = logging.getLogger(__name__)
@@ -83,32 +85,31 @@ def search(page = 1):
     return 'admin.controller.search'
 
 # IN PROG
-@admin_mod.route('/add-opportunity', methods=['GET', 'POST'])
+@admin_mod.route('/add-opportunity/', methods=['GET', 'POST'])
 @require_login
-@require_role('admin')
+#@require_role('admin')
 def add_opportunity(): # init param?
     """ Returns a interface for admins to create opportunities
 
     Everything is a string
     """
-
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
         organization = request.form['organization']
-        
+
         start_time = datetime(year = 2017, month = 1, day = 20) # Figure this out
-        end_time = datetime(year = 2017, month = 1, day = 20) # Figure this out 
+        end_time = datetime(year = 2017, month = 1, day = 20) # Figure this out
 
         hours = int(request.form['hours'])
-        
+
         deadline = datetime(year = 2017, month = 1, day = 20) # Figure this out
 
         required_materials_raw = request.form['required_materials']
         tags_raw = request.form['tags']
 
         required_materials = required_materials_raw.split(',')
-        tags = tag_raw.split(',')
+        tags = tags_raw.split(',')
 
         link = request.form['link']
 
@@ -123,7 +124,7 @@ def add_opportunity(): # init param?
 
         for r in required_materials:
             o.add_required_material(r)
-            
+
         for t in tags:
             o.add_tag(t)
 
@@ -131,8 +132,11 @@ def add_opportunity(): # init param?
         db.session.commit()
 
         return 'success'
-    
-    return 'admin.controller.add_opportunity' # Replace with proper template
+        """
+        opportunity = Opportunity.query.filter_by(id = op_id).first()
+        return render_template("admin/admin_opportunity.html", opportunity = opportunity)
+        """
+    return render_template("admin/admin_add.html")
 
 # DONE
 @admin_mod.route('/edit-opportunity-form/<int:op_id>')
