@@ -72,3 +72,7 @@ nancyC -- 2017-05-31 17:00
 
 nancyC -- 2017-06-01 14:00
 * created form for editing opportunity
+
+nancyC -- 2017-06-05 16:30
+* add function added for admin
+* connected remove route (admin) and starred route (student)

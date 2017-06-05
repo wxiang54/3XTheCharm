@@ -162,10 +162,12 @@ def edit_opportunity(op_id = 0):
     :type op_id: int
     """
     opportunity = Opportunity.query.filter_by(id = op_id).first()
+    
     # NEW VALUES
     name = request.form["name"]
     description = request.form["description"]
     organization = request.form["organization"]
+
     # CHANGE DB ENTRY
 
     return redirect(url_for("admin.controller.opportunity", op_id = op_id))
@@ -173,7 +175,7 @@ def edit_opportunity(op_id = 0):
 # IN PROG
 @admin_mod.route('/remove-opportunity/<int:op_id>')
 @require_login
-@require_role('admin')
+#@require_role('admin')
 def remove_opportunity(op_id = 0):
     """ Returns a interface for admins to remove opportunities
         :param op_id: ID of the opportunity to remove information of
