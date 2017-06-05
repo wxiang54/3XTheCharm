@@ -1,5 +1,6 @@
 # none of these either
 */.DS_Store
+.DS_Store
 
 # Virtualenv
 env/
