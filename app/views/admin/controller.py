@@ -38,7 +38,7 @@ def opportunities(page = 1):
 
     return render_template("admin/admin_opportunities.html", opportunities = opportunities)
 
-# IN PROG
+# DON'T NEED
 @admin_mod.route('/my_opportunities/<int:page>')
 @require_login
 @require_role('admin')
@@ -84,7 +84,7 @@ def search(page = 1):
 
     return 'admin.controller.search'
 
-# IN PROG
+# DONE
 @admin_mod.route('/add-opportunity/', methods=['GET', 'POST'])
 @require_login
 #@require_role('admin')
@@ -152,7 +152,7 @@ def edit_opportunity_form(op_id = 0):
     opportunity = Opportunity.query.filter_by(id = op_id).first()
     return render_template("admin/admin_edit.html", opportunity = opportunity)
 
-# IN PROG
+# DONE
 @admin_mod.route('/edit-opportunity/<int:op_id>', methods = ["POST"])
 @require_login
 #@require_role('admin')
@@ -161,14 +161,18 @@ def edit_opportunity(op_id = 0):
     :param op_id: ID of the opportunity to edit information of
     :type op_id: int
     """
-    opportunity = Opportunity.query.filter_by(id = op_id).first()
-    
+
     # NEW VALUES
     name = request.form["name"]
     description = request.form["description"]
     organization = request.form["organization"]
 
     # CHANGE DB ENTRY
+    opportunity = Opportunity.query.filter_by(id = op_id).first()
+    opportunity.name = name
+    opportunity.description = description
+    opportunity.organization = organization
+    db.session.commit()
 
     return redirect(url_for("admin.controller.opportunity", op_id = op_id))
 
@@ -182,4 +186,4 @@ def remove_opportunity(op_id = 0):
         :type op_id: int
     """
 
-    return 'admin.controller.remove_opportunity'
+    return redirect(url_for("admin.controller.opportunities", page = 1))
