@@ -69,5 +69,5 @@ div.panel {
 }
 
 .toggle:clicked{
-	text-decoration: none;
+		text-decoration: none;
 }
