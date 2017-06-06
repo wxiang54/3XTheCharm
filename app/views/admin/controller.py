@@ -84,7 +84,7 @@ def search(page = 1):
 
     return 'admin.controller.search'
 
-# DONE
+# IN PROG
 @admin_mod.route('/add-opportunity/', methods=['GET', 'POST'])
 @require_login
 #@require_role('admin')
@@ -133,7 +133,7 @@ def add_opportunity(op_id = 0): # init param?
 
         # how to get op_id of newest entry?
         opportunity = Opportunity.query.filter_by(id = op_id).first()
-        return redirect(url_for("admin.controller.opportunity", op_id = op_id))
+        return redirect(url_for("admin.controller.opportunity", op_id = o.id))
     return render_template("admin/admin_add.html")
 
 # DONE
@@ -174,7 +174,7 @@ def edit_opportunity(op_id = 0):
 
     return redirect(url_for("admin.controller.opportunity", op_id = op_id))
 
-# IN PROG
+# DONE
 @admin_mod.route('/remove-opportunity/<int:op_id>')
 @require_login
 #@require_role('admin')
@@ -183,5 +183,8 @@ def remove_opportunity(op_id = 0):
         :param op_id: ID of the opportunity to remove information of
         :type op_id: int
     """
+    opportunity = Opportunity.query.filter_by(id = op_id).first()
 
+    db.session.delete(opportunity)
+    db.session.commit()
     return redirect(url_for("admin.controller.opportunities", page = 1))

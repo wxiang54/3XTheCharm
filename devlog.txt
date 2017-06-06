@@ -76,4 +76,5 @@ nancyC -- 2017-06-01 14:00
 nancyC -- 2017-06-05 16:30
 * add function (admin) finished
 * connected remove route (admin) and starred route (student) in templates
-* edit function (admin) finished
+* edit function (admin) updated and working
+* delte function (admin) finished
