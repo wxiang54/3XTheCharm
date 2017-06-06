@@ -107,14 +107,16 @@ def search(page = 1):
             Opportunity.description.like('%' + search_field + '%'),
             Opportunity.organization.like('%' + search_field + '%')
         ).filter()).all()
-
+    
     return str(type(opportunities))
 
+
+#prob not gonna be done
 @student_mod.route('/suggest-opportunity')
 @require_login
 @require_role('student')
 def suggest_opportunity():
-    """ Inerface for student to suggest opportunities
+    """ Interface for student to suggest opportunities
     """
 
 
