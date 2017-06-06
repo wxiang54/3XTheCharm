@@ -20,7 +20,7 @@ def index():
     return 'student_index'
 
 @student_mod.route('/opportunities')
-@student_mod.route('/opportunities/<int:page>')
+@student_mod.route('/opportunities/<int:page>', methods=["POST", "GET"])
 @require_login
 @require_role('student')
 def opportunities(page = 1):
@@ -29,6 +29,12 @@ def opportunities(page = 1):
     :param page: Page to return
     :type page: int
     """
+
+    if request.method == 'POST':
+        if (request.form.getlist('starbox')):
+            for i in request.form.getlist('starbox'):
+                add_tag(i, "starred")
+
 
     # Implement the whole suggestion thing
     opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
@@ -63,7 +69,9 @@ def starred_opportunities(page = 1):
     :type page: int
     """
 
-    opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+
+    #opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
     return render_template("student/starred_opportunities.html", opportunities = opportunities)
 
@@ -107,7 +115,7 @@ def search(page = 1):
             Opportunity.description.like('%' + search_field + '%'),
             Opportunity.organization.like('%' + search_field + '%')
         ).filter()).all()
-    
+
     return str(type(opportunities))
 
 

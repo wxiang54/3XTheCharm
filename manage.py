@@ -1,10 +1,10 @@
 #!/usr/bin/env python2.7
 
-""" File managing all commands to manage the expert-octo-fortnight 
+""" File managing all commands to manage the expert-octo-fortnight
 
 LICENSE: TODO
 
-COMMANDS: 
+COMMANDS:
     devserver             Run the application using dev
     createdb              Create the database
     migratedb             Migrates and upgrads the database
@@ -112,7 +112,7 @@ def parse_options():
     Returns:
     Config instance to pass into create_app()
     """
-    
+
     if OPTIONS['--config_prod']:
         config_class_string = 'app.config.Production'
     else:
@@ -149,16 +149,16 @@ def devserver():
 
 @command
 def createdb():
-    """ Creates the database 
+    """ Creates the database
 
     It creates the app based on the flags passed into the script, thus the correct configuration is loaded
     """
-    
+
     config_class = parse_options()
 
     if not os.path.exists(config_class.SQLALCHEMY_DATABASE_LOCATION):
         os.makedirs(config_class.SQLALCHEMY_DATABASE_LOCATION)
-        
+
     app = create_app(parse_options())
 
     try:
@@ -169,44 +169,44 @@ def createdb():
                 api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
             else:
                 api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO, api.version(config_class.SQLALCHEMY_MIGRATE_REPO))
-                
+
     except DatabaseAlreadyControlledError:
         print 'WARNING: This database already exists'
-        
+
 @command
 def migratedb():
-    """ Migrates the database 
+    """ Migrates the database
 
     It creates the app based on the flags passed into the script, thus the correct configuration is loaded
     """
-    
+
     config_class = parse_options()
 
     if not os.path.exists(config_class.SQLALCHEMY_DATABASE_LOCATION):
         os.makedirs(config_class.SQLALCHEMY_DATABASE_LOCATION)
-        
+
     app = create_app(parse_options())
 
     try:
         with app.app_context():
             v = api.db_version(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
-            
+
             migration = config_class.SQLALCHEMY_MIGRATE_REPO + ('/versions/%03d_migration.py' % (v+1))
-            
+
             tmp_module = imp.new_module('old_model')
             old_model = api.create_model(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
-            
+
             exec(old_model, tmp_module.__dict__)
             script = api.make_update_script_for_model(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO, tmp_module.meta, db.metadata)
-            
+
             open(migration, "wt").write(script)
             api.upgrade(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
-            
+
             v = api.db_version(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
 
             print('INFORMATION: New migration saved as ' + migration)
             print('INFORMATION: Current database version: ' + str(v))
-            
+
     except InvalidRepositoryError:
         print('ERROR: This database does not exist')
 
@@ -233,30 +233,29 @@ def gen_opportunities():
     for i in xrange(4):
         o = models.opportunities.Opportunity(name = random.choice(L_name),
                                              description = random.choice(L_desc),
-                                             organization = random.choice(L_orgs))
+                                             organization = random.choice(L_orgs),
+                                             star = false)
         db.session.add(o)
     db.session.commit()
-    
+
     print 'INFO: Added opportunities'
     f_name.close()
     f_desc.close()
     f_orgs.close()
-    
+
 
 @command
 def rm_opportunities():
     for u in Opportunity.query.all():
         db.session.delete(u)
-    
+
     db.session.commit()
-    
-    
+
+
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, lambda *_: sys.exit(0)) # Catches SIGINT and exits "theoretically" nicely
-    
+
     if OPTIONS['--port'] and not OPTIONS['--port'].isdigit():
         print('ERROR: Port should be a number.')
         sys.exit(1)
     getattr(command, 'chosen')()
-
-

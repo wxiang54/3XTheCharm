@@ -64,8 +64,10 @@ div.panel {
 .toggle {
     color: #aab8c2;
     font-size: 1vw;
-    padding-top: 1vw;
     padding-left: 4vw;
     cursor: pointer;
 }
 
+.toggle:clicked{
+		text-decoration: none;
+}

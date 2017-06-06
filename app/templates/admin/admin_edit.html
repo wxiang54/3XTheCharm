@@ -14,21 +14,21 @@
     </div><!-- /input-group -->
     </div><!-- /.col-lg-6 -->
 
-    <br> <br> <br>
+    <br> <br> <br><br><br>
 
     <div class="col-md-8">
         <div class="row">
           <div class="col-md-10">
             <form action="/admin/edit-opportunity/{{opportunity.id}}" method="POST">
               <h3>
-              <input type="text" name="name" value="{{opportunity.name}}">
+              Title <input type="text" class="form-control input-lg" name="name" value="{{opportunity.name}}">
             </h3>
           </div>
         </div>
-        <p> <input type="text" name="description" value="{{opportunity.description}}"> </p>
-        <p><input type="text" name="organization" value="{{opportunity.organization}}"></p>
-        <input type="submit" value="Submit">
+        <p> Description <textarea type="text" class="form-control input-md descrip" name="description">{{opportunity.description}}</textarea> </p>
+        <p>Organization <input type="text" class="form-control input-md" name="organization" value="{{opportunity.organization}}"></p>
+        <br> <input type="submit" value="Submit">
       </div>
     </div>
-
+<br><br><br><br><br><br>
 {% endblock body %}
