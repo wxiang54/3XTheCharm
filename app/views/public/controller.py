@@ -3,4 +3,4 @@ from flask import g, url_for, request, session, current_app, redirect
 
 @public_mod.route('/')
 def index():
-    return 'public blueprint test'
+    return redirect(url_for("auth.controller.login"))

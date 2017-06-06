@@ -4,34 +4,40 @@
 <h1>Student Opportunities Bulletin</h1>
 <h4><i>Please note there are offerings in many different fields, and remember that many deadlines are coming up fast. </i></h4>
 <br>
+<div class="col-lg-6 pull-left">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Search for...">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button">Search</button>
+    </span>
+  </div><!-- /input-group -->
+</div><!-- /.col-lg-6 -->
 
-    <div class="col-lg-6 pull-left">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search for...">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Search</button>
-      </span>
-    </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-
-    <br> <br> <br>
+<br> <br> <br>
 
 
-    <div class="col-md-8">
-        <div class="row">
-          <div class="col-md-10">
-            <h3>{{ opportunity.name }}
-              <a class="toggle" id="tog"+opportunities.items[loop.index0] href="#">Star</a>
-            </h3>
-          </div>
-          <div class="col-md-2">
-            <input class="tog" type="checkbox" />
-
-          </div>
-        </div>
-        <p>{{ opportunity.description }}</p>
-        <p>{{ opportunity.organization }}</p>
+<div class="col-md-8">
+  <div class="row">
+    <div class="col-md-10">
+      <h3>{{ opportunity.name }}
+        <a class="toggle" id="tog"+opportunities.items[loop.index0] href="#">Star</a>
+      </h3>
     </div>
+    <div class="col-md-2">
+      <input class="tog" type="checkbox" />
     </div>
+  </div>
+  <p>Description: {{ opportunity.description }}</p>
+  <p>Organization: {{ opportunity.organization }}</p>
+  <p>Start Time: {{ opportunity.start_time }}</p>
+  <p>End Time: {{ opportunity.end_time }}</p>
+  <p>Hours: {{ opportunity.hours }}</p>
+  <p>Deadline: {{ opportunity.deadline }}</p>
+  <p>Required Materials: {{ opportunity.required_materials }}</p>
+  <p>Tags: {{ opportunity.tags }}</p>
+  <p>Link: {{ opportunity.link }}</p>
+  
+</div>
+</div>
 <br><br><br><br><br><br>
 {% endblock body %}

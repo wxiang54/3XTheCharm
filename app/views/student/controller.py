@@ -16,8 +16,9 @@ LOG = logging.getLogger(__name__)
 @require_role('student')
 def index():
     """ Student dashboard """
-
-    return 'student_index'
+    if 'id' in session and 'token' in session:
+        return redirect(url_for("student.controller.opportunities"))
+    return redirect(url_for("auth.controller.login"))
 
 @student_mod.route('/opportunities')
 @student_mod.route('/opportunities/<int:page>', methods=["POST", "GET"])
@@ -70,7 +71,7 @@ def starred_opportunities(page = 1):
     """
 
     opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-
+    
     #opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
     return render_template("student/starred_opportunities.html", opportunities = opportunities)
@@ -86,7 +87,9 @@ def opportunity(op_id = 0):
     """
 
     opportunity = Opportunity.query.filter_by(id = op_id).first()
-
+    print "\n" * 10
+    print opportunity
+    print "\n" * 10
     return render_template("student/student_opportunity.html", opportunity = opportunity)
 
 @student_mod.route('/search')

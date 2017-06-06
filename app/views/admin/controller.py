@@ -18,14 +18,15 @@ LOG = logging.getLogger(__name__)
 @require_role('admin')
 def index():
     """ Admin dashboard """
-
-    return 'admin_index'
+    if 'id' in session and 'token' in session:
+        return redirect(url_for("admin.controller.opportunities"))
+    return redirect( url_for("auth.controller.login") )
 
 # DONE
 @admin_mod.route('/opportunities')
 @admin_mod.route('/opportunities/<int:page>')
 @require_login
-#@require_role('admin')
+@require_role('admin')
 def opportunities(page = 1):
     """ Returns all opportunities for a admin (paginated) seperated by either tag, but sorted in the recommendation order (see neural net fun times)
 
@@ -56,7 +57,7 @@ def my_opportunities(page = 1):
 # DONE
 @admin_mod.route('/opportunity/<int:op_id>')
 @require_login
-#@require_role('admin')
+@require_role('admin')
 def opportunity(op_id = 0):
     """ Returns a single opportunity to display information
         **EDITING AND REMOVING FXN**
@@ -87,7 +88,7 @@ def search(page = 1):
 # IN PROG
 @admin_mod.route('/add-opportunity/', methods=['GET', 'POST'])
 @require_login
-#@require_role('admin')
+@require_role('admin')
 def add_opportunity(op_id = 0): # init param?
     """ Returns a interface for admins to create opportunities
 
@@ -139,7 +140,7 @@ def add_opportunity(op_id = 0): # init param?
 # DONE
 @admin_mod.route('/edit-opportunity-form/<int:op_id>')
 @require_login
-#@require_role('admin')
+@require_role('admin')
 def edit_opportunity_form(op_id = 0):
     """ Returns a interface for admins to edit opportunities
 
@@ -153,7 +154,7 @@ def edit_opportunity_form(op_id = 0):
 # DONE
 @admin_mod.route('/edit-opportunity/<int:op_id>', methods = ["POST"])
 @require_login
-#@require_role('admin')
+@require_role('admin')
 def edit_opportunity(op_id = 0):
     """ edits the opportunity in the DB
     :param op_id: ID of the opportunity to edit information of
@@ -177,7 +178,7 @@ def edit_opportunity(op_id = 0):
 # DONE
 @admin_mod.route('/remove-opportunity/<int:op_id>')
 @require_login
-#@require_role('admin')
+@require_role('admin')
 def remove_opportunity(op_id = 0):
     """ Returns a interface for admins to remove opportunities
         :param op_id: ID of the opportunity to remove information of

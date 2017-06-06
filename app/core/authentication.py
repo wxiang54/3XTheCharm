@@ -64,8 +64,7 @@ def require_login(f):
 
     If user is logged in run the route
 
-    If user is not logged in display a message to the user and redirect to the 'index' ro
-ute
+    If user is not logged in display a message to the user and redirect to the 'index' route
     """
     @functools.wraps(f)
     def wrapper(*args, **kwargs):

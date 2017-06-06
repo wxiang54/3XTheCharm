@@ -28,6 +28,10 @@ def login():
     if 'code' not in request.args:
         auth_uri = flow.step1_get_authorize_url()
         return redirect(auth_uri)
+    
+    if 'token' in session and 'id' in session:
+        return redirect(url_for('logout'))
+        
     else:
         auth_code = request.args.get('code')
         credentials = flow.step2_exchange(auth_code)
@@ -38,9 +42,8 @@ def login():
             LOG.debug('Non stuy.edu email')
             flash('You must use a stuy.edu email address')
             return redirect(url_for('public.controller.index'))
-
+                
         session['token'] = credentials.access_token
-
         u = User.query.filter_by(email = user_information['email']).first()
 
         LOG.info(user_information)
@@ -53,7 +56,13 @@ def login():
             db.session.commit()
 
         session['id'] = u.id
-        return redirect(url_for('public.controller.index'))
+
+        #add admins here
+        admins = ["hblumm@stuy.edu", "wxiang@stuy.edu"]
+        if user_information["email"] in admins:
+            u.add_role('admin')
+            return redirect(url_for('admin.controller.index'))
+        return redirect(url_for('student.controller.index'))
 
 
 @auth_mod.route('/logout')
