@@ -17,7 +17,9 @@ production:
 	./manage.py --config_prod -p 5000 -l logs devserver
 
 clean:
-	rm -r *~
+	rm -rf *~
+	rm -rf *\#
+	rm -rf .\#*
 
 test:	
 	py.test --cov-report html --cov app tests
