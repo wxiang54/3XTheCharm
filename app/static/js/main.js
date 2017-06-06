@@ -37,7 +37,6 @@ window.onload = function(event) {
           boxes[i].checked = false;
         }else{
           boxes[i].checked = true;
-          console.log(boxes[i].checked)
         }
       }
     }

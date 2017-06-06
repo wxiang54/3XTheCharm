@@ -30,10 +30,10 @@ def opportunities(page = 1):
     :type page: int
     """
 
-    #if request.method == 'POST':
-    #    if (request.form.getlist('starbox')):
-    #        for i in request.form.getlist('starbox'):
-
+    if request.method == 'POST':
+        if (request.form.getlist('starbox')):
+            for i in request.form.getlist('starbox'):
+                add_tag(i, "starred")
 
 
     # Implement the whole suggestion thing
@@ -69,7 +69,9 @@ def starred_opportunities(page = 1):
     :type page: int
     """
 
-    opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+
+    #opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
     return render_template("student/starred_opportunities.html", opportunities = opportunities)
 
