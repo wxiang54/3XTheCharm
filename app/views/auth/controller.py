@@ -15,7 +15,7 @@ LOG = logging.getLogger(__name__)
 
 @auth_mod.route('/')
 def index():
-    return 'auth blueprint test'
+    return redirect(url_for("auth.controller.login"))
 
 
 
@@ -30,7 +30,7 @@ def login():
         return redirect(auth_uri)
     
     if 'token' in session and 'id' in session:
-        return redirect(url_for('logout'))
+        return redirect(url_for('auth.controller.logout'))
         
     else:
         auth_code = request.args.get('code')
