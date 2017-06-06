@@ -61,7 +61,7 @@ jiaqiG -- 2017-05-30 0:00
 williamX -- 2017-05-31 0:00
 * Added small icon next to collapsible menus
 * Hopefully cleaned up .DS_Store's twice and for all
-* Changed window.onclick to window.onload in the js (i think this was intended?)
+* Changed window.onclick to window.onload in the js
 
 jiaqiG -- 2017-05-310 0:10
 * Started working on starred opportunities front-end
@@ -78,3 +78,6 @@ nancyC -- 2017-06-05 16:30
 * connected remove route (admin) and starred route (student) in templates
 * edit function (admin) updated and working
 * delte function (admin) finished
+
+williamX -- 2017-06-06 23:30
+* finished logout (along with oauth)
