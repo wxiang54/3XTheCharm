@@ -79,5 +79,14 @@ nancyC -- 2017-06-05 16:30
 * edit function (admin) updated and working
 * delte function (admin) finished
 
+jiaqiG -- 2017-06-05 0:00
+* created functionality for starring opportunities
+* connected to db
+* added js to change html to starred
+
 williamX -- 2017-06-06 23:30
 * finished logout (along with oauth)
+
+jiaqiG -- 2017--06-06 0:00
+* added styling with edit opportunities
+
