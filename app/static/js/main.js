@@ -13,7 +13,17 @@ window.onload = function(event) {
             }
 	}
     }
+
+    var boxes = document.getElementsByClassName("toggle");
+    for (i=0; i<boxes.length; i++){
+      boxes[i].onclick = function(){
+                this.innerHTML = "Starred";
+    	}
+    }
+
 }
+
+
 
 /*
 var items = document.getElementsByClassName('toggle');
