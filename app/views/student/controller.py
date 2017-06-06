@@ -20,7 +20,7 @@ def index():
     return 'student_index'
 
 @student_mod.route('/opportunities')
-@student_mod.route('/opportunities/<int:page>')
+@student_mod.route('/opportunities/<int:page>', methods=["POST", "GET"])
 @require_login
 @require_role('student')
 def opportunities(page = 1):
@@ -29,6 +29,12 @@ def opportunities(page = 1):
     :param page: Page to return
     :type page: int
     """
+
+    #if request.method == 'POST':
+    #    if (request.form.getlist('starbox')):
+    #        for i in request.form.getlist('starbox'):
+
+
 
     # Implement the whole suggestion thing
     opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
@@ -107,7 +113,7 @@ def search(page = 1):
             Opportunity.description.like('%' + search_field + '%'),
             Opportunity.organization.like('%' + search_field + '%')
         ).filter()).all()
-    
+
     return str(type(opportunities))
 
 

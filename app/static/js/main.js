@@ -14,12 +14,36 @@ window.onload = function(event) {
 	}
     }
 
-    var boxes = document.getElementsByClassName("toggle");
-    for (i=0; i<boxes.length; i++){
-      boxes[i].onclick = function(){
-                this.innerHTML = "Starred";
+    var labels = document.getElementsByClassName("toggle");
+    var boxes = document.getElementsByClassName("tog");
+
+    for (i=0; i<labels.length; i++){
+      //console.log(boxes[i].checked);
+      labels[i].onclick = function(e){
+          if (this.innerHTML.trim() == "Star"){
+            this.innerHTML = "Starred";
+            //boxes[count].checked = true;
+          }else{
+            this.innerHTML = "Star";
+            //boxes[count].checked = false;
+          }
+          checking()
     	}
     }
+
+    function checking(){
+      for (i=0; i<boxes.length; i++){
+        if(labels[i].innerHTML.trim() == "Star"){
+          boxes[i].checked = false;
+        }else{
+          boxes[i].checked = true;
+          console.log(boxes[i].checked)
+        }
+      }
+    }
+
+
+
 
 }
 
