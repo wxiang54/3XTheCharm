@@ -35,11 +35,17 @@ def opportunities(page = 1):
             for i in request.form.getlist('starbox'):
                 add_tag(i, "starred")
 
+    search_field = session['search'] if 'search' in session else ''
+    opportunities = Opportunity.query.filter(
+        or_(Opportunity.name.like('%' + search_field + '%'),
+            Opportunity.description.like('%' + search_field + '%'),
+            Opportunity.organization.like('%' + search_field + '%')
+        )).paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
     # Implement the whole suggestion thing
-    opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    #opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
-    return render_template("student/student_opportunities.html", opportunities = opportunities)
+    return render_template("student/student_opportunities.html", opportunities = opportunities, search_field = search_field)
 
 @student_mod.route('/my_opportunities/<int:page>')
 @require_login
@@ -114,10 +120,11 @@ def search(page = 1):
         or_(Opportunity.name.like('%' + search_field + '%'),
             Opportunity.description.like('%' + search_field + '%'),
             Opportunity.organization.like('%' + search_field + '%')
-        ).filter()).all()
+        )).paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
-    return str(type(opportunities))
+    session['search'] = search_field
 
+    return render_template("student/student_opportunities.html", opportunities = opportunities, search_field = search_field)
 
 #prob not gonna be done
 @student_mod.route('/suggest-opportunity')
