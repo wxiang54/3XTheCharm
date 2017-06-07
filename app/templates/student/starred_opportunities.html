@@ -1,17 +1,26 @@
 {% extends "student/student_base.html" %}
 {% block body %}
 
+<h1>Starred Opportunities</h1>
+<h4><i>Please note there are offerings in many different fields, and remember that many deadlines are coming up fast. </i></h4>
+<br>
+
 <div class="col-md-8 offset-md-4">
   {% for o in opportunities.items %}
   <div class="container opp">
-  
-    <h3> <a href="/student/opportunity/{{o.id}}">{{ o.name }} </a> </h3>
+    <div class="row">
+      <div class="col-md-10">
+        <h3> <a href="/student/opportunity/{{o.id}}">{{ o.name }}</a> </h3>
+      </div>
+      <div class="col-md-2">
+        <input class="tog" type="checkbox" />
+        <a class="toggle" id="tog"+opportunities.items[loop.index0] href="#">Unstar</a>
+      </div>
+    </div>
     <p>{{ o.description }}</p>
     <p>{{ o.organization }}</p>
   </div>
-
   {% endfor %}
-</div>
 </div>
 
 {% macro render_pagination(pagination, endpoint) %}
