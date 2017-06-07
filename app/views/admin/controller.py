@@ -1,6 +1,8 @@
 from app.blueprints import admin_mod
 from flask import url_for, request, session, current_app, redirect, g, render_template
 
+from sqlalchemy import or_
+
 from datetime import datetime
 
 from app.models.opportunities import Opportunity
@@ -34,10 +36,18 @@ def opportunities(page = 1):
     :type page: int
     """
 
-    # Implement the whole suggestion thing
-    opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    search_field = "" #session['search'] if 'search' in session else ''
+    opportunities = Opportunity.query.filter(
+        or_(Opportunity.name.like('%' + search_field + '%'),
+            Opportunity.description.like('%' + search_field + '%'),
+            Opportunity.organization.like('%' + search_field + '%')
+        )).paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
-    return render_template("admin/admin_opportunities.html", opportunities = opportunities)
+    # Implement the whole suggestion thing
+    #opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+
+    return render_template("admin/admin_opportunities.html", opportunities = opportunities, search_field = search_field)
+
 
 # DON'T NEED
 @admin_mod.route('/my_opportunities/<int:page>')
@@ -66,9 +76,13 @@ def opportunity(op_id = 0):
     """
 
     opportunity = Opportunity.query.filter_by(id = op_id).first()
+    print "\n" * 10
+    print opportunity
+    print "\n" * 10
     return render_template("admin/admin_opportunity.html", opportunity = opportunity)
 
 # IN PROG
+@admin_mod.route('/search')
 @admin_mod.route('/search/<int:page>')
 @require_login
 @require_role('admin')
