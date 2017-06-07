@@ -4,8 +4,8 @@
 <div class="col-md-8 offset-md-4">
   {% for o in opportunities.items %}
   <div class="container opp">
-
-    <h3>{{ o.name }}</h3>
+  
+    <h3> <a href="/student/opportunity/{{o.id}}">{{ o.name }} </a> </h3>
     <p>{{ o.description }}</p>
     <p>{{ o.organization }}</p>
   </div>
