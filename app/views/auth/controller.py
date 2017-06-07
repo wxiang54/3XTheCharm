@@ -21,6 +21,9 @@ def index():
 
 @auth_mod.route('/login')
 def login():
+    if 'token' in session and 'id' in session:
+        return redirect(url_for('auth.controller.logout'))
+
     flow = flow_from_clientsecrets('app/static/' + current_app.config['OAUTH_CLIENT_SECRETS'],
                                    scope = 'https://www.googleapis.com/auth/userinfo.email',
                                    redirect_uri = url_for('auth.controller.login', _external = True))
@@ -28,10 +31,7 @@ def login():
     if 'code' not in request.args:
         auth_uri = flow.step1_get_authorize_url()
         return redirect(auth_uri)
-    
-    if 'token' in session and 'id' in session:
-        return redirect(url_for('auth.controller.logout'))
-        
+            
     else:
         auth_code = request.args.get('code')
         credentials = flow.step2_exchange(auth_code)
