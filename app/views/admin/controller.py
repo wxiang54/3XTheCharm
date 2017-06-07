@@ -188,21 +188,23 @@ def edit_opportunity(op_id = 0):
     name = request.form["name"]
     description = request.form["description"]
     organization = request.form["organization"]
+    """
     hours = request.form["hours"]
     required_materials = request.form["required_materials"]
     tags = request.form["tags"]
     links = request.form["links"]
-
+    """
 
     # CHANGE DB ENTRY
     opportunity = Opportunity.query.filter_by(id = op_id).first()
     opportunity.name = name
     opportunity.description = description
     opportunity.organization = organization
+    """
     opportunity.hours = hours
     opportunity.required_materials = required_materials
     opportunity.links = links
-    
+    """
     db.session.commit()
 
     return redirect(url_for("admin.controller.opportunity", op_id = op_id))

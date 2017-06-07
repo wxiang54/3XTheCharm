@@ -1,22 +1,8 @@
 {% extends "admin/admin_base.html" %}
 {% block body %}
 
-<h1>Student Opportunities Bulletin</h1>
-<h4><i>Please note there are offerings in many different fields, and remember that many deadlines are coming up fast. </i></h4>
+<h1>Edit Opportunity</h1>
 <br>
-<form method="GET" action="{{ url_for('admin.controller.search') }}">
-    <div class="col-lg-6 pull-left">
-    <div class="input-group">
-      <input type="text" class="form-control" name="search" id="search" value="
-{{ search_field }}" placeholder="Search for...">
-      <span class="input-group-btn">
-        <input type="submit" class="btn btn-default" type="button" name="search" value="search">Search</button>
-      </span>
-    </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-
-
-    <br> <br> <br><br><br>
 
     <div class="col-md-8">
         <div class="row">
@@ -29,12 +15,13 @@
         </div>
         <p> Description <textarea type="text" class="form-control input-md descrip" name="description">{{opportunity.description}}</textarea> </p>
         <p>Organization <input type="text" class="form-control input-md" name="organization" value="{{opportunity.organization}}"></p>
+        <!--
         <p>Hours <input type="text" class="form-control input-md" name="hours" value="{{opportunity.hours}}"></p>
         <p>Required Material(s)<input type="text" class="form-control input-md" name="required_materials" value="{{opportunity.required_materials}}"></p>
         <p>Tag(s)<input type="text" class="form-control input-md" name="tags" value="{{opportunity.tags}}"></p>
         <p>Link(s)<input type="text" class="form-control input-md" name="links" value="{{opportunity.links}}"></p>
-
-        <br> <input type="submit" value="Submit" name="edit" value="edit">
+      -->
+        <br> <input type="submit" value="Submit">
       </div>
     </div>
 <br><br><br><br><br><br>
