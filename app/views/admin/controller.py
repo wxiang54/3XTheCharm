@@ -73,17 +73,26 @@ def opportunity(op_id = 0):
 @require_login
 @require_role('admin')
 def search(page = 1):
-    """ Returns a paginated list of opportunities as pursuant to the search parameters given by the GET parameters
-
-    The paramaters should be:
-     - search (str) the string to search for
-     - tags (str) the tags (as a comma seperated list) to search for
+    """ Returns all opportunities for a student (paginated) seperated by either tag, but sorted in the recommendation order (see neural net fun times)
 
     :param page: Page to return
     :type page: int
     """
+    search_field = request.args.get('search') if 'search' in request.args else ''
+    tags = request.args.get('tags') if 'tags' in request.args else ''
 
-    return 'admin.controller.search'
+    LOG.debug('Search Field: ' + search_field)
+    LOG.debug('Tags: ' + tags)
+
+    opportunities = Opportunity.query.filter(
+        or_(Opportunity.name.like('%' + search_field + '%'),
+            Opportunity.description.like('%' + search_field + '%'),
+            Opportunity.organization.like('%' + search_field + '%')
+        )).paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+
+    session['search'] = search_field
+
+    return render_template("admin/admin_opportunities.html", opportunities = opportunities, search_field = search_field)
 
 # IN PROG
 @admin_mod.route('/add-opportunity/', methods=['GET', 'POST'])

@@ -36,7 +36,7 @@ def opportunities(page = 1):
             for i in request.form.getlist('starbox'):
                 add_tag(i, "starred")
 
-    search_field = session['search'] if 'search' in session else ''
+    search_field = "" #session['search'] if 'search' in session else ''
     opportunities = Opportunity.query.filter(
         or_(Opportunity.name.like('%' + search_field + '%'),
             Opportunity.description.like('%' + search_field + '%'),
@@ -77,7 +77,7 @@ def starred_opportunities(page = 1):
     """
 
     opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-    
+
     #opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
     return render_template("student/starred_opportunities.html", opportunities = opportunities)
