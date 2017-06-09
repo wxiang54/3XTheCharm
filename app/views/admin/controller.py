@@ -234,8 +234,8 @@ def edit_opportunity(op_id = 0):
 
     names = [mat.name for mat in opportunity.required_materials]
 
-    print "START TIME:"
-    print opportunity.start_time
+    #print "START TIME:"
+    #print opportunity.start_time
     #opportunity.start_time = start_time
     #opportunity.end_time = end_time
     #opportunity.deadline = deadline
