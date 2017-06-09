@@ -16,16 +16,26 @@
     </div>
   </div>
   <br>
-
-  <p>Description: {{ opportunity.description }}</p>
-  <p>Organization: {{ opportunity.organization }}</p>
-  <p>Start Time: {{ opportunity.start_time }}</p>
-  <p>End Time: {{ opportunity.end_time }}</p>
-  <p>Hours: {{ opportunity.hours }}</p>
-  <p>Deadline: {{ opportunity.deadline }}</p>
-  <p>Required Materials: {{ opportunity.required_materials }}</p>
-  <p>Tags: {{ opportunity.tags }}</p>
-  <p>Link: {{ opportunity.link }}</p>
+  
+<p>Description: {{ opportunity.description }}</p>
+<p>Organization: {{ opportunity.organization }}</p>
+<p>Start Time: {{ opportunity.start_time }}</p>
+<p>End Time: {{ opportunity.end_time }}</p>
+<p>Hours: {{ opportunity.hours }}</p>
+<p>Deadline: {{ opportunity.deadline }}</p>
+<p>Required Materials:
+  {% for r in range(opportunity.required_materials|length) -%}
+  {% if r > 0 %}, {% endif %} 
+  {{opportunity.required_materials[r].name}}
+  {%- endfor %}
+</p>
+<p>Tags:
+  {% for t in range(opportunity.tags|length) -%}
+  {% if t > 0 %}, {% endif %} 
+  {{opportunity.tags[t].name}} 
+  {%- endfor %}
+</p>
+<p>Link: {{ opportunity.link }}</p>
 
 <br><br><br><br><br><br>
 {% endblock body %}
