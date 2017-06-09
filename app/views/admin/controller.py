@@ -13,6 +13,8 @@ from app.extensions import db
 
 import logging
 
+from datetime import datetime
+
 LOG = logging.getLogger(__name__)
 
 @admin_mod.route('/')
@@ -122,12 +124,16 @@ def add_opportunity(op_id = 0): # init param?
         description = request.form['description']
         organization = request.form['organization']
 
-        start_time = datetime(year = 2017, month = 1, day = 20) # Figure this out
-        end_time = datetime(year = 2017, month = 1, day = 20) # Figure this out
+        start_time = request.form["start_time"]
+        start_time = datetime(year=int(start_time[:4]), month=int(start_time[5:7]), day=int(start_time[8:10]), hour=int(start_time[11:13]), minute=int(start_time[14:16]))
+
+        end_time = request.form["end_time"]
+        end_time = datetime(year=int(end_time[:4]), month=int(end_time[5:7]), day=int(end_time[8:10]), hour=int(end_time[11:13]), minute=int(end_time[14:16]))
 
         hours = int(request.form['hours'])
 
-        deadline = datetime(year = 2017, month = 1, day = 20) # Figure this out
+        deadline = str(request.form["deadline"])
+        deadline = datetime(year=int(deadline[:4]), month=int(deadline[5:7]), day=int(deadline[8:10]), hour=int(deadline[11:13]), minute=int(deadline[14:16]))
 
         required_materials_raw = request.form['required_materials']
         tags_raw = request.form['tags']
@@ -189,7 +195,16 @@ def edit_opportunity(op_id = 0):
     description = request.form['description']
     organization = request.form['organization']
 
+    #start_time = request.form["start_time"]
+    #start_time = datetime(year=int(start_time[:4]), month=int(start_time[5:7]), day=int(start_time[8:10]), hour=int(start_time[11:13]), minute=int(start_time[14:16]))
+
+    #end_time = request.form["end_time"]
+    #end_time = datetime(year=int(end_time[:4]), month=int(end_time[5:7]), day=int(end_time[8:10]), hour=int(end_time[11:13]), minute=int(end_time[14:16]))
+
     hours = int(request.form['hours'])
+
+    #deadline = str(request.form["deadline"])
+    #deadline = datetime(year=int(deadline[:4]), month=int(deadline[5:7]), day=int(deadline[8:10]), hour=int(deadline[11:13]), minute=int(deadline[14:16]))
 
     required_materials_raw = request.form['required_materials']
     tags_raw = request.form['tags']
@@ -210,6 +225,12 @@ def edit_opportunity(op_id = 0):
     opportunity.description = description
     opportunity.organization = organization
     opportunity.hours = hours
+
+    print "START TIME:"
+    print opportunity.start_time
+    #opportunity.start_time = start_time
+    #opportunity.end_time = end_time
+    #opportunity.deadline = deadline
 
     for r in required_materials:
         if r not in opportunity.required_materials:
