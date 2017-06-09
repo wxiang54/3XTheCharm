@@ -58,7 +58,7 @@ def login():
         session['id'] = u.id
 
         #add admins here
-        admins = ["hblumm@stuy.edu", "wxiang@stuy.edu", "ncao@stuy.edu"]
+        admins = ["hblumm@stuy.edu", "wxiang@stuy.edu", "ncao@stuy.edu", "jgao1@stuy.edu"]
         if user_information["email"] in admins:
             u.add_role('admin')
             return redirect(url_for('admin.controller.index'))
