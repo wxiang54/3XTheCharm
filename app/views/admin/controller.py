@@ -175,7 +175,14 @@ def edit_opportunity_form(op_id = 0):
     """
 
     opportunity = Opportunity.query.filter_by(id = op_id).first()
-    return render_template("admin/admin_edit.html", opportunity = opportunity)
+    deadline = str(opportunity.deadline)[:10] + "T" + str(opportunity.deadline)[11:]
+    start_time = str(opportunity.start_time)[:10] + "T" + str(opportunity.start_time)[11:]
+    end_time = str(opportunity.start_time)[:10] + "T" + str(opportunity.start_time)[11:]
+
+    return render_template("admin/admin_edit.html", opportunity = opportunity,
+                                                    deadline = deadline,
+                                                    start_time = start_time,
+                                                    end_time = end_time)
 
 # DONE
 @admin_mod.route('/edit-opportunity/<int:op_id>', methods = ["POST"])
@@ -227,8 +234,8 @@ def edit_opportunity(op_id = 0):
 
     names = [mat.name for mat in opportunity.required_materials]
 
-    print "START TIME:"
-    print opportunity.start_time
+    #print "START TIME:"
+    #print opportunity.start_time
     #opportunity.start_time = start_time
     #opportunity.end_time = end_time
     #opportunity.deadline = deadline
@@ -245,7 +252,7 @@ def edit_opportunity(op_id = 0):
             opportunity.remove_required_material(rOrg)
             print "opps to remove (rorg):"
             print "[%s]" % rOrg
-            
+
     print opportunity.required_materials
 
     names = [tag.name for tag in opportunity.tags]
@@ -257,7 +264,7 @@ def edit_opportunity(op_id = 0):
         if tag not in tags:
             opportunity.remove_tag(tag)
 
-            
+
     opportunity.link = link
 
     db.session.commit()
