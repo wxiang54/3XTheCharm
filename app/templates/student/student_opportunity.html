@@ -4,28 +4,19 @@
 <h1>Student Opportunities Bulletin</h1>
 <h4><i>Please note there are offerings in many different fields, and remember that many deadlines are coming up fast. </i></h4>
 <br>
-<form method="GET" action="{{ url_for('student.controller.search') }}">
-    <div class="col-lg-6 pull-left">
-    <div class="input-group">
-      <input type="text" class="form-control" name="search" id="search" value="
-{{ search_field }}" placeholder="Search for...">
-      <span class="input-group-btn">
-        <input type="submit" class="btn btn-default" type="button">Search</button>
-      </span>
-    </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
 
-<div class="col-md-8">
+
   <div class="row">
-    <div class="col-md-10">
-      <h3>{{ opportunity.name }}
-        <a class="toggle" id="tog"+opportunities.items[loop.index0] href="#">Star</a>
-      </h3>
+    <div class="col-md-7">
+      <h3>{{ opportunity.name }}</h3>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-5">
+      <a class="toggle" id="tog"+opportunities.items[loop.index0] href="#">Star</a>
       <input class="tog" type="checkbox" />
     </div>
   </div>
+  <br>
+
   <p>Description: {{ opportunity.description }}</p>
   <p>Organization: {{ opportunity.organization }}</p>
   <p>Start Time: {{ opportunity.start_time }}</p>
@@ -36,7 +27,5 @@
   <p>Tags: {{ opportunity.tags }}</p>
   <p>Link: {{ opportunity.link }}</p>
 
-</div>
-</div>
 <br><br><br><br><br><br>
 {% endblock body %}

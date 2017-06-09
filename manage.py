@@ -234,7 +234,7 @@ def gen_opportunities():
         o = models.opportunities.Opportunity(name = random.choice(L_name),
                                              description = random.choice(L_desc),
                                              organization = random.choice(L_orgs),
-                                             star = false)
+                                             tags = [random.choice(L_name)])
         db.session.add(o)
     db.session.commit()
 
