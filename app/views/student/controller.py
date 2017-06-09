@@ -18,7 +18,7 @@ def index():
     """ Student dashboard """
     if 'id' in session and 'token' in session:
         return redirect(url_for("student.controller.opportunities"))
-    return redirect(url_for("auth.controller.login"))
+    return render_template("welcome.html")
 
 @student_mod.route('/opportunities')
 @student_mod.route('/opportunities/<int:page>', methods=["POST", "GET"])

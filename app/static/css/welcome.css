@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script|Crushed');
+
+@keyframes blink{
+  0%{
+    background-color: #80ffdf;
+  }
+  50%{
+    background-color: #008060;
+  }
+  100%{
+    background-color: #80ffdf;
+  }
+}
+
+body{
+  text-align: center;
+  background-color: #173753;
+}
+
+.logo{
+    font-family: 'Dancing Script', cursive;
+    font-size: 9vw;
+		color: #DBE9EE;
+    height: 180px;
+    line-height: 200px;
+    text-align: center;
+    border-bottom: 2px dashed #4F6D7A;
+    padding: 1vw 1vw 1vw 1vw;
+}
+
+h3{
+  color: #C0D6DF;
+  font-size: 3vw;
+  font-family: 'Crushed', cursive;
+}
+
+span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.btn-xl {
+  font-family: 'Crushed', cursive;
+  padding: 10px 20px;
+  font-size: 50px;
+  border-radius: 10px
+  border: 0;
+  animation: blink 7s linear infinite;
+  color: #173753;
+}

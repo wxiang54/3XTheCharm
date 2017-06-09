@@ -79,4 +79,3 @@ for (var i = 0; i < items.length; i++){
     },false);
 }
 */
->>>>>>> 06a04f9ef2bbe47b6929a3757a2141e1364e2ce7
