@@ -3,23 +3,24 @@ window.onload = function(event) {
     var i;
 
     for (i = 0; i < acc.length; i++) {
-	acc[i].onclick = function(){
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-		panel.style.display = "none";
-            } else {
-		panel.style.display = "block";
-            }
-	}
+    	acc[i].onclick = function(){
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+    		            panel.style.display = "none";
+                } else {
+    		            panel.style.display = "block";
+                }
+    	}
     }
 
     var labels = document.getElementsByClassName("toggle");
     var boxes = document.getElementsByClassName("tog");
+    var a;
 
-    for (i=0; i<labels.length; i++){
+    for (a=0; a<labels.length; a++){
       //console.log(boxes[i].checked);
-      labels[i].onclick = function(e){
+      labels[a].onclick = function(e){
           if (this.innerHTML.trim() == "Star"){
             this.innerHTML = "Starred";
             //boxes[count].checked = true;
@@ -31,12 +32,13 @@ window.onload = function(event) {
     	}
     }
 
+    var b;
     function checking(){
-      for (i=0; i<boxes.length; i++){
-        if(labels[i].innerHTML.trim() == "Star"){
-          boxes[i].checked = false;
+      for (b=0; b<boxes.length; b++){
+        if(labels[b].innerHTML.trim() == "Star"){
+          boxes[b].checked = false;
         }else{
-          boxes[i].checked = true;
+          boxes[b].checked = true;
         }
       }
     }

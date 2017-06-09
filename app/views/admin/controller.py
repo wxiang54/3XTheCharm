@@ -185,26 +185,47 @@ def edit_opportunity(op_id = 0):
     """
 
     # NEW VALUES
-    name = request.form["name"]
-    description = request.form["description"]
-    organization = request.form["organization"]
-    """
-    hours = request.form["hours"]
-    required_materials = request.form["required_materials"]
-    tags = request.form["tags"]
-    links = request.form["links"]
-    """
+    name = request.form['name']
+    description = request.form['description']
+    organization = request.form['organization']
 
+    hours = int(request.form['hours'])
+
+    required_materials_raw = request.form['required_materials']
+    tags_raw = request.form['tags']
+
+    required_materials = required_materials_raw.split(',')
+    tags = tags_raw.split(',')
+
+    link = request.form['link']
+
+    """
+    start_time = datetime(year = 2017, month = 1, day = 20) # Figure this out
+    end_time = datetime(year = 2017, month = 1, day = 20) # Figure this out
+    deadline = datetime(year = 2017, month = 1, day = 20) # Figure this out
+    """
     # CHANGE DB ENTRY
     opportunity = Opportunity.query.filter_by(id = op_id).first()
     opportunity.name = name
     opportunity.description = description
     opportunity.organization = organization
-    """
     opportunity.hours = hours
-    opportunity.required_materials = required_materials
-    opportunity.links = links
-    """
+
+    for r in required_materials:
+        if r not in opportunity.required_materials:
+            opportunity.add_required_material(r)
+            #print r
+
+    for rOrg in opportunity.required_materials:
+        if rOrg not in required_materials:
+            opportunity.remove_required_material(rOrg)
+            #print rOrg
+
+    for t in tags:
+        opportunity.add_tag(t)
+
+    opportunity.link = link
+
     db.session.commit()
 
     return redirect(url_for("admin.controller.opportunity", op_id = op_id))
