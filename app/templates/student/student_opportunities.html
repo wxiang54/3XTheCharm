@@ -21,9 +21,9 @@
     Sort by <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <li><a href="#">Soonest Deadline</a></li>
-    <li><a href="#">Latest Deadline</a></li>
-    <li><a href="#">Recent</a></li>
+    <li><a href="/student/sort-opportunities?sort_by=deadline">Soonest Deadline</a></li>
+    <li><a href="/student/sort-opportunities?sort_by=reverse_deadline">Latest Deadline</a></li>
+    <li><a href="/student/sort-opportunities?sort_by=recent">Recent</a></li>
   </ul>
 </div>
 
@@ -68,7 +68,12 @@
     </div>
     <p>{{ o.description }}</p>
     <p>{{ o.organization }}</p>
-    <p style="font-size: italic;"> {{ o.tags }} </p>
+    <p style="font-size: italic;">
+      {% for t in range(o.tags|length) -%}
+      {% if t > 0 %}, {% endif %}
+      {{o.tags[t].name}}
+      {%- endfor %}
+    </p>
   </div>
 
   {% endfor %}

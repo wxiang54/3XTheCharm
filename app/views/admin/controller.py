@@ -203,19 +203,30 @@ def edit_opportunity(op_id = 0):
     organization = request.form['organization']
 
     start_time = str(request.form["start_time"])
-    start_time = datetime(year=int(start_time[:4]), month=int(start_time[5:7]), day=int(start_time[8:10]), hour=int(start_time[11:13]), minute=int(start_time[14:16]))
+    try:
+        start_time = datetime(year=int(start_time[:4]), month=int(start_time[5:7]), day=int(start_time[8:10]), hour=int(start_time[11:13]), minute=int(start_time[14:16]))
+    except:
+        start_time = datetime(year=2020, month=1, day=1, hour=0, minute=0)
 
     end_time = str(request.form["end_time"])
-    end_time = datetime(year=int(end_time[:4]), month=int(end_time[5:7]), day=int(end_time[8:10]), hour=int(end_time[11:13]), minute=int(end_time[14:16]))
-
+    
+    try:
+        end_time = datetime(year=int(end_time[:4]), month=int(end_time[5:7]), day=int(end_time[8:10]), hour=int(end_time[11:13]), minute=int(end_time[14:16]))
+    except:
+        end_time = datetime(year=2020, month=1, day=1, hour=0, minute=0)
+        
     if isinstance(request.form['hours'], (int, long)) or isinstance(request.form['hours'], float):
         hours = int(request.form['hours'])
     else:
         hours = 0
 
     deadline = str(request.form["deadline"])
-    deadline = datetime(year=int(deadline[:4]), month=int(deadline[5:7]), day=int(deadline[8:10]), hour=int(deadline[11:13]), minute=int(deadline[14:16]))
+    try:
+        deadline = datetime(year=int(deadline[:4]), month=int(deadline[5:7]), day=int(deadline[8:10]), hour=int(deadline[11:13]), minute=int(deadline[14:16]))
+    except:
+        deadline = datetime(year=2020, month=1, day=1, hour=0, minute=0)
 
+        
     required_materials_raw = request.form['required_materials']
     tags_raw = request.form['tags']
 
@@ -287,3 +298,19 @@ def remove_opportunity(op_id = 0):
     db.session.delete(opportunity)
     db.session.commit()
     return redirect(url_for("admin.controller.opportunities", page = 1))
+
+@admin_mod.route('/sort-opportunities')
+@require_login
+@require_role('admin')
+def sort_opportunities(page = 1):
+    #this doesnt actually work if you look closely LMAO
+    sort_by = request.args.get("sort_by")
+    if sort_by == "deadline":
+        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False) 
+    elif sort_by == "reverse_deadline":
+        opportunities = Opportunity.query.order_by("hours").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    else:
+        opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    return render_template("admin/admin_opportunities.html", opportunities = opportunities)
+
+#    return 'student.controller.sort_opportunity'
