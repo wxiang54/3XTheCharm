@@ -127,7 +127,10 @@ def add_opportunity(op_id = 0): # init param?
         end_time = request.form["end_time"]
         end_time = datetime(year=int(end_time[:4]), month=int(end_time[5:7]), day=int(end_time[8:10]), hour=int(end_time[11:13]), minute=int(end_time[14:16]))
 
-        hours = int(request.form['hours'])
+        if isinstance(request.form['hours'], (int, long)) or isinstance(request.form['hours'], float):
+            hours = int(request.form['hours'])
+        else:
+            hours = 0
 
         deadline = str(request.form["deadline"])
         deadline = datetime(year=int(deadline[:4]), month=int(deadline[5:7]), day=int(deadline[8:10]), hour=int(deadline[11:13]), minute=int(deadline[14:16]))
@@ -205,7 +208,10 @@ def edit_opportunity(op_id = 0):
     #end_time = request.form["end_time"]
     #end_time = datetime(year=int(end_time[:4]), month=int(end_time[5:7]), day=int(end_time[8:10]), hour=int(end_time[11:13]), minute=int(end_time[14:16]))
 
-    hours = int(request.form['hours'])
+    if isinstance(request.form['hours'], (int, long)) or isinstance(request.form['hours'], float):
+        hours = int(request.form['hours'])
+    else:
+        hours = 0
 
     #deadline = str(request.form["deadline"])
     #deadline = datetime(year=int(deadline[:4]), month=int(deadline[5:7]), day=int(deadline[8:10]), hour=int(deadline[11:13]), minute=int(deadline[14:16]))
