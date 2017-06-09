@@ -1,25 +1,31 @@
-window.onload = function(event) {
-    var acc = document.getElementsByClassName("accordion");
-    var i;
+window.onload = function() {
+  accordioning();
+  toggling();
+}
 
-    for (i = 0; i < acc.length; i++) {
-	acc[i].onclick = function(){
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-		panel.style.display = "none";
-            } else {
-		panel.style.display = "block";
-            }
-	}
-    }
+function accordioning(){
+  var acc = document.getElementsByClassName("accordion");
 
-    var labels = document.getElementsByClassName("toggle");
-    var boxes = document.getElementsByClassName("tog");
+  for (var i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;
+          if (panel.style.display === "block") {
+            panel.style.display = "none";
+          } else {
+            panel.style.display = "block";
+          }
+        }
+  }
+}
 
-    for (i=0; i<labels.length; i++){
+function toggling(){
+  var lab = document.getElementsByClassName("toggle");
+  var boxes = document.getElementsByClassName("tog");
+
+    for (var a=0; a<lab.length; a++){
       //console.log(boxes[i].checked);
-      labels[i].onclick = function(e){
+      lab[a].onclick = function(e){
           if (this.innerHTML.trim() == "Star"){
             this.innerHTML = "Starred";
             //boxes[count].checked = true;
@@ -27,24 +33,32 @@ window.onload = function(event) {
             this.innerHTML = "Star";
             //boxes[count].checked = false;
           }
-          checking()
-    	}
-    }
-
-    function checking(){
-      for (i=0; i<boxes.length; i++){
-        if(labels[i].innerHTML.trim() == "Star"){
-          boxes[i].checked = false;
-        }else{
-          boxes[i].checked = true;
-        }
+          checking();
       }
-    }
-
-
-
-
+  }
 }
+
+
+
+
+
+function checking(){
+  var lab = document.getElementsByClassName("toggle");
+  var boxes = document.getElementsByClassName("tog");
+
+  for (var b=0; b<boxes.length; b++){
+    if(lab[b].innerHTML.trim() == "Star"){
+      boxes[b].checked = false;
+    }else{
+      boxes[b].checked = true;
+    }
+  }
+}
+
+
+
+
+
 
 
 
