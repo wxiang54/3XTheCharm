@@ -4,14 +4,52 @@ body{
 	margin: 3vw;
 }
 
+h1{
+	color: #173753;
+}
+
+h4{
+	color: #4F6D7A;
+}
+
+.btn{
+	background-color: #173753;
+	color: #C0D6DF;
+}
+
+.btn:hover{
+	background-color: #166088;
+	color: #C0D6DF;
+}
+
+.btn:active{
+	background-color: #166088;
+	color: #C0D6DF;
+}
+
+.dropdown-menu{
+	color: #C0D6DF;
+}
+
 .opp{
-    background-color: #e5e5e5;
+    background-color: #C0D6DF;
+		color: #4F6D7A;
     margin: 1vw;
     width: 60vw;
 }
 
+.opp h3{
+	color: #4A6FA5;
+}
+
+.navbar{
+	background-color: #DBE9EE;
+	color: #4F6D7A;
+	position: absolute;
+}
+
 button.accordion {
-    background-color: #eee;
+    background-color: #C0D6DF;
     color: #444;
     cursor: pointer;
     padding: 18px;
@@ -24,7 +62,8 @@ button.accordion {
 }
 
 button.accordion.active, button.accordion:hover {
-    background-color: #ddd;
+    background-color: #166088;
+		color: #DBE9EE;
 }
 
 button.accordion:after {
@@ -42,17 +81,14 @@ button.accordion.active:after {
 div.panel {
     padding: 0 18px;
     display: none;
-    background-color: white;
-}
-
-.navbar {
-    position: absolute;
-    top: 0px;
+    background-color: #C0D6DF;
+		color: #4F6D7A;
 }
 
 .logo{
     font-family: 'Dancing Script', cursive;
     font-size: 2.3vw;
+		color: #4F6D7A;
 }
 
 .tog {
@@ -62,8 +98,8 @@ div.panel {
 }
 
 .toggle {
-    color: #aab8c2;
-    font-size: 1vw;
+    color: #166088;
+    font-size: 2vw;
     padding-left: 4vw;
     cursor: pointer;
 }

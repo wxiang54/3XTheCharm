@@ -13,8 +13,11 @@
             </h3>
           </div>
         </div>
+        <!-- <p>Deadline: <input type="datetime-local" name="deadline" value="{{opportunity.deadline}}"> </p> -->
         <p>Description <textarea type="text" class="form-control input-md descrip" name="description">{{opportunity.description}}</textarea> </p>
         <p>Organization <input type="text" class="form-control input-md" name="organization" value="{{opportunity.organization}}"></p>
+        <!-- <p>Start Time: <input type="datetime-local" name="start_time" value="{{opportunity.start_time}}"> </p>
+        <p>End Time: <input type="datetime-local" name="start_time" value="{{opportunity.end_time}}"> </p> -->
         <p>Hours Per Week <input type="text" class="form-control input-md" name="hours" value="{{opportunity.hours}}"></p>
         <p>Required Material(s)<input type="text" class="form-control input-md" name="required_materials" value="
 {% for r in range(opportunity.required_materials|length) -%}
