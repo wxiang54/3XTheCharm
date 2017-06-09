@@ -90,3 +90,7 @@ williamX -- 2017-06-06 23:30
 jiaqiG -- 2017--06-06 0:00
 * added styling with edit opportunities
 
+williamX -- 2017--06-09 2:00
+* fixed editing issue with required_materials and tag names not processing correctly in frontend
+* filtered out repeat entries in required_names and tags
+

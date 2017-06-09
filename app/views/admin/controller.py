@@ -1,16 +1,11 @@
 from app.blueprints import admin_mod
 from flask import url_for, request, session, current_app, redirect, g, render_template
-
 from sqlalchemy import or_
-
 from datetime import datetime
-
 from app.models.opportunities import Opportunity
-
 from app.core.authentication import require_login, require_role
-
 from app.extensions import db
-
+from collections import OrderedDict
 import logging
 
 LOG = logging.getLogger(__name__)
@@ -76,9 +71,11 @@ def opportunity(op_id = 0):
     """
 
     opportunity = Opportunity.query.filter_by(id = op_id).first()
+    '''
     print "\n" * 10
     print opportunity
     print "\n" * 10
+    '''
     return render_template("admin/admin_opportunity.html", opportunity = opportunity)
 
 # IN PROG
@@ -194,16 +191,17 @@ def edit_opportunity(op_id = 0):
     required_materials_raw = request.form['required_materials']
     tags_raw = request.form['tags']
 
-    required_materials = required_materials_raw.split(',')
-    tags = tags_raw.split(',')
-
+    required_materials = [mat.strip() for mat in required_materials_raw.split(',')]
+    tags = [tag.strip() for tag in tags_raw.split(',')]
+    print required_materials
+    print tags
     link = request.form['link']
 
     """
     start_time = datetime(year = 2017, month = 1, day = 20) # Figure this out
     end_time = datetime(year = 2017, month = 1, day = 20) # Figure this out
     deadline = datetime(year = 2017, month = 1, day = 20) # Figure this out
-    """
+   """
     # CHANGE DB ENTRY
     opportunity = Opportunity.query.filter_by(id = op_id).first()
     opportunity.name = name
@@ -211,19 +209,32 @@ def edit_opportunity(op_id = 0):
     opportunity.organization = organization
     opportunity.hours = hours
 
+
+    names = [mat.name for mat in opportunity.required_materials]
     for r in required_materials:
-        if r not in opportunity.required_materials:
+        if r not in names:
             opportunity.add_required_material(r)
-            #print r
+            print "op to add (r)"
+            print "[%s]" % r
 
-    for rOrg in opportunity.required_materials:
-        if rOrg not in required_materials:
+    for rOrg in names:
+        if rOrg not in required_materials or rOrg in names[names.index(rOrg)+1:]:
             opportunity.remove_required_material(rOrg)
-            #print rOrg
+            print "opps to remove (rorg):"
+            print "[%s]" % rOrg
+            
+    print opportunity.required_materials
 
-    for t in tags:
-        opportunity.add_tag(t)
+    names = [tag.name for tag in opportunity.tags]
+    for tag in tags:
+        if tag not in names or tag in names[names.index(tag)+1:]:
+            opportunity.add_tag(tag)
 
+    for tag in names:
+        if tag not in tags:
+            opportunity.remove_tag(tag)
+
+            
     opportunity.link = link
 
     db.session.commit()
