@@ -58,12 +58,12 @@
   {% for o in opportunities.items %}
   <div class="container opp">
     <div class="row">
-      <div class="col-md-10">
+      <div class="col-md-11">
         <h3> <a href="/student/opportunity/{{o.id}}">{{ o.name }}</a> </h3>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-1">
         <input class="tog" type="checkbox" />
-        <a class="toggle" id="tog"+opportunities.items[loop.index0] href="#">Star</a>
+        <p class="toggle" id="tog"+opportunities.items[loop.index0]>&#9734;</p>
       </div>
     </div>
     <p>{{ o.description }}</p>
