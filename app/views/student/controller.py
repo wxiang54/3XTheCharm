@@ -1,13 +1,10 @@
 from app.blueprints import student_mod
 from flask import url_for, request, session, current_app, redirect, g, render_template, request
-
 from sqlalchemy import or_
-
 from app.models.opportunities import Opportunity
-
 from app.core.authentication import require_login, require_role
-
 import logging
+import json
 
 LOG = logging.getLogger(__name__)
 
@@ -129,13 +126,19 @@ def search(page = 1):
 
     return render_template("student/student_opportunities.html", opportunities = opportunities, search_field = search_field)
 
-#prob not gonna be done
-@student_mod.route('/suggest-opportunity')
+
+@student_mod.route('/sort-opportunities')
 @require_login
 @require_role('student')
-def suggest_opportunity():
-    """ Interface for student to suggest opportunities
-    """
+def sort_opportunities(page = 1):
+    sort_by = request.args.get("sort_by")
+    #this doesnt actually work if you look closely LMAO
+    if sort_by == "deadline":
+        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False) 
+    elif sort_by == "reverse_deadline":
+        opportunities = Opportunity.query.order_by("hours").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    else:
+        opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    return render_template("student/student_opportunities.html", opportunities = opportunities)
 
-
-    return 'student.controller.suggest_opportunity'
+#    return 'student.controller.sort_opportunity'
