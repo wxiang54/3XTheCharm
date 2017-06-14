@@ -11,12 +11,17 @@
       <h3>{{ opportunity.name }}</h3>
     </div>
     <div class="col-md-5">
-      <a class="toggle" id="tog"+opportunities.items[loop.index0] href="#">Star</a>
-      <input class="tog" type="checkbox" />
+      {% if o in g.user.opportunities_following %}
+      <input class="tog" name="starbox" type="checkbox" value={{o}} checked/>
+      <p class="toggle" id="tog"+opportunities.items[loop.index0]>&#9733;</p>
+      {% else %}
+      <input class="tog" name="starbox" type="checkbox" value={{o}}/>
+      <p class="toggle" id="tog"+opportunities.items[loop.index0]>&#9734;</p>
+      {% endif %}
     </div>
   </div>
   <br>
-  
+
 <p>Description: {{ opportunity.description }}</p>
 <p>Organization: {{ opportunity.organization }}</p>
 <p>Start Time: {{ opportunity.start_time }}</p>
@@ -25,14 +30,14 @@
 <p>Deadline: {{ opportunity.deadline }}</p>
 <p>Required Materials:
   {% for r in range(opportunity.required_materials|length) -%}
-  {% if r > 0 %}, {% endif %} 
+  {% if r > 0 %}, {% endif %}
   {{opportunity.required_materials[r].name}}
   {%- endfor %}
 </p>
 <p>Tags:
   {% for t in range(opportunity.tags|length) -%}
-  {% if t > 0 %}, {% endif %} 
-  {{opportunity.tags[t].name}} 
+  {% if t > 0 %}, {% endif %}
+  {{opportunity.tags[t].name}}
   {%- endfor %}
 </p>
 <p>Link: {{ opportunity.link }}</p>

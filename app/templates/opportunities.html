@@ -65,10 +65,10 @@
       </div>
       <div class="col-md-2">
         {% if o in g.user.opportunities_following %}
-        <input class="tog" name="starbox" type="checkbox" checked/>
+        <input class="tog" name="starbox" type="checkbox" value="{{o}}" checked/>
         <p class="toggle" id="tog"+opportunities.items[loop.index0]>&#9733;</p>
         {% else %}
-        <input class="tog" name="starbox" type="checkbox"/>
+        <input class="tog" name="starbox" type="checkbox" value="{{o}}"/>
         <p class="toggle" id="tog"+opportunities.items[loop.index0]>&#9734;</p>
         {% endif %}
       </div>

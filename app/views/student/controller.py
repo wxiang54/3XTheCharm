@@ -31,6 +31,7 @@ def opportunities(page = 1):
     if request.method == 'POST':
         if (request.form.getlist('starbox')):
             for i in request.form.getlist('starbox'):
+                g.opportunities_following.append(i)
                 #################
 
     search_field = "" #session['search'] if 'search' in session else ''
