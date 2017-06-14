@@ -31,7 +31,7 @@ def opportunities(page = 1):
     if request.method == 'POST':
         if (request.form.getlist('starbox')):
             for i in request.form.getlist('starbox'):
-                add_tag(i, "starred")
+                #################
 
     search_field = "" #session['search'] if 'search' in session else ''
     opportunities = Opportunity.query.filter(
@@ -73,9 +73,7 @@ def starred_opportunities(page = 1):
     :type page: int
     """
 
-    opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-
-    #opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
     return render_template("student/starred_opportunities.html", opportunities = opportunities)
 
@@ -134,7 +132,7 @@ def sort_opportunities(page = 1):
     sort_by = request.args.get("sort_by")
     #this doesnt actually work if you look closely LMAO
     if sort_by == "deadline":
-        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False) 
+        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     elif sort_by == "reverse_deadline":
         opportunities = Opportunity.query.order_by("hours").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     else:

@@ -62,8 +62,13 @@
         <h3> <a href="/student/opportunity/{{o.id}}">{{ o.name }}</a> </h3>
       </div>
       <div class="col-md-1">
-        <input class="tog" type="checkbox" />
+        {% if o in g.user.opportunities_following %}
+        <input class="tog" type="checkbox" checked/>
+        <p class="toggle" id="tog"+opportunities.items[loop.index0]>&#9733;</p>
+        {% else %}
+        <input class="tog" type="checkbox"/>
         <p class="toggle" id="tog"+opportunities.items[loop.index0]>&#9734;</p>
+        {% endif %}
       </div>
     </div>
     <p>{{ o.description }}</p>
