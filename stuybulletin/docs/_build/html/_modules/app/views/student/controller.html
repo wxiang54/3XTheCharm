@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>app.views.student.controller &mdash; expert-octo-fortnight 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="expert-octo-fortnight 0.0.1 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> expert-octo-fortnight
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/app.html">app package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">expert-octo-fortnight</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>app.views.student.controller</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for app.views.student.controller</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">app.blueprints</span> <span class="k">import</span> <span class="n">student_mod</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">url_for</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">current_app</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">render_template</span>
+
+<span class="kn">from</span> <span class="nn">app.models.opportunities</span> <span class="k">import</span> <span class="n">Opportunity</span>
+
+<span class="kn">from</span> <span class="nn">app.core.authentication</span> <span class="k">import</span> <span class="n">require_login</span><span class="p">,</span> <span class="n">require_role</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">LOG</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<div class="viewcode-block" id="index"><a class="viewcode-back" href="../../../../source/app.views.student.html#app.views.student.controller.index">[docs]</a><span class="nd">@student_mod</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="nd">@require_login</span>
+<span class="nd">@require_role</span><span class="p">(</span><span class="s1">&#39;student&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Student dashboard &quot;&quot;&quot;</span>
+    
+    <span class="k">return</span> <span class="s1">&#39;student_index&#39;</span></div>
+
+<div class="viewcode-block" id="opportunities"><a class="viewcode-back" href="../../../../source/app.views.student.html#app.views.student.controller.opportunities">[docs]</a><span class="nd">@student_mod</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/opportunities&#39;</span><span class="p">)</span>
+<span class="nd">@student_mod</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/opportunities/&lt;int:page&gt;&#39;</span><span class="p">)</span>
+<span class="nd">@require_login</span>
+<span class="nd">@require_role</span><span class="p">(</span><span class="s1">&#39;student&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">opportunities</span><span class="p">(</span><span class="n">page</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Returns all opportunities for a student (paginated) seperated by either tag, but sorted in the recommendation order (see neural net fun times) </span>
+
+<span class="sd">    :param page: Page to return</span>
+<span class="sd">    :type page: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Implement the whole suggestion thing</span>
+    <span class="n">opportunities</span> <span class="o">=</span> <span class="n">Opportunity</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">paginate</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">current_app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;ELEMENTS_PER_PAGE&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;opportunities.html&quot;</span><span class="p">,</span> <span class="n">opportunities</span> <span class="o">=</span> <span class="n">opportunities</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="my_opportunities"><a class="viewcode-back" href="../../../../source/app.views.student.html#app.views.student.controller.my_opportunities">[docs]</a><span class="nd">@student_mod</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/my_opportunities/&lt;int:page&gt;&#39;</span><span class="p">)</span>
+<span class="nd">@require_login</span>
+<span class="nd">@require_role</span><span class="p">(</span><span class="s1">&#39;student&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">my_opportunities</span><span class="p">(</span><span class="n">page</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Returns all opportunities that a user has suggesterd </span>
+<span class="sd">    </span>
+<span class="sd">    :param page: Page to return</span>
+<span class="sd">    :type page: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Implement this in the database first</span>
+    
+    <span class="k">return</span> <span class="s1">&#39;student.controller.my_opportunities&#39;</span></div>
+
+<div class="viewcode-block" id="starred_opportunities"><a class="viewcode-back" href="../../../../source/app.views.student.html#app.views.student.controller.starred_opportunities">[docs]</a><span class="nd">@student_mod</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/starred_opportunities/&lt;int:page&gt;&#39;</span><span class="p">)</span>
+<span class="nd">@require_login</span>
+<span class="nd">@require_role</span><span class="p">(</span><span class="s1">&#39;student&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">starred_opportunities</span><span class="p">(</span><span class="n">page</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Returns all the opportunities that a user is specifically following</span>
+<span class="sd">    </span>
+<span class="sd">    Two sections:</span>
+<span class="sd">     - Opportunities that the user specifically followed</span>
+<span class="sd">     - Opportunities in the tags selected by the user (is this necessary?)</span>
+
+<span class="sd">    :param page: Page to return</span>
+<span class="sd">    :type page: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">opportunities</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">opportunities_following</span><span class="o">.</span><span class="n">paginate</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">current_app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;ELEMENTS_PER_PAGE&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="s1">&#39;student.controller.starred_opportunities&#39;</span></div>
+
+<div class="viewcode-block" id="opportunity"><a class="viewcode-back" href="../../../../source/app.views.student.html#app.views.student.controller.opportunity">[docs]</a><span class="nd">@student_mod</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/opportunity/&lt;int:op_id&gt;&#39;</span><span class="p">)</span>
+<span class="nd">@require_login</span>
+<span class="nd">@require_role</span><span class="p">(</span><span class="s1">&#39;student&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">opportunity</span><span class="p">(</span><span class="n">op_id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Returns a single opportunity to display information</span>
+<span class="sd">    </span>
+<span class="sd">    :param op_id: ID of the opportunity to display information of</span>
+<span class="sd">    :type op_id: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">opportunity</span> <span class="o">=</span> <span class="n">Opportunity</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="nb">id</span> <span class="o">=</span> <span class="n">op_id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">opportunity</span>
+    <span class="nb">print</span> <span class="n">opportunity</span>
+    <span class="k">return</span> <span class="s1">&#39;student.controller.opportunity&#39;</span></div>
+
+<div class="viewcode-block" id="search"><a class="viewcode-back" href="../../../../source/app.views.student.html#app.views.student.controller.search">[docs]</a><span class="nd">@student_mod</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/search/&lt;int:page&gt;&#39;</span><span class="p">)</span>
+<span class="nd">@require_login</span>
+<span class="nd">@require_role</span><span class="p">(</span><span class="s1">&#39;student&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">page</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Returns a paginated list of opportunities as pursuant to the search parameters given by the GET parameters</span>
+<span class="sd">    </span>
+<span class="sd">    The paramaters should be:</span>
+<span class="sd">     - search (str) the string to search for</span>
+<span class="sd">     - tags (str) the tags (as a comma seperated list) to search for</span>
+
+<span class="sd">    :param page: Page to return</span>
+<span class="sd">    :type page: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="s1">&#39;student.controller.search&#39;</span></div>
+
+        
+
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Rodda John.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>app.models.opportunities &mdash; expert-octo-fortnight 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="expert-octo-fortnight 0.0.1 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> expert-octo-fortnight
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/app.html">app package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">expert-octo-fortnight</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>app.models.opportunities</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for app.models.opportunities</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot; Opportunities model</span>
+
+<span class="sd">Currently just opportunity&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">DateTime</span><span class="p">,</span> <span class="n">Integer</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="k">import</span> <span class="n">relationship</span><span class="p">,</span> <span class="n">backref</span>
+
+<span class="kn">from</span> <span class="nn">app.models.helpers</span> <span class="k">import</span> <span class="n">Base</span>
+<span class="kn">from</span> <span class="nn">app.models.required_material</span> <span class="k">import</span> <span class="n">RequiredMaterial</span>
+<span class="kn">from</span> <span class="nn">app.models.relationships</span> <span class="k">import</span> <span class="n">tags</span><span class="p">,</span> <span class="n">opportunities_following</span>
+<span class="kn">from</span> <span class="nn">app.extensions</span> <span class="k">import</span> <span class="n">db</span>
+
+<div class="viewcode-block" id="Opportunity"><a class="viewcode-back" href="../../../source/app.models.html#app.models.opportunities.Opportunity">[docs]</a><span class="k">class</span> <span class="nc">Opportunity</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Opportunity model to store an opportunity &quot;&quot;&quot;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">128</span><span class="p">),</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Column to store the name, as a string. &quot;&quot;&quot;</span>
+
+    <span class="n">description</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">1024</span><span class="p">),</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Column to store the description, as a string. &quot;&quot;&quot;</span>
+
+    <span class="n">organization</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">128</span><span class="p">),</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Column to store the organization, as a string. &quot;&quot;&quot;</span>
+
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Column to store the start time for the opportunity, as a datetime object. &quot;&quot;&quot;</span>
+    
+    <span class="n">end_time</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Column to store the end time for the opportunity, as a datetime object. &quot;&quot;&quot;</span>
+
+    <span class="n">hours</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Column to store the hours per week, on average, that an opportunity may entail, as a number. &quot;&quot;&quot;</span>
+
+    <span class="n">deadline</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Column to store the deadline for applying to an opportunity, as a datetime object. &quot;&quot;&quot;</span>
+
+    <span class="n">required_materials</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s1">&#39;RequiredMaterial&#39;</span><span class="p">,</span> <span class="n">backref</span> <span class="o">=</span> <span class="s1">&#39;opportunity&#39;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Relationship Column creating the one-to-many relationship for the required material table.  It operates like a list.&quot;&quot;&quot;</span>
+
+    <span class="n">tags</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s1">&#39;Tag&#39;</span><span class="p">,</span>
+                        <span class="n">secondary</span> <span class="o">=</span> <span class="n">tags</span><span class="p">,</span>
+                        <span class="n">back_populates</span> <span class="o">=</span> <span class="s1">&#39;opportunities&#39;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Relationship Column to store the many to many to the tags.  It operates like a list. &quot;&quot;&quot;</span>
+
+    <span class="n">users_following</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s1">&#39;User&#39;</span><span class="p">,</span>
+                                   <span class="n">secondary</span> <span class="o">=</span> <span class="n">opportunities_following</span><span class="p">,</span>
+                                   <span class="n">back_populates</span> <span class="o">=</span> <span class="s1">&#39;opportunities_following&#39;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Relationship Column to store the many to many to the users.  It operates like a list. &quot;&quot;&quot;</span>
+
+    <span class="n">link</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Column to store the link to either information about an opportunity, or the application. &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; __repr__ definition for the Opportunity model</span>
+
+<span class="sd">        Should display as (for the opportunity with id 1): &lt;Opportunity ID: 1&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;Opportunity ID: </span><span class="si">%d</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+
+<div class="viewcode-block" id="Opportunity.add_required_material"><a class="viewcode-back" href="../../../source/app.models.html#app.models.opportunities.Opportunity.add_required_material">[docs]</a>    <span class="k">def</span> <span class="nf">add_required_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">required_material</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Adds the required material to the user</span>
+
+<span class="sd">        :param required_material: The required material to add.</span>
+<span class="sd">        :type required_material: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">required_materials</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">RequiredMaterial</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="n">required_material</span><span class="p">))</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Opportunity.remove_required_material"><a class="viewcode-back" href="../../../source/app.models.html#app.models.opportunities.Opportunity.remove_required_material">[docs]</a>    <span class="k">def</span> <span class="nf">remove_required_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">required_material</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Removes the required material from the user</span>
+
+<span class="sd">        Returns true if the user had the required material and successfully deleted it.</span>
+<span class="sd">        Returns false if the user doesn&#39;t have the required_material.</span>
+
+<span class="sd">        :param required_material: The required material to remove.</span>
+<span class="sd">        :type required_material: str</span>
+<span class="sd">        :returns: bool - true if the required material was successfully deleted, false if the user didn&#39;t have the required material</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">deleted</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_materials</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">required_material</span><span class="p">:</span>
+                <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+                <span class="n">deleted</span> <span class="o">=</span> <span class="kc">True</span>
+                
+        <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">deleted</span></div>
+
+<div class="viewcode-block" id="Opportunity.check_required_material"><a class="viewcode-back" href="../../../source/app.models.html#app.models.opportunities.Opportunity.check_required_material">[docs]</a>    <span class="k">def</span> <span class="nf">check_required_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">required_material</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Checks the required material for a user.</span>
+
+<span class="sd">        :param required_material: The required material to check.</span>
+<span class="sd">        :type required_material: str</span>
+<span class="sd">        :returns: bool -- true if the user has the required material, false if otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_materials</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">required_material</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div></div>
+
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Rodda John.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

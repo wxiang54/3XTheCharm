@@ -1,0 +1,629 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>app.models package &mdash; expert-octo-fortnight 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="expert-octo-fortnight 0.0.1 documentation" href="../index.html"/>
+        <link rel="up" title="app package" href="app.html"/>
+        <link rel="next" title="app.views package" href="app.views.html"/>
+        <link rel="prev" title="app.core package" href="app.core.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> expert-octo-fortnight
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="app.html">app package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="app.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app.core.html">app.core package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">app.models package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.models.helpers">app.models.helpers module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.models.opportunities">app.models.opportunities module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.models.permissions">app.models.permissions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.models.relationships">app.models.relationships module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.models.required_material">app.models.required_material module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.models.tag">app.models.tag module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.models.users">app.models.users module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.models">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.views.html">app.views package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#module-app.application">app.application module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#module-app.blueprints">app.blueprints module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#module-app.config">app.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#module-app.extensions">app.extensions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#module-app.middleware">app.middleware module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#module-app">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">expert-octo-fortnight</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="app.html">app package</a> &raquo;</li>
+        
+      <li>app.models package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/app.models.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="app-models-package">
+<h1>app.models package<a class="headerlink" href="#app-models-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-app.models.helpers">
+<span id="app-models-helpers-module"></span><h2>app.models.helpers module<a class="headerlink" href="#module-app.models.helpers" title="Permalink to this headline">¶</a></h2>
+<p>Convenience functions which interact with SQLAlchemy models.</p>
+<dl class="class">
+<dt id="app.models.helpers.Base">
+<em class="property">class </em><code class="descclassname">app.models.helpers.</code><code class="descname">Base</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/models/helpers.html#Base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.helpers.Base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_sqlalchemy.Model</span></code></p>
+<p>Convenience base DB model class. Makes sure tables in MySQL are created as InnoDB.</p>
+<p>This is to enforce foreign key constraints (MyISAM doesn’t support constraints) outside of production. Tables are also named to avoid collisions.</p>
+<dl class="attribute">
+<dt id="app.models.helpers.Base.id">
+<code class="descname">id</code><em class="property"> = Column(None, Integer(), table=None, primary_key=True)</em><a class="headerlink" href="#app.models.helpers.Base.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Primary key for SQL Alchemy models.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.models.opportunities">
+<span id="app-models-opportunities-module"></span><h2>app.models.opportunities module<a class="headerlink" href="#module-app.models.opportunities" title="Permalink to this headline">¶</a></h2>
+<p>Opportunities model</p>
+<p>Currently just opportunity</p>
+<dl class="class">
+<dt id="app.models.opportunities.Opportunity">
+<em class="property">class </em><code class="descclassname">app.models.opportunities.</code><code class="descname">Opportunity</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/models/opportunities.html#Opportunity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.opportunities.Opportunity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.models.helpers.Base" title="app.models.helpers.Base"><code class="xref py py-class docutils literal"><span class="pre">app.models.helpers.Base</span></code></a></p>
+<p>Opportunity model to store an opportunity</p>
+<dl class="method">
+<dt id="app.models.opportunities.Opportunity.add_required_material">
+<code class="descname">add_required_material</code><span class="sig-paren">(</span><em>required_material</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/models/opportunities.html#Opportunity.add_required_material"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.opportunities.Opportunity.add_required_material" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the required material to the user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>required_material</strong> (<em>str</em>) – The required material to add.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.models.opportunities.Opportunity.check_required_material">
+<code class="descname">check_required_material</code><span class="sig-paren">(</span><em>required_material</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/models/opportunities.html#Opportunity.check_required_material"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.opportunities.Opportunity.check_required_material" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks the required material for a user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>required_material</strong> (<em>str</em>) – The required material to check.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">bool – true if the user has the required material, false if otherwise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.opportunities.Opportunity.deadline">
+<code class="descname">deadline</code><a class="headerlink" href="#app.models.opportunities.Opportunity.deadline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to store the deadline for applying to an opportunity, as a datetime object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.opportunities.Opportunity.description">
+<code class="descname">description</code><a class="headerlink" href="#app.models.opportunities.Opportunity.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to store the description, as a string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.opportunities.Opportunity.end_time">
+<code class="descname">end_time</code><a class="headerlink" href="#app.models.opportunities.Opportunity.end_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to store the end time for the opportunity, as a datetime object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.opportunities.Opportunity.hours">
+<code class="descname">hours</code><a class="headerlink" href="#app.models.opportunities.Opportunity.hours" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to store the hours per week, on average, that an opportunity may entail, as a number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.opportunities.Opportunity.id">
+<code class="descname">id</code><a class="headerlink" href="#app.models.opportunities.Opportunity.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.opportunities.Opportunity.link">
+<code class="descname">link</code><a class="headerlink" href="#app.models.opportunities.Opportunity.link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to store the link to either information about an opportunity, or the application.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.opportunities.Opportunity.name">
+<code class="descname">name</code><a class="headerlink" href="#app.models.opportunities.Opportunity.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to store the name, as a string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.opportunities.Opportunity.organization">
+<code class="descname">organization</code><a class="headerlink" href="#app.models.opportunities.Opportunity.organization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to store the organization, as a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.models.opportunities.Opportunity.remove_required_material">
+<code class="descname">remove_required_material</code><span class="sig-paren">(</span><em>required_material</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/models/opportunities.html#Opportunity.remove_required_material"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.opportunities.Opportunity.remove_required_material" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the required material from the user</p>
+<p>Returns true if the user had the required material and successfully deleted it.
+Returns false if the user doesn’t have the required_material.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>required_material</strong> (<em>str</em>) – The required material to remove.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">bool - true if the required material was successfully deleted, false if the user didn’t have the required material</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.opportunities.Opportunity.required_materials">
+<code class="descname">required_materials</code><a class="headerlink" href="#app.models.opportunities.Opportunity.required_materials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relationship Column creating the one-to-many relationship for the required material table.  It operates like a list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.opportunities.Opportunity.start_time">
+<code class="descname">start_time</code><a class="headerlink" href="#app.models.opportunities.Opportunity.start_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to store the start time for the opportunity, as a datetime object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.opportunities.Opportunity.tags">
+<code class="descname">tags</code><a class="headerlink" href="#app.models.opportunities.Opportunity.tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relationship Column to store the many to many to the tags.  It operates like a list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.opportunities.Opportunity.users_following">
+<code class="descname">users_following</code><a class="headerlink" href="#app.models.opportunities.Opportunity.users_following" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relationship Column to store the many to many to the users.  It operates like a list.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.models.permissions">
+<span id="app-models-permissions-module"></span><h2>app.models.permissions module<a class="headerlink" href="#module-app.models.permissions" title="Permalink to this headline">¶</a></h2>
+<p>Permissions models</p>
+<p>Currently just Role</p>
+<dl class="class">
+<dt id="app.models.permissions.Role">
+<em class="property">class </em><code class="descclassname">app.models.permissions.</code><code class="descname">Role</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/models/permissions.html#Role"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.permissions.Role" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.models.helpers.Base" title="app.models.helpers.Base"><code class="xref py py-class docutils literal"><span class="pre">app.models.helpers.Base</span></code></a></p>
+<p>Role base to store a user’s role</p>
+<dl class="attribute">
+<dt id="app.models.permissions.Role.id">
+<code class="descname">id</code><a class="headerlink" href="#app.models.permissions.Role.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.permissions.Role.role">
+<code class="descname">role</code><a class="headerlink" href="#app.models.permissions.Role.role" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to store the role, as a string.</p>
+<dl class="docutils">
+<dt>Current values used:</dt>
+<dd><ul class="first last simple">
+<li>‘user’</li>
+<li>‘admin’</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.permissions.Role.user_id">
+<code class="descname">user_id</code><a class="headerlink" href="#app.models.permissions.Role.user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column storing the ForeignKey for the user</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.models.relationships">
+<span id="app-models-relationships-module"></span><h2>app.models.relationships module<a class="headerlink" href="#module-app.models.relationships" title="Permalink to this headline">¶</a></h2>
+<p>A file to store all the tables for any and all many to many relationships</p>
+<dl class="data">
+<dt id="app.models.relationships.opportunities_following">
+<code class="descclassname">app.models.relationships.</code><code class="descname">opportunities_following</code><em class="property"> = Table(‘opportunities_following’, MetaData(bind=None), Column(‘opportunity.id’, Integer(), ForeignKey(‘opportunity.id’), table=&lt;opportunities_following&gt;), Column(‘user.id’, Integer(), ForeignKey(‘user.id’), table=&lt;opportunities_following&gt;), schema=None)</em><a class="headerlink" href="#app.models.relationships.opportunities_following" title="Permalink to this definition">¶</a></dt>
+<dd><p>Table setting up the many to many relationship between opportunities and users</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="app.models.relationships.tags">
+<code class="descclassname">app.models.relationships.</code><code class="descname">tags</code><em class="property"> = Table(‘tags’, MetaData(bind=None), Column(‘opportunity.id’, Integer(), ForeignKey(‘opportunity.id’), table=&lt;tags&gt;), Column(‘tag.id’, Integer(), ForeignKey(‘tag.id’), table=&lt;tags&gt;), schema=None)</em><a class="headerlink" href="#app.models.relationships.tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Table setting up the many to many relationship between opportunities and tags</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="app.models.relationships.tags_following">
+<code class="descclassname">app.models.relationships.</code><code class="descname">tags_following</code><em class="property"> = Table(‘tags_following’, MetaData(bind=None), Column(‘tag.id’, Integer(), ForeignKey(‘tag.id’), table=&lt;tags_following&gt;), Column(‘user.id’, Integer(), ForeignKey(‘user.id’), table=&lt;tags_following&gt;), schema=None)</em><a class="headerlink" href="#app.models.relationships.tags_following" title="Permalink to this definition">¶</a></dt>
+<dd><p>Table setting up the many to many relationship between users and tags</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.models.required_material">
+<span id="app-models-required-material-module"></span><h2>app.models.required_material module<a class="headerlink" href="#module-app.models.required_material" title="Permalink to this headline">¶</a></h2>
+<p>RequiredMaterial model</p>
+<p>Currently just RequiredMaterial</p>
+<dl class="class">
+<dt id="app.models.required_material.RequiredMaterial">
+<em class="property">class </em><code class="descclassname">app.models.required_material.</code><code class="descname">RequiredMaterial</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/models/required_material.html#RequiredMaterial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.required_material.RequiredMaterial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.models.helpers.Base" title="app.models.helpers.Base"><code class="xref py py-class docutils literal"><span class="pre">app.models.helpers.Base</span></code></a></p>
+<p>RequiredMaterial model to store a required material</p>
+<dl class="attribute">
+<dt id="app.models.required_material.RequiredMaterial.id">
+<code class="descname">id</code><a class="headerlink" href="#app.models.required_material.RequiredMaterial.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.required_material.RequiredMaterial.name">
+<code class="descname">name</code><a class="headerlink" href="#app.models.required_material.RequiredMaterial.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to store the required material, or a descirption of it, as a string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.required_material.RequiredMaterial.opportunity_id">
+<code class="descname">opportunity_id</code><a class="headerlink" href="#app.models.required_material.RequiredMaterial.opportunity_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column storing the ForeignKey for the opportunity.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.models.tag">
+<span id="app-models-tag-module"></span><h2>app.models.tag module<a class="headerlink" href="#module-app.models.tag" title="Permalink to this headline">¶</a></h2>
+<p>Tag model</p>
+<p>Currently just Tag</p>
+<dl class="class">
+<dt id="app.models.tag.Tag">
+<em class="property">class </em><code class="descclassname">app.models.tag.</code><code class="descname">Tag</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/models/tag.html#Tag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.tag.Tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.models.helpers.Base" title="app.models.helpers.Base"><code class="xref py py-class docutils literal"><span class="pre">app.models.helpers.Base</span></code></a></p>
+<p>Tag model to store a tag for an opportunity</p>
+<dl class="attribute">
+<dt id="app.models.tag.Tag.id">
+<code class="descname">id</code><a class="headerlink" href="#app.models.tag.Tag.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.tag.Tag.name">
+<code class="descname">name</code><a class="headerlink" href="#app.models.tag.Tag.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to store the tag, or a description of it, as a string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.tag.Tag.opportunities">
+<code class="descname">opportunities</code><a class="headerlink" href="#app.models.tag.Tag.opportunities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relationship Column to store the many to many to opportunities.  It operates like a list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.tag.Tag.users_following">
+<code class="descname">users_following</code><a class="headerlink" href="#app.models.tag.Tag.users_following" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relationship Column to store the many to many to users.  It operates like a list.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.models.users">
+<span id="app-models-users-module"></span><h2>app.models.users module<a class="headerlink" href="#module-app.models.users" title="Permalink to this headline">¶</a></h2>
+<p>Definition of the User model.</p>
+<dl class="class">
+<dt id="app.models.users.User">
+<em class="property">class </em><code class="descclassname">app.models.users.</code><code class="descname">User</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/models/users.html#User"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.users.User" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.models.helpers.Base" title="app.models.helpers.Base"><code class="xref py py-class docutils literal"><span class="pre">app.models.helpers.Base</span></code></a></p>
+<p>User model for use with sqlalchemy.</p>
+<dl class="method">
+<dt id="app.models.users.User.add_role">
+<code class="descname">add_role</code><span class="sig-paren">(</span><em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/models/users.html#User.add_role"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.users.User.add_role" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the role to the user</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>role</strong> (<em>str</em>) – The role to add.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.models.users.User.check_role">
+<code class="descname">check_role</code><span class="sig-paren">(</span><em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/models/users.html#User.check_role"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.users.User.check_role" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks the role for a user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>role</strong> (<em>str</em>) – The role to check.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">bool – true if the user has the role, false if otherwise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.users.User.email">
+<code class="descname">email</code><a class="headerlink" href="#app.models.users.User.email" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to store the email</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.users.User.id">
+<code class="descname">id</code><a class="headerlink" href="#app.models.users.User.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.users.User.opportunities_following">
+<code class="descname">opportunities_following</code><a class="headerlink" href="#app.models.users.User.opportunities_following" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relationship Column to store the many to many to the opportunities.  It operates like a list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="app.models.users.User.remove_role">
+<code class="descname">remove_role</code><span class="sig-paren">(</span><em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/models/users.html#User.remove_role"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.users.User.remove_role" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the role from the user</p>
+<p>Returns true if the user had the role and successfully deleted it.
+Returns false if the user doesn’t have the role.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>role</strong> (<em>str</em>) – The role to remove.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">bool - true if the role was successfully deleted, false if the user didn’t have the role</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.users.User.roles">
+<code class="descname">roles</code><a class="headerlink" href="#app.models.users.User.roles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relationship Column creating the one-to-many relationship.  It operates like a list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="app.models.users.User.tags_following">
+<code class="descname">tags_following</code><a class="headerlink" href="#app.models.users.User.tags_following" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relationship Column to store the many to many to tags.  It operates like a list.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.models">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app.models" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="app.views.html" class="btn btn-neutral float-right" title="app.views package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="app.core.html" class="btn btn-neutral" title="app.core package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Rodda John.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
