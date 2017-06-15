@@ -9,6 +9,7 @@ from httplib2 import Http
 import logging
 import json
 import requests
+import os
 
 LOG = logging.getLogger(__name__)
 
@@ -28,7 +29,7 @@ def login():
     if 'code' not in request.args:
         auth_uri = flow.step1_get_authorize_url()
         return redirect(auth_uri)
-            
+    
     else:
         auth_code = request.args.get('code')
         credentials = flow.step2_exchange(auth_code)
@@ -39,7 +40,7 @@ def login():
             LOG.debug('Non stuy.edu email')
             flash('You must use a stuy.edu email address')
             return redirect(url_for('public.controller.index'))
-                
+        
         session['token'] = credentials.access_token
         u = User.query.filter_by(email = user_information['email']).first()
 
