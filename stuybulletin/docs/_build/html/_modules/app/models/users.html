@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>app.models.users &mdash; expert-octo-fortnight 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="expert-octo-fortnight 0.0.1 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> expert-octo-fortnight
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/app.html">app package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">expert-octo-fortnight</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>app.models.users</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for app.models.users</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot; Definition of the User model.  &quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">Text</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="k">import</span> <span class="n">relationship</span><span class="p">,</span> <span class="n">backref</span>
+<span class="kn">from</span> <span class="nn">werkzeug.security</span> <span class="k">import</span> <span class="n">generate_password_hash</span><span class="p">,</span> <span class="n">check_password_hash</span>
+
+<span class="kn">from</span> <span class="nn">app.models.helpers</span> <span class="k">import</span> <span class="n">Base</span>
+<span class="kn">from</span> <span class="nn">app.models.permissions</span> <span class="k">import</span> <span class="n">Role</span>
+<span class="kn">from</span> <span class="nn">app.extensions</span> <span class="k">import</span> <span class="n">db</span>
+<span class="kn">from</span> <span class="nn">app.models.relationships</span> <span class="k">import</span> <span class="n">tags_following</span><span class="p">,</span> <span class="n">opportunities_following</span>
+
+<div class="viewcode-block" id="User"><a class="viewcode-back" href="../../../source/app.models.html#app.models.users.User">[docs]</a><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; User model for use with sqlalchemy. &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; __repr__ definition for the User model</span>
+
+<span class="sd">        Should display as (for user with id 1): &lt;User ID: 1&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;User ID: </span><span class="si">%d</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="c1">#fname = Column(String(64), unique = False, nullable = False)</span>
+    <span class="c1">#&quot;&quot;&quot; Column to store first name. &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#lname = Column(String(64), unique = False, nullable = False)</span>
+    <span class="c1">#&quot;&quot;&quot; Column to store last name. &quot;&quot;&quot;</span>
+
+    <span class="n">email</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Column to store the email &quot;&quot;&quot;</span>
+    
+    <span class="n">roles</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s1">&#39;Role&#39;</span><span class="p">,</span> <span class="n">backref</span> <span class="o">=</span> <span class="s1">&#39;user&#39;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Relationship Column creating the one-to-many relationship.  It operates like a list. &quot;&quot;&quot;</span>
+
+    <span class="n">tags_following</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s1">&#39;Tag&#39;</span><span class="p">,</span>
+                                  <span class="n">secondary</span> <span class="o">=</span> <span class="n">tags_following</span><span class="p">,</span>
+                                  <span class="n">back_populates</span> <span class="o">=</span> <span class="s1">&#39;users_following&#39;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Relationship Column to store the many to many to tags.  It operates like a list. &quot;&quot;&quot;</span>
+
+    <span class="n">opportunities_following</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s1">&#39;Opportunity&#39;</span><span class="p">,</span>
+                                           <span class="n">secondary</span> <span class="o">=</span> <span class="n">opportunities_following</span><span class="p">,</span>
+                                           <span class="n">back_populates</span> <span class="o">=</span> <span class="s1">&#39;users_following&#39;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; Relationship Column to store the many to many to the opportunities.  It operates like a list. &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="User.add_role"><a class="viewcode-back" href="../../../source/app.models.html#app.models.users.User.add_role">[docs]</a>    <span class="k">def</span> <span class="nf">add_role</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Adds the role to the user</span>
+
+<span class="sd">        :param role: The role to add.</span>
+<span class="sd">        :type role: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Role</span><span class="p">(</span><span class="n">role</span> <span class="o">=</span> <span class="n">role</span><span class="p">))</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="User.remove_role"><a class="viewcode-back" href="../../../source/app.models.html#app.models.users.User.remove_role">[docs]</a>    <span class="k">def</span> <span class="nf">remove_role</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Removes the role from the user</span>
+
+<span class="sd">        Returns true if the user had the role and successfully deleted it.</span>
+<span class="sd">        Returns false if the user doesn&#39;t have the role.</span>
+
+<span class="sd">        :param role: The role to remove.</span>
+<span class="sd">        :type role: str</span>
+<span class="sd">        :returns: bool - true if the role was successfully deleted, false if the user didn&#39;t have the role</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">deleted</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">role</span> <span class="o">==</span> <span class="n">role</span><span class="p">:</span>
+                <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+                <span class="n">deleted</span> <span class="o">=</span> <span class="kc">True</span>
+                
+        <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">deleted</span></div>
+
+<div class="viewcode-block" id="User.check_role"><a class="viewcode-back" href="../../../source/app.models.html#app.models.users.User.check_role">[docs]</a>    <span class="k">def</span> <span class="nf">check_role</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Checks the role for a user.</span>
+
+<span class="sd">        :param role: The role to check.</span>
+<span class="sd">        :type role: str</span>
+<span class="sd">        :returns: bool -- true if the user has the role, false if otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">role</span> <span class="o">==</span> <span class="n">role</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div></div>
+            
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Rodda John.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
