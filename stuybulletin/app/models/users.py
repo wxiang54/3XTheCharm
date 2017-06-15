@@ -38,8 +38,7 @@ class User(Base):
 
     opportunities_following = relationship('Opportunity',
                                            secondary = opportunities_following,
-                                           back_populates = 'users_following',
-                                           lazy = 'dynamic')
+                                           back_populates = 'users_following')
     """ Relationship Column to store the many to many to the opportunities.  It operates like a list. """
 
     def add_role(self, role):

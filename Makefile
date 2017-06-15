@@ -11,10 +11,10 @@ setup:
 	pip install -r requirements.txt
 
 run:
-	./manage.py devserver -p 5000
+	./stuybulletin/manage.py devserver -p 5000
 
 production:
-	./manage.py --config_prod -p 5000 -l logs devserver
+	./stuybulletin/manage.py --config_prod -p 5000 -l logs devserver
 
 clean:
 	rm -rf *~
