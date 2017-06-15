@@ -16,9 +16,6 @@ LOG = logging.getLogger(__name__)
 @auth_mod.route('/')
 def index():
     return redirect(url_for("auth.controller.login"))
-
-
-
 @auth_mod.route('/login')
 def login():
     if 'token' in session and 'id' in session:
