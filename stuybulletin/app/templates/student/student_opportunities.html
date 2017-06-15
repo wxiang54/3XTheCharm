@@ -21,6 +21,7 @@
     Sort by <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
+    <li><a href="/student/sort-opportunities?sort_by=alphabetical">Alphabetical</a></li>
     <li><a href="/student/sort-opportunities?sort_by=deadline">Soonest Deadline</a></li>
     <li><a href="/student/sort-opportunities?sort_by=reverse_deadline">Latest Deadline</a></li>
     <li><a href="/student/sort-opportunities?sort_by=recent">Recent</a></li>
@@ -62,13 +63,8 @@
         <h3> <a href="/student/opportunity/{{o.id}}">{{ o.name }}</a> </h3>
       </div>
       <div class="col-md-1">
-        {% if o in g.user.opportunities_following %}
-        <input class="tog" name="starbox" type="checkbox" value="{{o}}" checked/>
-        <p class="toggle" id="tog"+opportunities.items[loop.index0]>&#9733;</p>
-        {% else %}
-        <input class="tog" name="starbox" type="checkbox" value="{{o}}"/>
+        <input class="tog" type="checkbox" />
         <p class="toggle" id="tog"+opportunities.items[loop.index0]>&#9734;</p>
-        {% endif %}
       </div>
     </div>
     <p>{{ o.description }}</p>

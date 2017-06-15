@@ -305,8 +305,10 @@ def remove_opportunity(op_id = 0):
 def sort_opportunities(page = 1):
     #this doesnt actually work if you look closely LMAO
     sort_by = request.args.get("sort_by")
-    if sort_by == "deadline":
+    if sort_by == "alphabetical":
         opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False) 
+    elif sort_by == "deadline":
+        opportunities = Opportunity.query.order_by("description").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False) 
     elif sort_by == "reverse_deadline":
         opportunities = Opportunity.query.order_by("hours").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     else:

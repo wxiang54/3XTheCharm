@@ -1,7 +1,6 @@
 from app.blueprints import student_mod
 from flask import url_for, request, session, current_app, redirect, g, render_template, request
 from sqlalchemy import or_
-from flask.ext.sqlalchemy import Pagination
 from app.models.opportunities import Opportunity
 from app.core.authentication import require_login, require_role
 import logging
@@ -32,8 +31,7 @@ def opportunities(page = 1):
     if request.method == 'POST':
         if (request.form.getlist('starbox')):
             for i in request.form.getlist('starbox'):
-                g.user.opportunities_following.append(i)
-                #################
+                add_tag(i, "starred")
 
     search_field = "" #session['search'] if 'search' in session else ''
     opportunities = Opportunity.query.filter(
@@ -61,22 +59,6 @@ def my_opportunities(page = 1): ##UNNECESSARY?
 
     return 'student.controller.my_opportunities'
 
-def paginate(query, page, per_page=20, error_out=True):
-    if error_out and page < 1:
-        abort(404)
-    items = query.limit(per_page).offset((page - 1) * per_page).all()
-    if not items and page != 1 and error_out:
-        abort(404)
-
-    # No need to count if we're on the first page and there are fewer
-    # items than we expected.
-    if page == 1 and len(items) < per_page:
-        total = len(items)
-    else:
-        total = query.order_by(None).count()
-
-    return Pagination(query, page, per_page, total, items)
-
 @student_mod.route('/starred_opportunities/<int:page>')
 @require_login
 @require_role('student')
@@ -91,7 +73,9 @@ def starred_opportunities(page = 1):
     :type page: int
     """
 
-    opportunities = paginate(g.user.opportunities_following, page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+
+    #opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
     return render_template("student/starred_opportunities.html", opportunities = opportunities)
 
@@ -149,8 +133,10 @@ def search(page = 1):
 def sort_opportunities(page = 1):
     sort_by = request.args.get("sort_by")
     #this doesnt actually work if you look closely LMAO
-    if sort_by == "deadline":
-        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    if sort_by == "alphabetical":
+        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False) 
+    elif sort_by == "deadline":
+        opportunities = Opportunity.query.order_by("description").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False) 
     elif sort_by == "reverse_deadline":
         opportunities = Opportunity.query.order_by("hours").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     else:
