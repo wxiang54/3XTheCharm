@@ -29,8 +29,17 @@
       {% with messages = get_flashed_messages() %} {% if messages %}
       <ul class=flashes>
         {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
+	  <div class="alert alert-info" id="message{{ loop.index }}">
+	    {{ message }}
+	  </div>
+	  <script>
+	    window.setTimeout(function() {
+	    $("#message{{ loop.index }}").fadeTo(500, 0).slideUp(500, function(){
+	    $(this).remove(); 
+	    });
+	    }, 3000);
+	  </script>
+	{% endfor %}
       </ul>
       {% endif %} {% endwith %} {% block body %} {% endblock %}
     </div>
