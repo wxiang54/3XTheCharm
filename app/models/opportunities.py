@@ -46,7 +46,8 @@ class Opportunity(Base):
 
     users_following = relationship('User',
                                    secondary = opportunities_following,
-                                   back_populates = 'opportunities_following')
+                                   back_populates = 'opportunities_following',
+                                   lazy = 'dynamic')
     """ Relationship Column to store the many to many to the users.  It operates like a list. """
 
     link = Column(String(512), unique = False, nullable = True)
