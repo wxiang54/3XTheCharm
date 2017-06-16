@@ -94,3 +94,9 @@ williamX -- 2017--06-09 2:00
 * fixed editing issue with required_materials and tag names not processing correctly in frontend
 * filtered out repeat entries in required_names and tags
 * suppressed "invalid int for hours" error by setting default to 0
+
+jiaqiG -- 2017--06-13 0:00
+* worked on starred, done with front end
+
+jiaqiG -- 2017--06-14 0:00
+* updated readme, missing deployment info
