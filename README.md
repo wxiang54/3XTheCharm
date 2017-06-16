@@ -1,6 +1,6 @@
 [<p align="center"><img src="docs/stuybulletin.png" alt="stuybulletin" width="450" height="auto"></p>][stuybulletin]
 
-StuyBulletin
+stuybulletin
 ============
 William Xiang, Rodda John, Nancy Cao, Jiaqi Gao pd 8
 SoftDev Final Project
@@ -12,7 +12,7 @@ SoftDev Final Project
 
 [logo]:docs/stuybulletin.png
 
-
+StuyBulletin is platform built for Stuyvesant High School students to effectively find opportunities that best suit their interests. With a collection of programs and events curated by Stuyvesant's own Internship Coordinator, students can select filters such as age requirement and approaching deadlines, as well as star opportunities that they would like to apply for. 
 
 ## How to run the project
 1. Install all dependencies:  `$make setup`
