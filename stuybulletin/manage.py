@@ -11,6 +11,7 @@ COMMANDS:
     shell                 Starts a python shell in app context
     gen_opportunities     Generates test users and opportunities
     rm_opportunities      Remove all opportunities
+    gen_opportunities     Generates opportunities
 
 USAGE:
     manage.py devserver [-p NUM] [-l DIR] [--config_prod]
@@ -19,6 +20,7 @@ USAGE:
     manage.py shell [--config_prod]
     manage.py gen_opportunities [--config_prod]
     manage.py rm_opportunities [--config_prod]
+    manage.py gen_opportunities [--config_prod]
 
 OPTIONS:
     --config_prod         Load the production configurations instead of development
@@ -216,7 +218,7 @@ def shell():
     app = create_app(parse_options())
     app.app_context().push()
     Shell(make_context=lambda: dict(app=app, db=db)).run(no_ipython=False, no_bpython=False)
-'''
+
 @command
 def gen_opportunities():
     import app.models as models
@@ -242,7 +244,7 @@ def gen_opportunities():
     f_name.close()
     f_desc.close()
     f_orgs.close()
-'''
+
 
 @command
 def rm_opportunities():
