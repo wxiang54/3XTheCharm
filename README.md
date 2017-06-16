@@ -1,17 +1,18 @@
-[<p align="center"><img src="doc/stuybulletin.png" alt="node-apn" width="450" height="auto"></p>][stuybulletin]
+[<p align="center"><img src="docs/stuybulletin.png" alt="stuybulletin" width="450" height="auto"></p>][stuybulletin]
 
-stuybulletin
+StuyBulletin
 ============
+William Xiang, Rodda John, Nancy Cao, Jiaqi Gao pd 8
+SoftDev Final Project
 
 >  A continuous source of opportunities compiled for Stuyvesant High School students
 
 [![Build Status](https://travis-ci.org/wxiang54/3XTheCharm.svg?branch=master)](https://travis-ci.org/wxiang54/3XTheCharm.svg)
 [![Coverage Status](https://coveralls.io/repos/github/wxiang54/3XTheCharm/badge.svg?branch=master)](https://coveralls.io/github/wxiang54/3XTheCharm?branch=master)
 
-[logo]:doc/stuybulletin.png
+[logo]:docs/stuybulletin.png
 
-William Xiang, Rodda John, Nancy Cao, Jiaqi Gao pd 8
-SoftDev Final Project
+
 
 ## How to run the project
 1. Install all dependencies:  `$make setup`
