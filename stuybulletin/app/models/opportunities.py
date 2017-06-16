@@ -33,7 +33,7 @@ class Opportunity(Base):
     hours = Column(Integer, unique = False, nullable = True)
     """ Column to store the hours per week, on average, that an opportunity may entail, as a number. """
 
-    deadline = Column(DateTime, unique = False, nullable = True)
+    deadline = Column(String(128), unique = False, nullable = True)
     """ Column to store the deadline for applying to an opportunity, as a datetime object. """
 
     required_materials = relationship('RequiredMaterial', backref = 'opportunity')

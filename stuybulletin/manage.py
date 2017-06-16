@@ -219,6 +219,7 @@ def shell():
     app.app_context().push()
     Shell(make_context=lambda: dict(app=app, db=db)).run(no_ipython=False, no_bpython=False)
 
+'''
 @command
 def gen_opportunities():
     import app.models as models
@@ -244,7 +245,7 @@ def gen_opportunities():
     f_name.close()
     f_desc.close()
     f_orgs.close()
-
+'''
 
 @command
 def rm_opportunities():

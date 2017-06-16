@@ -80,7 +80,7 @@ def parsePDF(filename):
 
                 
 if __name__ == "__main__":
-    app = create_app(get_config('app.config.Production'))
+    app = create_app(get_config('app.config.Testing'))
     app.app_context().push()
     for filename in files:
         parsePDF(DATA_DIR + filename)

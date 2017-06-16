@@ -31,7 +31,9 @@ def opportunities(page = 1):
     if request.method == 'POST':
         if (request.form.getlist('starbox')):
             for i in request.form.getlist('starbox'):
-                add_tag(i, "starred")
+                i.users_following.append(g.user)
+
+        db.session.commit()
 
     search_field = "" #session['search'] if 'search' in session else ''
     opportunities = Opportunity.query.filter(
