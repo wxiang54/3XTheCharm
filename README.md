@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/stuybulletin.png" alt="stuybulletin" width="450" height="auto"></p>
+
 StuyBulletin
 ============
 William Xiang, Rodda John, Nancy Cao, Jiaqi Gao pd 8
