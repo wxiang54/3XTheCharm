@@ -13,6 +13,8 @@ import os
 
 LOG = logging.getLogger(__name__)
 
+DIR = os.path.dirname(__file__) or '.'
+DIR = DIR[:DIR.find('app')] + "app/static/"
 
 @auth_mod.route('/')
 def index():
@@ -22,7 +24,7 @@ def login():
     if 'token' in session and 'id' in session:
         return redirect(url_for('auth.controller.logout'))
 
-    flow = flow_from_clientsecrets('app/static/' + current_app.config['OAUTH_CLIENT_SECRETS'],
+    flow = flow_from_clientsecrets(DIR + current_app.config['OAUTH_CLIENT_SECRETS'],
                                    scope = 'https://www.googleapis.com/auth/userinfo.email',
                                    redirect_uri = url_for('auth.controller.login', _external = True))
 

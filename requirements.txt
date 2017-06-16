@@ -14,3 +14,4 @@ sphinx_rtd_theme>=0.2.4
 flask-script>=2.0.5
 oauth2client>=4.1.0
 requests>=2.17.3
+pypdf2>=1.26.0
