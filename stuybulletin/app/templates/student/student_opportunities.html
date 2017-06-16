@@ -34,10 +34,9 @@
     <button class="accordion">Category</button>
     <div class="panel">
       <br>
-      <input type="checkbox"><label>&nbsp; Technology</label> <br>
-      <input type="checkbox"><label>&nbsp; Theater</label> <br>
-      <input type="checkbox"><label>&nbsp; Volunteering</label> <br>
-      <input type="checkbox"><label>&nbsp; Research</label> <br>
+      {% for t in tags %}
+      <input type="checkbox"><label>&nbsp; {{t}}</label> <br>
+      {% endfor %}
     </div>
     <button class="accordion">Grade level</button>
     <div class="panel">

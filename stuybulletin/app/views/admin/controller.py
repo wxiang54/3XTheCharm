@@ -33,6 +33,8 @@ def opportunities(page = 1):
     :type page: int
     """
 
+    tags = ["Technology", "Theater", "Volunteering", "Volunteering", "Research", "Environment"]
+
     search_field = "" #session['search'] if 'search' in session else ''
     opportunities = Opportunity.query.filter(
         or_(Opportunity.name.like('%' + search_field + '%'),
@@ -43,7 +45,7 @@ def opportunities(page = 1):
     # Implement the whole suggestion thing
     #opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
-    return render_template("admin/admin_opportunities.html", opportunities = opportunities, search_field = search_field)
+    return render_template("admin/admin_opportunities.html", opportunities = opportunities, search_field = search_field, tags = tags)
 
 
 # DON'T NEED
@@ -209,12 +211,12 @@ def edit_opportunity(op_id = 0):
         start_time = datetime(year=2020, month=1, day=1, hour=0, minute=0)
 
     end_time = str(request.form["end_time"])
-    
+
     try:
         end_time = datetime(year=int(end_time[:4]), month=int(end_time[5:7]), day=int(end_time[8:10]), hour=int(end_time[11:13]), minute=int(end_time[14:16]))
     except:
         end_time = datetime(year=2020, month=1, day=1, hour=0, minute=0)
-        
+
     if isinstance(request.form['hours'], (int, long)) or isinstance(request.form['hours'], float):
         hours = int(request.form['hours'])
     else:
@@ -226,7 +228,7 @@ def edit_opportunity(op_id = 0):
     except:
         deadline = datetime(year=2020, month=1, day=1, hour=0, minute=0)
 
-        
+
     required_materials_raw = request.form['required_materials']
     tags_raw = request.form['tags']
 
@@ -306,9 +308,9 @@ def sort_opportunities(page = 1):
     #this doesnt actually work if you look closely LMAO
     sort_by = request.args.get("sort_by")
     if sort_by == "alphabetical":
-        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False) 
+        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     elif sort_by == "deadline":
-        opportunities = Opportunity.query.order_by("description").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False) 
+        opportunities = Opportunity.query.order_by("description").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     elif sort_by == "reverse_deadline":
         opportunities = Opportunity.query.order_by("hours").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     else:

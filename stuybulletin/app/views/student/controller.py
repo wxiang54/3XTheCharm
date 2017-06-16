@@ -2,6 +2,7 @@ from app.blueprints import student_mod
 from flask import url_for, request, session, current_app, redirect, g, render_template, request
 from sqlalchemy import or_
 from app.models.opportunities import Opportunity
+from app.models.tag import Tag
 from app.core.authentication import require_login, require_role
 import logging
 import json
@@ -35,6 +36,11 @@ def opportunities(page = 1):
 
         db.session.commit()
 
+    #for i in Opportunity.query.all():
+    #    print i.tags
+
+    tags = ["Technology", "Theater", "Volunteering", "Volunteering", "Research"]
+
     search_field = "" #session['search'] if 'search' in session else ''
     opportunities = Opportunity.query.filter(
         or_(Opportunity.name.like('%' + search_field + '%'),
@@ -45,7 +51,7 @@ def opportunities(page = 1):
     # Implement the whole suggestion thing
     #opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
-    return render_template("student/student_opportunities.html", opportunities = opportunities, search_field = search_field)
+    return render_template("student/student_opportunities.html", opportunities = opportunities, search_field = search_field, tags = tags)
 
 @student_mod.route('/my_opportunities/<int:page>')
 @require_login
@@ -136,9 +142,9 @@ def sort_opportunities(page = 1):
     sort_by = request.args.get("sort_by")
     #this doesnt actually work if you look closely LMAO
     if sort_by == "alphabetical":
-        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False) 
+        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     elif sort_by == "deadline":
-        opportunities = Opportunity.query.order_by("description").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False) 
+        opportunities = Opportunity.query.order_by("description").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     elif sort_by == "reverse_deadline":
         opportunities = Opportunity.query.order_by("hours").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     else:
