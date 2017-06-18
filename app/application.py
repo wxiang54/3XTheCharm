@@ -2,15 +2,15 @@ from importlib import import_module
 import locale
 import os
 
-import app as app_root
-from app.blueprints import all_blueprints
-from app.extensions import mail, db
+#import app as app_root
+from blueprints import all_blueprints
+from extensions import mail, db
 
-import app.core.authentication
+import core.authentication
 
 from flask import Flask
 
-APP_ROOT_FOLDER = os.path.abspath(os.path.dirname(app_root.__file__))
+APP_ROOT_FOLDER = os.path.abspath(os.path.dirname(__file__))
 TEMPLATE_FOLDER = os.path.join(APP_ROOT_FOLDER, 'templates')
 STATIC_FOLDER = os.path.join(APP_ROOT_FOLDER, 'static')
 

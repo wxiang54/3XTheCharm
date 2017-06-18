@@ -34,8 +34,10 @@ def login():
     
     else:
         auth_code = request.args.get('code')
-        credentials = flow.step2_exchange(auth_code)
-
+        try:
+            credentials = flow.step2_exchange(auth_code)
+        except:
+            return "Invalid oauth code. Please log in again!"
         user_information = get_user_information(credentials.to_json())
 
         if not email_in_organization(user_information['email'], 'stuy.edu'):

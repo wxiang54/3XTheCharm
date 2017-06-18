@@ -11,6 +11,7 @@ COMMANDS:
     shell                 Starts a python shell in app context
     gen_opportunities     Generates test users and opportunities
     rm_opportunities      Remove all opportunities
+    gen_opportunities     Generates opportunities
 
 USAGE:
     manage.py devserver [-p NUM] [-l DIR] [--config_prod]
@@ -19,6 +20,7 @@ USAGE:
     manage.py shell [--config_prod]
     manage.py gen_opportunities [--config_prod]
     manage.py rm_opportunities [--config_prod]
+    manage.py gen_opportunities [--config_prod]
 
 OPTIONS:
     --config_prod         Load the production configurations instead of development
@@ -49,14 +51,11 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 # Application imports
-from app.application import create_app, get_config
-from app.extensions import db
-import app.models
+from application import create_app, get_config
+from extensions import db
+import models
 
 OPTIONS = docopt(__doc__) if __name__ == '__main__' else dict()
-DIR = os.path.dirname(__file__) or '.'
-DIR += '/'
-
 
 class CustomFormatter(logging.Formatter):
     """ Adds the custom formatter for logging (the character at the beginning of the log) """
@@ -152,7 +151,7 @@ def devserver():
 
 @command
 def createdb():
-    print """ Creates the database
+    """ Creates the database
 
     It creates the app based on the flags passed into the script, thus the correct configuration is loaded
     """
@@ -220,6 +219,7 @@ def shell():
     app.app_context().push()
     Shell(make_context=lambda: dict(app=app, db=db)).run(no_ipython=False, no_bpython=False)
 
+'''
 @command
 def gen_opportunities():
     import app.models as models
@@ -227,9 +227,9 @@ def gen_opportunities():
     app = create_app(parse_options())
     app.app_context().push()
 
-    f_name = open(DIR + "filler/name.txt", "r")
-    f_desc = open(DIR + "filler/desc.txt", "r")
-    f_orgs = open(DIR + "filler/orgs.txt", "r")
+    f_name = open("filler/name.txt", "r")
+    f_desc = open("filler/desc.txt", "r")
+    f_orgs = open("filler/orgs.txt", "r")
     L_name = f_name.read().split("\n")
     L_desc = f_desc.read().split("\n")
     L_orgs = f_orgs.read().split("\n")
@@ -245,16 +245,20 @@ def gen_opportunities():
     f_name.close()
     f_desc.close()
     f_orgs.close()
-
+'''
 
 @command
 def rm_opportunities():
     for u in Opportunity.query.all():
         db.session.delete(u)
+
     db.session.commit()
 
 
 if __name__ == '__main__':
-    createdb()
-    #migratedb()
-    #devserver()
+    signal.signal(signal.SIGINT, lambda *_: sys.exit(0)) # Catches SIGINT and exits "theoretically" nicely
+
+    if OPTIONS['--port'] and not OPTIONS['--port'].isdigit():
+        print('ERROR: Port should be a number.')
+        sys.exit(1)
+    getattr(command, 'chosen')()

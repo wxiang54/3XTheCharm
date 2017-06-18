@@ -20,6 +20,7 @@ clean:
 	rm -rf *~
 	rm -rf *\#
 	rm -rf .\#*
+	rm *.log
 
 test:	
 	py.test --cov-report html --cov app tests
