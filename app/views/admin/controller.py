@@ -53,7 +53,7 @@ def opportunities(page = 1):
 @require_login
 @require_role('admin')
 def my_opportunities(page = 1):
-    """ Returns all opportunities that a admin has created or approved
+    """ Returns all opportunities that an admin has created or approved
 
     :param page: Page to return
     :type page: int
@@ -140,10 +140,12 @@ def add_opportunity(op_id = 0): # init param?
         required_materials_raw = request.form['required_materials']
         tags_raw = request.form['tags']
 
-        required_materials = required_materials_raw.split(',')
-        tags = tags_raw.split(',')
+        required_materials = [mat.strip() for mat in required_materials_raw.split(',')]
+        tags = [tag.strip() for tag in tags_raw.split(',')]
 
         link = request.form['link']
+        if link[:4] != "http":
+            link = "http://" + link
 
         o = Opportunity(name = name,
                         description = description,
@@ -182,7 +184,7 @@ def edit_opportunity_form(op_id = 0):
     opportunity = Opportunity.query.filter_by(id = op_id).first()
     deadline = str(opportunity.deadline)[:10] + "T" + str(opportunity.deadline)[11:]
     start_time = str(opportunity.start_time)[:10] + "T" + str(opportunity.start_time)[11:]
-    end_time = str(opportunity.start_time)[:10] + "T" + str(opportunity.start_time)[11:]
+    end_time = str(opportunity.end_time)[:10] + "T" + str(opportunity.end_time)[11:]
 
     return render_template("admin/admin_edit.html", opportunity = opportunity,
                                                     deadline = deadline,
@@ -217,10 +219,11 @@ def edit_opportunity(op_id = 0):
     except:
         end_time = datetime(year=2020, month=1, day=1, hour=0, minute=0)
 
-    if isinstance(request.form['hours'], (int, long)) or isinstance(request.form['hours'], float):
-        hours = int(request.form['hours'])
-    else:
-        hours = 0
+
+    try:
+        hours = float(request.form['hours'])
+    except:
+        hours = 0.0
 
     deadline = str(request.form["deadline"])
     try:
@@ -237,6 +240,8 @@ def edit_opportunity(op_id = 0):
     print required_materials
     print tags
     link = request.form['link']
+    if link[:4] != "http":
+        link = "http://" + link
 
     """
     start_time = datetime(year = 2017, month = 1, day = 20) # Figure this out
@@ -313,7 +318,7 @@ def sort_opportunities(page = 1):
         opportunities = Opportunity.query.order_by("description").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     elif sort_by == "reverse_deadline":
         opportunities = Opportunity.query.order_by("hours").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-    else:
+    else: #Recent
         opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
     return render_template("admin/admin_opportunities.html", opportunities = opportunities)
 

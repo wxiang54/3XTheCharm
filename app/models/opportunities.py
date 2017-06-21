@@ -2,7 +2,7 @@
 
 Currently just opportunity"""
 
-from sqlalchemy import Column, String, DateTime, Integer
+from sqlalchemy import Column, String, DateTime, Float
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -30,7 +30,7 @@ class Opportunity(Base):
     end_time = Column(DateTime, unique = False, nullable = True)
     """ Column to store the end time for the opportunity, as a datetime object. """
 
-    hours = Column(Integer, unique = False, nullable = True)
+    hours = Column(Float, unique = False, nullable = True)
     """ Column to store the hours per week, on average, that an opportunity may entail, as a number. """
 
     deadline = Column(String(128), unique = False, nullable = True)

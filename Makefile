@@ -10,7 +10,7 @@ setup:
 	./manage.py createdb
 	./manage.py migratedb
 
-setup-production:
+setup-prod:
 	pip install -r requirements.txt
 	./manage.py createdb
 	./manage.py migratedb
