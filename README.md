@@ -14,17 +14,16 @@ SoftDev Final Project
 
 StuyBulletin is platform built for Stuyvesant High School students to effectively find opportunities that best suit their interests. With a collection of programs and events curated by Stuyvesant's own Internship Coordinator, students can select filters such as age requirement and approaching deadlines, as well as star opportunities that they would like to apply for.
 
-## How to run the project
-1. Install all dependencies:  `$make setup`
+## Setup
+Install dependencies and perform preliminary DB setup:  `$make setup`
 
   * If you get an `mysql_config` error, that means you need to install the appropriate mysql package for your OS
     * OSX: `$brew install mysql`
     * Linux: `$apt-get install libmysqlclient-dev`
     * Windows: `xd`
-  * If you get more errors, especially involving `egg_info`, it just might be over for you.
+  * If you get more errors, especially involving `egg_info`, it just might be over for you
 
-2. Create the database:  `$./manage.py createdb`
-
-3. Migrate the database:  `$./manage.py migratedb`
-
-4. Run the server:  `$make run`
+## Running
+* If deploying locally, run the local server: `$make run`
+* If deploying live (assuming via Apache), copy the __stuybulletin.conf__ file from the repo's root directory to where it's supposed to go, supposedly __/etc/apache2/sites-enabled/__.
+  * If your domain happens to not exactly be "stuybulletin.stuycs.org", be sure to modify the "ServerName" line in __stuybulletin.conf__ to reflect your different domain.

@@ -6,9 +6,13 @@ default:
 	@echo "    make test         # Runs unit tests"
 
 setup:
-	virtualenv env
-	. env/bin/activate
 	pip install -r requirements.txt
+	./manage.py createdb
+	./manage.py migratedb
+	chgrp www-data app/testing_data
+	chgrp www-data app/testing_data/app.db
+	chmod g+w app/testing_data
+	chmod g+w app/testing_data/app.db
 
 run:
 	./stuybulletin/manage.py devserver -p 5000
