@@ -9,13 +9,18 @@ setup:
 	pip install -r requirements.txt
 	./manage.py createdb
 	./manage.py migratedb
+
+setup-production:
+	pip install -r requirements.txt
+	./manage.py createdb
+	./manage.py migratedb
 	chgrp www-data app/testing_data
 	chgrp www-data app/testing_data/app.db
 	chmod g+w app/testing_data
 	chmod g+w app/testing_data/app.db
 
 blumm:
-	./manage.py parseOpps
+	./manage.py parseopps
 
 run:
 	./stuybulletin/manage.py devserver -p 5000

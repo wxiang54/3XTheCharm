@@ -9,14 +9,14 @@ COMMANDS:
     createdb              Create the database
     migratedb             Migrates and upgrads the database
     shell                 Starts a python shell in app context
-    parseOpps             Parses the 3 PDF files in /app/testing_data/ and populates the DB
+    parseopps             Parses the 3 PDF files in /app/testing_data/ and populates the DB
 
 USAGE:
     manage.py devserver [-p NUM] [-l DIR] [--config_prod]
     manage.py createdb [--config_prod]
     manage.py migratedb [--config_prod]
     manage.py shell [--config_prod]
-    manage.py parseOpps [--config_prod]
+    manage.py parseopps [--config_prod]
 
 OPTIONS:
     --config_prod         Load the production configurations instead of development
@@ -216,7 +216,7 @@ def shell():
     Shell(make_context=lambda: dict(app=app, db=db)).run(no_ipython=False, no_bpython=False)
 
 @command
-def parseOpps():
+def parseopps():
     from PyPDF2 import PdfFileReader
     from app.models.opportunities import Opportunity
 
