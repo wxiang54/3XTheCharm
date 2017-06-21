@@ -1,7 +1,7 @@
 """ Definition of the User model.  """
 
 from sqlalchemy import Column, String, Text
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import backref, relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.models.helpers import Base
@@ -36,9 +36,10 @@ class User(Base):
                                   back_populates = 'users_following')
     """ Relationship Column to store the many to many to tags.  It operates like a list. """
 
-    opportunities_following = relationship('Opportunity',
+    opportunities_following = db.relationship('Opportunity',
                                            secondary = opportunities_following,
-                                           back_populates = 'users_following')
+                                           back_populates = 'users_following',
+                                           lazy = 'dynamic')
     """ Relationship Column to store the many to many to the opportunities.  It operates like a list. """
 
     def add_role(self, role):

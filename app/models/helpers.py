@@ -20,3 +20,5 @@ class Base(db.Model):
     
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=True)
     """ Primary key for SQL Alchemy models. """
+
+    db = db

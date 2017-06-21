@@ -30,7 +30,8 @@ function toggling(){
 	    var val = $(this).attr('value')
 	    var obj = $("input[value=" + val + "]")
 	    var xhttp = new XMLHttpRequest();
-	    xhttp.open("POST", "/student/update_following/" + val + "/" + obj.is(":checked") ? 1 : 0, true);
+	    console.log("/student/update_following/" + val + "/" + (obj.is(":checked") ? 1 : 0))
+	    xhttp.open("POST", "/student/update_following/" + val + "/" + (obj.is(":checked") ? 1 : 0), true);
 	    xhttp.send();
 	    
             console.log(this.innerHTML);
@@ -41,7 +42,8 @@ function toggling(){
             this.innerHTML = "☆";
             //boxes[count].checked = false;
           }
-          checking();
+            checking();
+	    window.location = window.location;
       }
   }
 
