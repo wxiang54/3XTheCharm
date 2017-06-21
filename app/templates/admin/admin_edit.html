@@ -19,18 +19,18 @@
         <p>End Time: <input type="datetime-local" name="end_time" value="{{end_time}}"> </p>
         <p>Hours Per Week <input type="text" class="form-control input-md" name="hours" value="{{opportunity.hours}}"></p>
         <p>Required Material(s)<input type="text" class="form-control input-md" name="required_materials" value="
-            {% for r in range(opportunity.required_materials|length) -%}
-            {% if r > 0 %}, {% endif %}
+            {%- for r in range(opportunity.required_materials|length) -%}
+            {%- if r > 0 %}, {% endif -%}
             {{opportunity.required_materials[r].name}}
             {%- endfor %}
             "></p>
                     <p>Tag(s)<input type="text" class="form-control input-md" name="tags" value="
-            {% for t in range(opportunity.tags|length) -%}
-            {% if t > 0 %}, {% endif %}
+            {%- for t in range(opportunity.tags|length) -%}
+            {%- if t > 0 %}, {% endif -%}
             {{opportunity.tags[t].name}}
             {%- endfor %}
             "></p>
-        <p>Link(s)<input type="text" class="form-control input-md" name="link" value="{{opportunity.links}}"></p>
+        <p>Link(s)<input type="text" class="form-control input-md" name="link" value="{{opportunity.link}}"></p>
         <br> <input type="submit" value="Submit">
       </div>
     </div>
