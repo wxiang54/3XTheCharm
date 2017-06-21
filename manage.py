@@ -223,7 +223,8 @@ def parseopps():
     DATA_DIR = "app/static/opp_raw/"
     
     ### GLOBALS ###
-    files = ["opp1.pdf", "opp2.pdf", "opp3.pdf"]
+    files = ["opp1.pdf", "opp2.pdf", 'opp3.pdf']
+    #             , "opp3.pdf"]
     keywords = ["Additional Information", "Schedule of Programs", "List of Academy Locations", "Website", "Application", "Contact", "Contact Information", "Email", "Duration", "Eligibility", "Deadline"]
     oppList = []
 
@@ -318,7 +319,7 @@ def parseopps():
             o.organization += "\n" + opp["Email"]
         #skip duration for now cuz its weird
         if "Eligibility" in opp:
-            o.required_materials = [opp["Eligibility"]]
+            o.add_required_material(opp['Eligibility'])
         if "Deadline" in opp:
             o.deadline = opp["Deadline"]
         #print "added opp: %s" % o.name
