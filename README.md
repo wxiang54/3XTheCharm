@@ -16,12 +16,15 @@ StuyBulletin is platform built for Stuyvesant High School students to effectivel
 
 ## Setup
 1. Install dependencies and perform preliminary DB setup
-  * Run `$sudo make setup-prod`
+* __Deploying locally: run `make setup`__
   * If you get an `mysql_config` error, that means you need to install the appropriate mysql package for your OS
     * OSX: `$brew install mysql`
     * Linux: `$apt-get install libmysqlclient-dev`
     * Windows: `xd`
   * If you get more errors, especially involving `egg_info`, it just might be over for you
+* __Deploying live: `$sudo make setup-prod`__
+  * Sudo privileges are required to change group and ownership of the DB as well as its directory
+    * By default, they should be __$REPO_ROOT/app/testing_data__ and  __$REPO_ROOT/app/testing_data/app.db__, respectively
 
 2. Create the __client_secrets.json__ file in __$REPO_ROOT/app/static/oauth/__
   * The file should follow this format:
