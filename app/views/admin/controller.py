@@ -1,6 +1,6 @@
 from app.blueprints import admin_mod
 from flask import url_for, request, session, current_app, redirect, g, render_template
-from sqlalchemy import or_
+from sqlalchemy import or_, desc
 from datetime import datetime
 from app.models.opportunities import Opportunity
 from app.core.authentication import require_login, require_role
@@ -33,6 +33,20 @@ def opportunities(page = 1):
     :type page: int
     """
 
+    #First deal with search field
+    sort_by = request.args.get("sort_by")
+    if sort_by == "alphabetical":
+        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    elif sort_by == "reverse_alphabetical":
+        opportunities = Opportunity.query.order_by(desc("name")).paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    elif sort_by == "deadline":
+        opportunities = Opportunity.query.order_by("deadline").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    elif sort_by == "reverse_deadline":
+        opportunities = Opportunity.query.order_by(desc("deadline")).paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    else: #Do alphabetical if sort_by is unrecognized
+        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    session["sort_by"] = sort_by
+    
     tags = ["Technology", "Theater", "Volunteering", "Volunteering", "Research", "Environment"]
 
     search_field = "" #session['search'] if 'search' in session else ''
@@ -42,28 +56,10 @@ def opportunities(page = 1):
             Opportunity.organization.like('%' + search_field + '%')
         )).paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
-    # Implement the whole suggestion thing
-    #opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-
     return render_template("admin/admin_opportunities.html", opportunities = opportunities, search_field = search_field, tags = tags)
 
 
-# DON'T NEED
-@admin_mod.route('/my_opportunities/<int:page>')
-@require_login
-@require_role('admin')
-def my_opportunities(page = 1):
-    """ Returns all opportunities that an admin has created or approved
 
-    :param page: Page to return
-    :type page: int
-    """
-
-    # Implement this in the database first
-
-    return 'admin.controller.my_opportunities'
-
-# DONE
 @admin_mod.route('/opportunity/<int:op_id>')
 @require_login
 @require_role('admin')
@@ -93,13 +89,20 @@ def search(page = 1):
     :param page: Page to return
     :type page: int
     """
+    '''
+    if request.args.get("search"):
+        pass
+    else:
+        session.pop("search", None)
+    '''
     search_field = request.args.get('search') if 'search' in request.args else ''
     tags = request.args.get('tags') if 'tags' in request.args else ''
-
+    
+    LOG.debug('Search Field: ' + search_field)
     LOG.debug('Search Field: ' + search_field)
     LOG.debug('Tags: ' + tags)
 
-    opportunities = Opportunity.query.filter(
+    opportunities = Opportunity.query.order_by("name").filter(
         or_(Opportunity.name.like('%' + search_field + '%'),
             Opportunity.description.like('%' + search_field + '%'),
             Opportunity.organization.like('%' + search_field + '%')
@@ -122,21 +125,30 @@ def add_opportunity(op_id = 0): # init param?
         name = request.form['name']
         description = request.form['description']
         organization = request.form['organization']
+        
+        start_time = str(request.form["start_time"])
+        try:
+            start_time = datetime(year=int(start_time[:4]), month=int(start_time[5:7]), day=int(start_time[8:10]), hour=int(start_time[11:13]), minute=int(start_time[14:16]))
+        except:
+            start_time = datetime(year=2020, month=1, day=1, hour=0, minute=0)
 
-        start_time = request.form["start_time"]
-        start_time = datetime(year=int(start_time[:4]), month=int(start_time[5:7]), day=int(start_time[8:10]), hour=int(start_time[11:13]), minute=int(start_time[14:16]))
+        end_time = str(request.form["end_time"])
+        try:
+            end_time = datetime(year=int(end_time[:4]), month=int(end_time[5:7]), day=int(end_time[8:10]), hour=int(end_time[11:13]), minute=int(end_time[14:16]))
+        except:
+            end_time = datetime(year=2020, month=1, day=1, hour=0, minute=0)
 
-        end_time = request.form["end_time"]
-        end_time = datetime(year=int(end_time[:4]), month=int(end_time[5:7]), day=int(end_time[8:10]), hour=int(end_time[11:13]), minute=int(end_time[14:16]))
-
-        if isinstance(request.form['hours'], (int, long)) or isinstance(request.form['hours'], float):
-            hours = int(request.form['hours'])
-        else:
-            hours = 0
-
+        try:
+            hours = float(request.form['hours'])
+        except:
+            hours = 0.0
+    
         deadline = str(request.form["deadline"])
-        deadline = datetime(year=int(deadline[:4]), month=int(deadline[5:7]), day=int(deadline[8:10]), hour=int(deadline[11:13]), minute=int(deadline[14:16]))
-
+        try:
+            deadline = datetime(year=int(deadline[:4]), month=int(deadline[5:7]), day=int(deadline[8:10]), hour=int(deadline[11:13]), minute=int(deadline[14:16]))
+        except:
+            deadline = datetime(year=2020, month=1, day=1, hour=0, minute=0)
+        
         required_materials_raw = request.form['required_materials']
         tags_raw = request.form['tags']
 
@@ -144,7 +156,7 @@ def add_opportunity(op_id = 0): # init param?
         tags = [tag.strip() for tag in tags_raw.split(',')]
 
         link = request.form['link']
-        if link[:4] != "http":
+        if link and link[:4] != "http":
             link = "http://" + link
 
         o = Opportunity(name = name,
@@ -212,8 +224,8 @@ def edit_opportunity(op_id = 0):
     except:
         start_time = datetime(year=2020, month=1, day=1, hour=0, minute=0)
 
-    end_time = str(request.form["end_time"])
 
+    end_time = str(request.form["end_time"])
     try:
         end_time = datetime(year=int(end_time[:4]), month=int(end_time[5:7]), day=int(end_time[8:10]), hour=int(end_time[11:13]), minute=int(end_time[14:16]))
     except:
@@ -224,6 +236,7 @@ def edit_opportunity(op_id = 0):
         hours = float(request.form['hours'])
     except:
         hours = 0.0
+    
 
     deadline = str(request.form["deadline"])
     try:
@@ -240,7 +253,7 @@ def edit_opportunity(op_id = 0):
     print required_materials
     print tags
     link = request.form['link']
-    if link[:4] != "http":
+    if link and link[:4] != "http":
         link = "http://" + link
 
     """
@@ -306,20 +319,3 @@ def remove_opportunity(op_id = 0):
     db.session.commit()
     return redirect(url_for("admin.controller.opportunities", page = 1))
 
-@admin_mod.route('/sort-opportunities')
-@require_login
-@require_role('admin')
-def sort_opportunities(page = 1):
-    #this doesnt actually work if you look closely LMAO
-    sort_by = request.args.get("sort_by")
-    if sort_by == "alphabetical":
-        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-    elif sort_by == "deadline":
-        opportunities = Opportunity.query.order_by("description").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-    elif sort_by == "reverse_deadline":
-        opportunities = Opportunity.query.order_by("hours").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-    else: #Recent
-        opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-    return render_template("admin/admin_opportunities.html", opportunities = opportunities)
-
-#    return 'student.controller.sort_opportunity'
