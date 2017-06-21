@@ -18,8 +18,41 @@ def index():
         return redirect(url_for("student.controller.opportunities"))
     return render_template("welcome.html")
 
+@student_mod.route('/update_following/<int:id>/<int:to_change>', methods=['POST'])
+@require_login
+@require_role('student')
+def update_following(id = 0, to_change = 0):
+    """ Updates whether a user is following a specific opportunity
+
+    :param id: ID of the opportunity to change
+    :type id: int
+    :param to_change: 1 if adding, 0 if removing
+    :type to_change: int
+    :returns: 'Success' if success 'Error' if error
+    """
+
+    opportunity = Opportunity.query.filter_by(id = id)
+
+    LOG.debug('%d, %d' % id, to_change)
+
+    if to_change:
+        if not opportunity in g.users.opportunities_following:
+            g.user.opportunities_following.append(opportunity)
+            LOG.debug('Added ' + str(g.user) + ' to the following list of ' + str(opportunity))
+            return 'Success'
+        else:
+            return 'Error'
+    else:
+        if opportunity in g.users.opportunities_following:
+            g.users.opportunities_following.remove(opportunity)
+            LOG.debug('Removed ' + str(g.user) + ' from the following list of ' + str(opportunity))
+            return 'Success'
+        else:
+            return 'Error'
+    return 'Error'
+
 @student_mod.route('/opportunities')
-@student_mod.route('/opportunities/<int:page>', methods=["POST", "GET"])
+@student_mod.route('/opportunities/<int:page>')
 @require_login
 @require_role('student')
 def opportunities(page = 1):
