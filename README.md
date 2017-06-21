@@ -32,7 +32,9 @@ StuyBulletin is platform built for Stuyvesant High School students to effectivel
      	 "auth_uri":"https://accounts.google.com/o/oauth2/auth",
        	 "token_uri":"https://accounts.google.com/o/oauth2/token",
          "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
-	 "client_secret":"<YOUR CLIENT SECRET HERE>"
+	 "client_secret":"<YOUR CLIENT SECRET HERE>",
+	 "redirect_uris":["http://127.0.0.1/oauth2callback"],
+	 "javascript_origins":["http://127.0.0.1"]
 	}
 }
 ```
