@@ -26,9 +26,15 @@ function toggling(){
     for (var a=0; a<lab.length; a++){
 
       //console.log(boxes[i].checked);
-      lab[a].onclick = function(e){
-        console.log(this.innerHTML);
-          if (this.innerHTML.trim() == "☆"){
+	lab[a].onclick = function(e){
+	    var val = $(this).attr('value')
+	    var obj = $("input[value=" + val + "]")
+	    var xhttp = new XMLHttpRequest();
+	    xhttp.open("POST", "/student/update_following/" + val + "/" + obj.is(":checked") ? 1 : 0, true);
+	    xhttp.send();
+	    
+            console.log(this.innerHTML);
+            if (this.innerHTML.trim() == "☆"){
             this.innerHTML = "&#9733;";
             //boxes[count].checked = true;
           }else{
@@ -53,8 +59,6 @@ function checking(){
       boxes[b].checked = false;
     }else{
       boxes[b].checked = true;
-
-
     }
   }
 }
