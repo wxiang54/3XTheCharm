@@ -7,6 +7,8 @@ from app.core.authentication import require_login, require_role
 import logging
 import json
 
+from app.extensions import db
+
 LOG = logging.getLogger(__name__)
 
 @student_mod.route('/')
@@ -31,21 +33,21 @@ def update_following(id = 0, to_change = 0):
     :returns: 'Success' if success 'Error' if error
     """
 
-    opportunity = Opportunity.query.filter_by(id = id)
-
-    LOG.debug('%d, %d' % id, to_change)
-
-    if to_change:
-        if not opportunity in g.users.opportunities_following:
+    opportunity = Opportunity.query.filter_by(id = id).first()
+    
+    if not to_change:
+        if not opportunity in g.user.opportunities_following:
             g.user.opportunities_following.append(opportunity)
             LOG.debug('Added ' + str(g.user) + ' to the following list of ' + str(opportunity))
+            db.session.commit()
             return 'Success'
         else:
             return 'Error'
     else:
-        if opportunity in g.users.opportunities_following:
-            g.users.opportunities_following.remove(opportunity)
+        if opportunity in g.user.opportunities_following:
+            g.user.opportunities_following.remove(opportunity)
             LOG.debug('Removed ' + str(g.user) + ' from the following list of ' + str(opportunity))
+            db.session.commit()
             return 'Success'
         else:
             return 'Error'
@@ -114,7 +116,7 @@ def starred_opportunities(page = 1):
     :type page: int
     """
 
-    opportunities = Opportunity.query.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+    opportunities = g.user.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
     #opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 

@@ -11,12 +11,12 @@
       <h3>{{ opportunity.name }}</h3>
     </div>
     <div class="col-md-5">
-      {% if o in g.user.opportunities_following %}
-        <input class="tog" name="starbox" type="checkbox" value="{{o}}" checked/>
-        <p class="toggle" id="tog"+opportunities.items[loop.index0]>&#9733;</p>
+      {% if opportunity in g.user.opportunities_following %}
+        <input class="tog" name="starbox" type="checkbox" value="{{ opportunity.id }}" checked/>
+        <p class="toggle" id="tog" value="{{ opportunity.id }}">&#9733;</p>
         {% else %}
-        <input class="tog" name="starbox" type="checkbox" value="{{o}}"/>
-        <p class="toggle" id="tog"+opportunities.items[loop.index0]>&#9734;</p>
+        <input class="tog" name="starbox" type="checkbox" value="{{ opportunity.id }}"/>
+        <p class="toggle" id="tog" value="{{ opportunity.id }}">&#9734;</p>
         {% endif %}
     </div>
   </div>
