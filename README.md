@@ -15,13 +15,32 @@ SoftDev Final Project
 StuyBulletin is platform built for Stuyvesant High School students to effectively find opportunities that best suit their interests. With a collection of programs and events curated by Stuyvesant's own Internship Coordinator, students can select filters such as age requirement and approaching deadlines, as well as star opportunities that they would like to apply for.
 
 ## Setup
-Install dependencies and perform preliminary DB setup:  `$make setup`
-
+1. Install dependencies and perform preliminary DB setup
+  * Run `$sudo make setup`
   * If you get an `mysql_config` error, that means you need to install the appropriate mysql package for your OS
     * OSX: `$brew install mysql`
     * Linux: `$apt-get install libmysqlclient-dev`
     * Windows: `xd`
   * If you get more errors, especially involving `egg_info`, it just might be over for you
+
+2. Create the __client_secrets.json__ file in __$REPO_ROOT/app/static/oauth/__
+  * The file should follow this format:
+```javascript
+{"web":
+	{"client_id":"<YOUR CLIENT ID HERE>",
+   	 "project_id":"gentle-dominion-142315",
+     	 "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+       	 "token_uri":"https://accounts.google.com/o/oauth2/token",
+         "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+	 "client_secret":"<YOUR CLIENT SECRET HERE>"
+	}
+}
+```
+  * You can obtain a pair of CLIENT_ID and CLIENT_SECRET credentials by creating a project in [Google's API Console](https://console.developers.google.com).
+
+3. [Optional] Fill up DB with (real) opportunities from Mr. Blumm's himself
+   * Run `$make blumm`
+   * The parsing script shouldn't take much longer than a year to complete, so please be patient!
 
 ## Running
 * If deploying locally, run the local server: `$make run`

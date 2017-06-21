@@ -9,18 +9,14 @@ COMMANDS:
     createdb              Create the database
     migratedb             Migrates and upgrads the database
     shell                 Starts a python shell in app context
-    gen_opportunities     Generates test users and opportunities
-    rm_opportunities      Remove all opportunities
-    gen_opportunities     Generates opportunities
+    parseOpps             Parses the 3 PDF files in /app/testing_data/ and populates the DB
 
 USAGE:
     manage.py devserver [-p NUM] [-l DIR] [--config_prod]
     manage.py createdb [--config_prod]
     manage.py migratedb [--config_prod]
     manage.py shell [--config_prod]
-    manage.py gen_opportunities [--config_prod]
-    manage.py rm_opportunities [--config_prod]
-    manage.py gen_opportunities [--config_prod]
+    manage.py parseOpps [--config_prod]
 
 OPTIONS:
     --config_prod         Load the production configurations instead of development
@@ -46,7 +42,7 @@ from migrate.versioning import api
 from migrate.exceptions import InvalidRepositoryError, DatabaseAlreadyControlledError
 import imp
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, or_
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -219,42 +215,117 @@ def shell():
     app.app_context().push()
     Shell(make_context=lambda: dict(app=app, db=db)).run(no_ipython=False, no_bpython=False)
 
-'''
 @command
-def gen_opportunities():
-    import app.models as models
-    import random
-    app = create_app(parse_options())
+def parseOpps():
+    from PyPDF2 import PdfFileReader
+    from app.models.opportunities import Opportunity
+
+    DATA_DIR = "app/static/opp_raw/"
+    
+    ### GLOBALS ###
+    files = ["opp1.pdf", "opp2.pdf", "opp3.pdf"]
+    keywords = ["Additional Information", "Schedule of Programs", "List of Academy Locations", "Website", "Application", "Contact", "Contact Information", "Email", "Duration", "Eligibility", "Deadline"]
+    oppList = []
+
+    def getNextKwdIndex(splitted, lineNum):
+        for line in [x + lineNum + 1 for x in xrange(len(splitted[lineNum+1:]))]:
+            indexList = [line for kwd in keywords if kwd in splitted[line]]
+            if indexList:
+                nextKwdIndex = min(indexList)
+                return nextKwdIndex
+        return -1
+
+    def parsePDF(filename):
+        f = PdfFileReader(open(filename, "rb"))
+        # print how many pages input1 has:
+        print "%s has %d pages." % (filename, f.getNumPages())
+    
+        #start from page 2 (0 is title, 1 is ToC, 2-3 are general opp links)
+        numPages = f.getNumPages() - 4
+        for pageNum in [x+4 for x in xrange(numPages)]:
+            pageObj = f.getPage(pageNum)
+            pageObj.compressContentStreams()
+            pageText = pageObj.extractText().strip()
+            splitted = pageText.split('\n')[1:] #first line is page num
+        
+            #fix dumb syntactical things
+            lineNum = 0
+            while lineNum < len(splitted):
+                if splitted[lineNum] == '-':
+                    splitted[lineNum-1] += '-' + splitted[lineNum+1]
+                    splitted.pop(lineNum)
+                    splitted.pop(lineNum) #lineNum+1 becomes lineNum after first pop
+                elif splitted[lineNum] in ['', ' ']:
+                    splitted.pop(lineNum)
+                else:
+                    lineNum += 1
+                
+            #pass 2: parse opps
+            currentOpp = {}
+            for lineNum in xrange(len(splitted)):
+                if "Details:" in splitted[lineNum]: #opp has been located, YEET
+                    #refresh currentOpp
+                    oppList.append(currentOpp)
+                    currentOpp = {}
+                    currentOpp["Name"] = splitted[lineNum-1]
+                    nextKwdIndex = getNextKwdIndex(splitted, lineNum)
+                    if nextKwdIndex == -1:
+                        nextKwdIndex = len(splitted)
+                    currentOpp["Details"] = reduce(lambda x,y: x.strip() + ' ' + y.strip()if len(y)<3 else x+y, splitted[lineNum+1:nextKwdIndex]) #dont ask
+                elif splitted[lineNum].strip() in keywords: #if its a keyword other than "Details:"
+                    if "Name" in currentOpp and currentOpp["Name"] == "AIDS WALK":
+                        print splitted[lineNum: lineNum+10]
+                    nextKwdIndex = getNextKwdIndex(splitted, lineNum)
+                    if "Details:" in splitted[nextKwdIndex]:
+                        nextKwdIndex -= 1 #dont include the title of the next opp
+                    elif nextKwdIndex == -1:
+                        nextKwdIndex = len(splitted)
+                    currentOpp[splitted[lineNum].strip(': ')] = reduce(lambda x,y: x.strip() + ' ' + y.strip()if len(y)<3 else x+y, splitted[lineNum+1:nextKwdIndex]) #dont ask
+
+
+    app = create_app(get_config('app.config.Testing'))
     app.app_context().push()
-
-    f_name = open("filler/name.txt", "r")
-    f_desc = open("filler/desc.txt", "r")
-    f_orgs = open("filler/orgs.txt", "r")
-    L_name = f_name.read().split("\n")
-    L_desc = f_desc.read().split("\n")
-    L_orgs = f_orgs.read().split("\n")
-    for i in xrange(4):
-        o = models.opportunities.Opportunity(name = random.choice(L_name),
-                                             description = random.choice(L_desc),
-                                             organization = random.choice(L_orgs),
-                                             tags = [random.choice(L_name)])
+    for filename in files:
+        parsePDF(DATA_DIR + filename)
+    for opp in oppList:
+#        print "\n" * 2 + str(opp)
+        
+        if not opp or "Name" not in opp or "Details" not in opp:
+            continue
+        o = Opportunity(name = opp["Name"], description = opp["Details"])
+        #initialize
+        o.details = ""
+        o.link = ""
+        o.organization = ""
+        o.required_materials = []
+        o.deadline = ""
+        
+        if "Additional Information" in opp:
+            o.details += "\nAdditional Information: " + opp["Additional Information"]
+        if "Schedule of Programs" in opp:
+            o.details += "\nSchedule of Programs: " + opp["Schedule of Programs"]
+        if "List of Academy Locations" in opp:
+            o.details += "\nList of Academy Locations: " + opp["List of Academy Locations"]
+        if "Website" in opp:
+            o.link += "\n" + opp["Website"]
+        if "Application" in opp:
+            o.link += "\n" + opp["Application"]
+        if "Contact" in opp:
+            o.organization += "\n" + opp["Contact"]
+        if "Contact Information" in opp:
+            o.organization += "\n" + opp["Contact Information"]
+        if "Email" in opp:
+            o.organization += "\n" + opp["Email"]
+        #skip duration for now cuz its weird
+        if "Eligibility" in opp:
+            o.required_materials = [opp["Eligibility"]]
+        if "Deadline" in opp:
+            o.deadline = opp["Deadline"]
+        #print "added opp: %s" % o.name
         db.session.add(o)
-    db.session.commit()
+    db.session.commit()  
 
-    print 'INFO: Added opportunities'
-    f_name.close()
-    f_desc.close()
-    f_orgs.close()
-'''
-
-@command
-def rm_opportunities():
-    for u in Opportunity.query.all():
-        db.session.delete(u)
-
-    db.session.commit()
-
-
+    
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, lambda *_: sys.exit(0)) # Catches SIGINT and exits "theoretically" nicely
 

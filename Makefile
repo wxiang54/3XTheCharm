@@ -14,6 +14,9 @@ setup:
 	chmod g+w app/testing_data
 	chmod g+w app/testing_data/app.db
 
+blumm:
+	./manage.py parseOpps
+
 run:
 	./stuybulletin/manage.py devserver -p 5000
 
