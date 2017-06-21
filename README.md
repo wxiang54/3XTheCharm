@@ -16,7 +16,7 @@ StuyBulletin is platform built for Stuyvesant High School students to effectivel
 
 ## Setup
 1. Install dependencies and perform preliminary DB setup
-  * Run `$sudo make setup`
+  * Run `$sudo make setup-prod`
   * If you get an `mysql_config` error, that means you need to install the appropriate mysql package for your OS
     * OSX: `$brew install mysql`
     * Linux: `$apt-get install libmysqlclient-dev`
