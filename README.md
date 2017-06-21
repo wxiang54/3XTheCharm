@@ -31,7 +31,7 @@ StuyBulletin is platform built for Stuyvesant High School students to effectivel
 ```javascript
 {"web":
 	{"client_id":"<YOUR CLIENT ID HERE>",
-   	 "project_id":"gentle-dominion-142315",
+   	 "project_id":"<YOUR PROJECT ID HERE>",
      	 "auth_uri":"https://accounts.google.com/o/oauth2/auth",
        	 "token_uri":"https://accounts.google.com/o/oauth2/token",
          "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
@@ -41,7 +41,7 @@ StuyBulletin is platform built for Stuyvesant High School students to effectivel
 	}
 }
 ```
-  * You can obtain a pair of CLIENT_ID and CLIENT_SECRET credentials by creating a project in [Google's API Console](https://console.developers.google.com).
+  * You can obtain your PROJECT_ID, CLIENT_ID and CLIENT_SECRET credentials by creating a project in [Google's API Console](https://console.developers.google.com).
 
 3. [Optional] Fill up DB with (real) opportunities from Mr. Blumm's himself
    * Run `$make blumm`
