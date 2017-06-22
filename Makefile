@@ -9,18 +9,17 @@ setup:
 	pip install -r requirements.txt
 	./manage.py createdb
 	./manage.py migratedb
+	./manage.py parseopps
 
 setup-prod:
 	pip install -r requirements.txt
 	./manage.py createdb
 	./manage.py migratedb
+	./manage.py parseopps
 	chgrp www-data app/testing_data
 	chgrp www-data app/testing_data/app.db
 	chmod g+w app/testing_data
 	chmod g+w app/testing_data/app.db
-
-blumm:
-	./manage.py parseopps
 
 run:
 	./manage.py devserver -p 5000

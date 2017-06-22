@@ -3,7 +3,7 @@ from flask import g, url_for, request, session, current_app, redirect, render_te
 
 @public_mod.route('/')
 def index():
-    if "id" in session and "token" in session:
+    if "id" in session and "token" in session and g.user:
         flash("Welcome back!")
         if g.user.check_role("admin"):
             return redirect(url_for("admin.controller.opportunities"))

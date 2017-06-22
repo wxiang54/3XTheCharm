@@ -43,9 +43,6 @@ StuyBulletin is platform built for Stuyvesant High School students to effectivel
 ```
   * You can obtain your PROJECT_ID, CLIENT_ID and CLIENT_SECRET credentials by creating a project in [Google's API Console](https://console.developers.google.com).
 
-3. [Optional] Fill up DB with (real) opportunities from Mr. Blumm's himself
-   * Run `$make blumm`
-   * The parsing script shouldn't take much longer than a year to complete, so please be patient!
 
 ## Running
 * If deploying locally, run the local server: `$make run`
