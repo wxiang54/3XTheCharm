@@ -223,8 +223,8 @@ def parseopps():
     DATA_DIR = "app/static/opp_raw/"
     
     ### GLOBALS ###
-    files = ["opp1.pdf", "opp2.pdf", 'opp3.pdf']
-    #             , "opp3.pdf"]
+#    files = ["opp1.pdf", "opp2.pdf", 'opp3.pdf']
+    files = ["opp2.pdf"]
     keywords = ["Additional Information", "Schedule of Programs", "List of Academy Locations", "Website", "Application", "Contact", "Contact Information", "Email", "Duration", "Eligibility", "Deadline"]
     oppList = []
 
@@ -289,8 +289,6 @@ def parseopps():
     for filename in files:
         parsePDF(DATA_DIR + filename)
     for opp in oppList:
-#        print "\n" * 2 + str(opp)
-        
         if not opp or "Name" not in opp or "Details" not in opp:
             continue
         o = Opportunity(name = opp["Name"], description = opp["Details"])
