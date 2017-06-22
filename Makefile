@@ -23,10 +23,10 @@ blumm:
 	./manage.py parseopps
 
 run:
-	./stuybulletin/manage.py devserver -p 5000
+	./manage.py devserver -p 5000
 
 production:
-	./stuybulletin/manage.py --config_prod -p 5000 -l logs devserver
+	./manage.py --config_prod -p 5000 -l logs devserver
 
 clean:
 	rm -rf *~
