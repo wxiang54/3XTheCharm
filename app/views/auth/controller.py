@@ -72,6 +72,8 @@ def logout():
     r = requests.get('https://accounts.google.com/o/oauth2/revoke', params={"token": session["token"]})
     session.pop("token", None)
     session.pop("id", None)
+    session.pop("search", None)
+    session.pop("sort_by", None)
     flash("Successfully logged out!", "success")
     return redirect(url_for('public.controller.index'))
 

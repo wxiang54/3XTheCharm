@@ -1,143 +1,142 @@
 {% extends "student/student_base.html" %}
 {% block body %}
-  
-  <h1>Student Opportunities Bulletin</h1>
-  <h4><i>Please note there are offerings in many different fields, and remember that many deadlines are coming up fast. </i></h4>
-  <br>
-  <form method="GET" action="{{ url_for('student.controller.search') }}">
-    <div class="col-lg-6 pull-left">
-      <div class="input-group">
-	<input type="text" class="form-control" name="search" id="search" value="{{ search_field }}" placeholder="Search for...">
-	<span class="input-group-btn">
-          <input type="submit" class="btn btn-default" type="button">Search</input>
-	</span>
-      </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-  </form>
-  
-  
-  <div class="btn-group offset-lg-6 pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Sort by <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <li><a href="/student/sort-opportunities?sort_by=alphabetical">Alphabetical</a></li>
-      <li><a href="/student/sort-opportunities?sort_by=reverse_alphabetical">Reverse Alphabetical</a></li>
-      <li><a href="/student/sort-opportunities?sort_by=deadline">Earliest Deadline</a></li>
-      <li><a href="/student/sort-opportunities?sort_by=reverse_deadline">Latest Deadline</a></li>
-    </ul>
-  </div>
-  
-  <br><br><br>
-  <div class="row">
-    <div class="container col-md-2">
-      <button class="accordion">Category</button>
-      <div class="panel">
-	<br>
-      {% for t in tags %}
-	<input type="checkbox"><label>&nbsp; {{t}}</label> <br>
-      {% endfor %}
-      </div>
-      <button class="accordion">Grade level</button>
-      <div class="panel">
-	<br>
-	<input type="checkbox"><label> &nbsp; 9th grade</label> <br>
-	<input type="checkbox"><label> &nbsp; 10th grade</label> <br>
-	<input type="checkbox"><label> &nbsp; 11th grade</label> <br>
-	<input type="checkbox"><label> &nbsp; 12th grade</label> <br>
-      </div>
-      <button class="accordion">Type</button>
-      <div class="panel">
-	<br>
-	<input type="checkbox"><label>&nbsp; Paid</label> <br>
-	<input type="checkbox"><label>&nbsp; Unpaid</label> <br>
-      </div>
-    </div>
-    
-    <div class="col-md-8 offset-md-4">
-      {% for o in opportunities.items %}
-	<div class="container opp">
-	  <div class="row">
-	    <div class="col-md-11">
-              <h3> <a href="/student/opportunity/{{o.id}}">{{ o.name }}</a> </h3>
-	    </div>
-	    <div class="col-md-1">
-              {% if o in g.user.opportunities_following %}
-		<input class="tog" name="starbox" type="checkbox" value="{{ o.id }}" checked/>
-                <p class="toggle" id="tog" value="{{ o.id }}">&#9733;</p>
-              {% else %}
-                <input class="tog" name="starbox" type="checkbox" value="{{ o.id }}"/>
-                <p class="toggle" id="tog" value="{{ o.id }}">&#9734;</p>
-              {% endif %}
-	    </div>
-	  </div>
-	  <p>{{ o.description }}</p>
-	  <p>{{ o.organization }}</p>
-	  <p style="font-size: italic;">
-	    {% for t in range(o.tags|length) -%}
-	      {% if t > 0 %}, {% endif %}
-	      {{o.tags[t].name}}
-	    {%- endfor %}
-	  </p>
-	</div>
-	
-      {% endfor %}
-      <script type="text/javascript">
-//		$('.toggle').click(function() {
-//	});
 
-      </script>
+<h1>Student Opportunities Bulletin</h1>
+<h4><i>Please note there are offerings in many different fields, and remember that many deadlines are coming up fast. </i></h4>
+<br>
+
+<form method="GET" action="{{ url_for('student.controller.opportunities') }}">
+  <div class="col-lg-6 pull-left">
+    <div class="input-group">
+      <input type="text" class="form-control" name="search" id="search" value="{{ search }}" placeholder="Search for...">
+      <input type="hidden" name="sort_by" value="{{ session['sort_by'] }}">
+      <span class="input-group-btn">
+        <input type="submit" class="btn btn-default" type="button">Search
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</form>
+
+<div class="btn-group offset-lg-6 pull-right">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Sort by <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="{{ url_for('student.controller.opportunities', search=session['search'], sort_by='alphabetical') }}">Alphabetical</a></li>
+    <li><a href="{{ url_for('student.controller.opportunities', search=session['search'], sort_by='reverse_alphabetical') }}">Reverse Alphabetical</a></li>
+    <li><a href="{{ url_for('student.controller.opportunities', search=session['search'], sort_by='deadline') }}">Earliest Deadline</a></li>
+    <li><a href="{{ url_for('student.controller.opportunities', search=session['search'], sort_by='reverse_deadline') }}">Latest Deadline</a></li>
+  </ul>
+</div>
+
+<br><br><br>
+<div class="row">
+  <div class="container col-md-2">
+    <button class="accordion">Category</button>
+    <div class="panel">
+      <br>
+      {% for t in tags %}
+      <input type="checkbox"><label>&nbsp; {{t}}</label> <br>
+      {% endfor %}
+    </div>
+    <button class="accordion">Grade level</button>
+    <div class="panel">
+      <br>
+      <input type="checkbox"><label> &nbsp; 9th grade</label> <br>
+      <input type="checkbox"><label> &nbsp; 10th grade</label> <br>
+      <input type="checkbox"><label> &nbsp; 11th grade</label> <br>
+      <input type="checkbox"><label> &nbsp; 12th grade</label> <br>
+    </div>
+    <button class="accordion">Type</button>
+    <div class="panel">
+      <br>
+      <input type="checkbox"><label>&nbsp; Paid</label> <br>
+      <input type="checkbox"><label>&nbsp; Unpaid</label> <br>
     </div>
   </div>
   
-  {% macro render_pagination(pagination, endpoint) %}
-    
-    <ul class="pagination pull-right">
-      
-      {% if pagination.has_prev %}
-	<li>
-          <a href="{{ url_for(endpoint, page=pagination.prev_num) }}" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-	</li>
-      {% else %}
-	<li class="disabled">
-          <span aria-hidden="true">&laquo;</span>
-	</li>
-      {% endif %}
-      
-      {% for p in pagination.iter_pages(left_edge=1, left_current=2, right_current=3, right_edge=1) %}
-	{% if p %}
-          {% if p != pagination.page %}
-            <li>
-              <a href="{{ url_for(endpoint, page=p) }}">{{ p }}</a>
-            </li>
+  <div class="col-md-8 offset-md-4">
+    {% for o in opportunities.items %}
+    <div class="container opp">
+      <div class="row">
+	<div class="col-md-11">
+          <h3> <a href="/student/opportunity/{{o.id}}">{{ o.name }}</a> </h3>
+	</div>
+	<div class="col-md-1">
+          {% if o in g.user.opportunities_following %}
+	  <input class="tog" name="starbox" type="checkbox" value="{{ o.id }}" checked/>
+          <p class="toggle" id="tog" value="{{ o.id }}">&#9733;</p>
           {% else %}
-            <li class="active">
-              <a href="{{ url_for(endpoint, page=p) }}">{{ p }}</a>
-            </li>
+          <input class="tog" name="starbox" type="checkbox" value="{{ o.id }}"/>
+          <p class="toggle" id="tog" value="{{ o.id }}">&#9734;</p>
           {% endif %}
-	{% else %}
-          <li class="disabled">
-            <span class="ellipsis">&hellip;</span>
-          </li>
-	{% endif %}
-      {% endfor %}
-      
-      {% if pagination.has_next %}
-	<li>
-          <a href="{{ url_for(endpoint, page=pagination.next_num) }}" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-	</li>
-      {% else %}
-	<li class="disabled">
-          <span aria-hidden="true">&raquo;</span>
-	</li>
-      {% endif %}
-      
-    </ul>
-  {% endmacro %}
-  
-  {{ render_pagination(opportunities, ".opportunities") }}
+	</div>
+      </div>
+      <p>{{ o.description }}</p>
+      <p>{{ o.organization }}</p>
+      <p style="font-size: italic;">
+	{% for t in range(o.tags|length) -%}
+	{% if t > 0 %}, {% endif %}
+	{{o.tags[t].name}}
+	{%- endfor %}
+      </p>
+    </div>
+    
+    {% endfor %}
+    <script type="text/javascript">
+      //		$('.toggle').click(function() {
+      //	});
+
+    </script>
+  </div>
+</div>
+
+{% macro render_pagination(pagination, endpoint) %}
+<ul class="pagination pull-right">
+  {% if pagination.has_prev %}
+  <li>
+    <a href="{{ url_for(endpoint, page=pagination.next_num, search=session['search'], sort_by=session['sort_by']) }}" aria-label="Previous">
+      <span aria-hidden="true">&laquo;</span>
+    </a>
+  </li>
+  {% else %}
+  <li class="disabled">
+    <span aria-hidden="true">&laquo;</span>
+  </li>
+  {% endif %}
+
+  {% for p in pagination.iter_pages(left_edge=1, left_current=2, right_current=3, right_edge=1) %}
+  {% if p %}
+  {% if p != pagination.page %}
+  <li>
+    <a href="{{ url_for(endpoint, page=p, search=session['search'], sort_by=session['sort_by']) }}">{{ p }}</a>
+  </li>
+  {% else %}
+  <li class="active">
+    <a href="{{ url_for(endpoint, page=p, search=session['search'], sort_by=session['sort_by']) }}">{{ p }}</a>
+  </li>
+  {% endif %}
+  {% else %}
+  <li class="disabled">
+    <span class="ellipsis">&hellip;</span>
+  </li>
+  {% endif %}
+  {% endfor %}
+
+  {% if pagination.has_next %}
+  <li>
+    <a href="{{ url_for(endpoint, page=pagination.next_num, search=session['search'], sort_by=session['sort_by']) }}" aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {% else %}
+  <li class="disabled">
+    <span aria-hidden="true">&raquo;</span>
+  </li>
+  {% endif %}
+
+</ul>
+{% endmacro %}
+
+{{ render_pagination(opportunities, ".opportunities") }}
 {% endblock body %}

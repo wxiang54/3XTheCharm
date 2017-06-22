@@ -33,31 +33,44 @@ def opportunities(page = 1):
     :type page: int
     """
 
-    #First deal with search field
-    sort_by = request.args.get("sort_by")
-    if sort_by == "alphabetical":
-        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-    elif sort_by == "reverse_alphabetical":
-        opportunities = Opportunity.query.order_by(desc("name")).paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-    elif sort_by == "deadline":
-        opportunities = Opportunity.query.order_by("deadline").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-    elif sort_by == "reverse_deadline":
-        opportunities = Opportunity.query.order_by(desc("deadline")).paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-    else: #Do alphabetical if sort_by is unrecognized
-        opportunities = Opportunity.query.order_by("name").paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-    session["sort_by"] = sort_by
-    
-    tags = ["Technology", "Theater", "Volunteering", "Volunteering", "Research", "Environment"]
+    #first, deal with search field
+    search = ''
+    if "search" in request.args:
+        search = session["search"] = request.args.get("search")
+    else:
+        session.pop("search", None)
 
-    search_field = "" #session['search'] if 'search' in session else ''
     opportunities = Opportunity.query.filter(
-        or_(Opportunity.name.like('%' + search_field + '%'),
-            Opportunity.description.like('%' + search_field + '%'),
-            Opportunity.organization.like('%' + search_field + '%')
-        )).paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+        or_(Opportunity.name.like('%' + search + '%'),
+            Opportunity.description.like('%' + search + '%'),
+            Opportunity.organization.like('%' + search + '%')
+    ))
 
-    return render_template("admin/admin_opportunities.html", opportunities = opportunities, search_field = search_field, tags = tags)
+    #now, deal with sorting
+    sort_by = ''
+    if "sort_by" in request.args:
+        sort_by = session["sort_by"] = request.args.get("sort_by")
+    else:
+        session.pop("sort_by", None)
 
+    if sort_by == "alphabetical":
+        opportunities = opportunities.order_by("name")
+    elif sort_by == "reverse_alphabetical":
+        opportunities = opportunities.order_by(desc("name"))
+    elif sort_by == "deadline":
+        opportunities = opportunities.order_by("deadline")
+    elif sort_by == "reverse_deadline":
+        opportunities = opportunities.order_by(desc("deadline"))
+    else: #Do alphabetical if sort_by is unrecognized
+        opportunities = opportunities.order_by("name")
+
+    tags = ["Technology", "Theater", "Volunteering", "Research", "Environment"]
+    #tags = request.args.get('tags') if 'tags' in request.args else ''
+
+    #finally paginate
+    opportunities = opportunities.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
+
+    return render_template("admin/admin_opportunities.html", opportunities = opportunities, search = search, tags = tags)
 
 
 @admin_mod.route('/opportunity/<int:op_id>')
@@ -69,48 +82,9 @@ def opportunity(op_id = 0):
     :param op_id: ID of the opportunity to display information of
     :type op_id: int
     """
-
     opportunity = Opportunity.query.filter_by(id = op_id).first()
-    '''
-    print "\n" * 10
-    print opportunity
-    print "\n" * 10
-    '''
     return render_template("admin/admin_opportunity.html", opportunity = opportunity)
 
-# IN PROG
-@admin_mod.route('/search')
-@admin_mod.route('/search/<int:page>')
-@require_login
-@require_role('admin')
-def search(page = 1):
-    """ Returns all opportunities for a student (paginated) seperated by either tag, but sorted in the recommendation order (see neural net fun times)
-
-    :param page: Page to return
-    :type page: int
-    """
-    '''
-    if request.args.get("search"):
-        pass
-    else:
-        session.pop("search", None)
-    '''
-    search_field = request.args.get('search') if 'search' in request.args else ''
-    tags = request.args.get('tags') if 'tags' in request.args else ''
-    
-    LOG.debug('Search Field: ' + search_field)
-    LOG.debug('Search Field: ' + search_field)
-    LOG.debug('Tags: ' + tags)
-
-    opportunities = Opportunity.query.order_by("name").filter(
-        or_(Opportunity.name.like('%' + search_field + '%'),
-            Opportunity.description.like('%' + search_field + '%'),
-            Opportunity.organization.like('%' + search_field + '%')
-        )).paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-
-    session['search'] = search_field
-
-    return render_template("admin/admin_opportunities.html", opportunities = opportunities, search_field = search_field)
 
 # IN PROG
 @admin_mod.route('/add-opportunity/', methods=['GET', 'POST'])
