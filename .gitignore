@@ -146,7 +146,7 @@ app/testing_data/
 *.db
 
 # Secret keys
-app/static/oauth/client_secrets.json
+app/oauth/client_secrets.json
 
 # Documentation stuff
 docs/_build/*

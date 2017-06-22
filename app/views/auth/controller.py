@@ -14,7 +14,7 @@ import os
 LOG = logging.getLogger(__name__)
 
 DIR = os.path.dirname(__file__) or '.'
-DIR = DIR[:DIR.find('app')] + "app/static/"
+DIR = DIR[:DIR.find('app')] + "app/"
 
 @auth_mod.route('/')
 def index():

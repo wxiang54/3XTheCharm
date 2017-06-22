@@ -26,7 +26,7 @@ StuyBulletin is platform built for Stuyvesant High School students to effectivel
   * Sudo privileges are required to change group and ownership of the DB as well as its directory
     * By default, they should be __$REPO_ROOT/app/testing_data__ and  __$REPO_ROOT/app/testing_data/app.db__, respectively
 
-2. Create the __client_secrets.json__ file in __$REPO_ROOT/app/static/oauth/__
+2. Create the __client_secrets.json__ file in __$REPO_ROOT/app/oauth/client_secrets.json__
   * The file should follow this format:
 ```javascript
 {"web":
