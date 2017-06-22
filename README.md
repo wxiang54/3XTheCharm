@@ -48,3 +48,9 @@ StuyBulletin is platform built for Stuyvesant High School students to effectivel
 * If deploying locally, run the local server: `$make run`
 * If deploying live (assuming via Apache), copy the __stuybulletin.conf__ file from the repo's root directory to where it's supposed to go, supposedly __/etc/apache2/sites-enabled/__.
   * If your domain happens to not exactly be "stuybulletin.stuycs.org", be sure to modify the "ServerName" line in __stuybulletin.conf__ to reflect your different domain.
+
+## Known Bugs
+* Opportunities don't actually hold as much info as they should (e.g. most don't have links or organizations or etc.)
+  * This is partly because some of the data wasn't present in the original PDF files, and partly because I didn't do the best job at parsing
+* When listing opportunities, the tags on the left hand side (under Catagory, Grade level, Type) currently do not work
+  * Their intended function was to filter results by what tags were checked
