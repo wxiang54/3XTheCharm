@@ -106,7 +106,7 @@ def opportunities(page = 1):
     else: #Do alphabetical if sort_by is unrecognized
         opportunities = opportunities.order_by("name")
 
-    tags = ["Technology", "Theater", "Volunteering", "Research", "Environment"]
+    tags = ["Technology", "Theater", "Volunteer", "Research", "Environment", "Summer", "Hospital", "Math", "Dance"]
     #tags = request.args.get('tags') if 'tags' in request.args else ''
 
     #finally paginate
