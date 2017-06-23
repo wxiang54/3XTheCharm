@@ -7,9 +7,9 @@ import pytest
 import os
 print os.getcwd()
 
-from app.application import create_app, get_config
+from stuybulletin.application import create_app, get_config
 
-from app.extensions import db
+from stuybulletin.extensions import db
 
 class FakeServerProxy(object):
     VALUE = None
