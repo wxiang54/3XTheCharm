@@ -17,9 +17,9 @@ setup-prod:
 	./manage.py migratedb
 	./manage.py parseopps
 	chgrp www-data stuybulletin/testing_data
-	chgrp www-data stuybulletin/testing_data/app.db
+	chgrp www-data stuybulletin/testing_data/stuybulletin.db
 	chmod g+w stuybulletin/testing_data
-	chmod g+w stuybulletin/testing_data/app.db
+	chmod g+w stuybulletin/testing_data/stuybulletin.db
 
 run:
 	./manage.py devserver -p 5000

@@ -3,8 +3,8 @@
 Tests the __repr__ function
 """
 
-from app.extensions import db
-from app.models.tag import Tag
+from stuybulletin.extensions import db
+from stuybulletin.models.tag import Tag
 
 from tests.models.helpers import create_test_tag
 

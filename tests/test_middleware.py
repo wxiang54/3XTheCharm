@@ -21,7 +21,7 @@ def test_template_filters():
     
     data = []
 
-    with current_app.app_context():
+    with current_stuybulletin.app_context():
         html = render_template_string(template, data = data)
 
     assert 'Hi' in html

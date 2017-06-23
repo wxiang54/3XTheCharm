@@ -1,7 +1,7 @@
-from app.models.users import User
-from app.models.permissions import Role
-from app.models.opportunities import Opportunity
-from app.models.tag import Tag
-from app.models.required_material import RequiredMaterial
+from stuybulletin.models.users import User
+from stuybulletin.models.permissions import Role
+from stuybulletin.models.opportunities import Opportunity
+from stuybulletin.models.tag import Tag
+from stuybulletin.models.required_material import RequiredMaterial
 
-from app.models.relationships import tags
+from stuybulletin.models.relationships import tags

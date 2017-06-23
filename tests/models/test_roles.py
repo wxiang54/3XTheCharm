@@ -1,11 +1,11 @@
 """ Tests the permissions.py file
 
 Tests the __repr__ function
-All other methods are tested through app.models.users.User methods (add_role, remove_role, etc)
+All other methods are tested through stuybulletin.models.users.User methods (add_role, remove_role, etc)
 """
 
-from app.extensions import db
-from app.models.permissions import Role
+from stuybulletin.extensions import db
+from stuybulletin.models.permissions import Role
 
 from tests.models.helpers import create_test_role
 

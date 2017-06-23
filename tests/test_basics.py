@@ -16,10 +16,10 @@ def test_python_version():
     assert 6 <= sys.version_info.micro
 
 def test_testing_mode():
-    """ Ensure TESTING = True in app.config """
-    assert current_app.config['TESTING']
+    """ Ensure TESTING = True in stuybulletin.config """
+    assert current_stuybulletin.config['TESTING']
 
 def test_index_200():
     """ Makes sure the front page returns HTTP 200 """
 
-    assert '200 OK' == current_app.test_client().get('/').status
+    assert '200 OK' == current_stuybulletin.test_client().get('/').status

@@ -4,8 +4,8 @@ Currently just Role """
 
 from sqlalchemy import Column, String, Integer, ForeignKey
 
-from app.models.helpers import Base
-from app.extensions import db
+from stuybulletin.models.helpers import Base
+from stuybulletin.extensions import db
 
 class Role(Base):
     """ Role base to store a user's role """

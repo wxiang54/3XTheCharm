@@ -1,5 +1,5 @@
 """ A file to store all the tables for any and all many to many relationships """
-from app.models.helpers import Base
+from stuybulletin.models.helpers import Base
 
 from sqlalchemy import Column, Integer, ForeignKey, Table, UniqueConstraint
 

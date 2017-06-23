@@ -4,17 +4,17 @@ create_user() -- returns the created user object
 create_role(role) -- returns the created role object
 """
 
-from app.extensions import db
-from app.models.users import User
-from app.models.permissions import Role
-from app.models.opportunities import Opportunity
-from app.models.required_material import RequiredMaterial
-from app.models.tag import Tag
+from stuybulletin.extensions import db
+from stuybulletin.models.users import User
+from stuybulletin.models.permissions import Role
+from stuybulletin.models.opportunities import Opportunity
+from stuybulletin.models.required_material import RequiredMaterial
+from stuybulletin.models.tag import Tag
 
 def create_test_role():
     """ Creates and returns a testing role
 
-    :returns: app.models.permissions.Role the created Role object
+    :returns: stuybulletin.models.permissions.Role the created Role object
     """
 
     r = Role(role = 'test')
@@ -24,7 +24,7 @@ def create_test_role():
 def create_test_user():
     """ Creates and returns a testing user 
     
-    :returns: app.models.user.User the created user object
+    :returns: stuybulletin.models.user.User the created user object
     """
 
     u = User(email = 'testing@stuy.edu')
@@ -34,7 +34,7 @@ def create_test_user():
 def create_test_opportunity():
     """ Creates and returns a testing opportunity
 
-    :returns: app.models.opportunities.Opportunity the created opportunity object
+    :returns: stuybulletin.models.opportunities.Opportunity the created opportunity object
     """
 
     o = Opportunity(name = 'testing_name', organization = 'testing_organization')
@@ -44,7 +44,7 @@ def create_test_opportunity():
 def create_test_required_material():
     """ Creates and returns a testing required material
 
-    :returns: app.models.permissions.RequiredMaterial the created RequiredMaterial object
+    :returns: stuybulletin.models.permissions.RequiredMaterial the created RequiredMaterial object
     """
 
     r = RequiredMaterial(name = 'test')
@@ -54,7 +54,7 @@ def create_test_required_material():
 def create_test_tag():
     """ Creates and returns a testing tag
     
-    :returns: app.models.tag.Tag the created Tag object
+    :returns: stuybulletin.models.tag.Tag the created Tag object
     """
     
     t = Tag(name = 'test')

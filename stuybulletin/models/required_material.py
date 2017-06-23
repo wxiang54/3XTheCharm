@@ -4,8 +4,8 @@ Currently just RequiredMaterial """
 
 from sqlalchemy import Column, String, ForeignKey, Integer
 
-from app.models.helpers import Base
-from app.extensions import db
+from stuybulletin.models.helpers import Base
+from stuybulletin.extensions import db
 
 class RequiredMaterial(Base):
     """ RequiredMaterial model to store a required material """

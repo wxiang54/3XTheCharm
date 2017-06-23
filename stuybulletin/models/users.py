@@ -4,10 +4,10 @@ from sqlalchemy import Column, String, Text
 from sqlalchemy.orm import backref, relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app.models.helpers import Base
-from app.models.permissions import Role
-from app.extensions import db
-from app.models.relationships import tags_following, opportunities_following
+from stuybulletin.models.helpers import Base
+from stuybulletin.models.permissions import Role
+from stuybulletin.extensions import db
+from stuybulletin.models.relationships import tags_following, opportunities_following
 
 class User(Base):
     """ User model for use with sqlalchemy. """

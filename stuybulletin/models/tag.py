@@ -4,12 +4,12 @@ Currently just Tag """
 
 from sqlalchemy import Column, String, ForeignKey, Integer
 
-from app.models.helpers import Base
-from app.models.relationships import tags, tags_following
+from stuybulletin.models.helpers import Base
+from stuybulletin.models.relationships import tags, tags_following
 
 from sqlalchemy.orm import relationship
 
-from app.extensions import db
+from stuybulletin.extensions import db
 
 class Tag(Base):
     """ Tag model to store a tag for an opportunity """

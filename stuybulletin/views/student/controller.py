@@ -1,13 +1,13 @@
-from app.blueprints import student_mod
+from stuybulletin.blueprints import student_mod
 from flask import url_for, request, session, current_app, redirect, g, render_template, request
 from sqlalchemy import or_, desc
-from app.models.opportunities import Opportunity
-from app.models.tag import Tag
-from app.core.authentication import require_login, require_role
+from stuybulletin.models.opportunities import Opportunity
+from stuybulletin.models.tag import Tag
+from stuybulletin.core.authentication import require_login, require_role
 import logging
 import json
 
-from app.extensions import db
+from stuybulletin.extensions import db
 
 LOG = logging.getLogger(__name__)
 
@@ -133,8 +133,6 @@ def starred_opportunities(page = 1):
     """
 
     opportunities = g.user.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
-
-    #opportunities = g.opportunities_following.paginate(page, current_app.config['ELEMENTS_PER_PAGE'], False)
 
     return render_template("student/starred_opportunities.html", opportunities = opportunities)
 

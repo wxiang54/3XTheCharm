@@ -7,8 +7,8 @@ Tests role setting and checking
 Tests __repr__
 """
 
-from app.extensions import db
-from app.models.users import User
+from stuybulletin.extensions import db
+from stuybulletin.models.users import User
 from tests.models.helpers import create_test_user, create_test_role
 
 def test_users():

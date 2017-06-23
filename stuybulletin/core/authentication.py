@@ -4,10 +4,10 @@ from flask import g, session, flash, redirect, url_for
 
 import logging
 
-from app.models.permissions import Role
-from app.models.users import User
+from stuybulletin.models.permissions import Role
+from stuybulletin.models.users import User
 
-from app.blueprints import auth_mod
+from stuybulletin.blueprints import auth_mod
 
 import functools
 

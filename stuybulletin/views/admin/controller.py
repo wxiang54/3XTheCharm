@@ -1,10 +1,10 @@
-from app.blueprints import admin_mod
+from stuybulletin.blueprints import admin_mod
 from flask import url_for, request, session, current_app, redirect, g, render_template
 from sqlalchemy import or_, desc
 from datetime import datetime
-from app.models.opportunities import Opportunity
-from app.core.authentication import require_login, require_role
-from app.extensions import db
+from stuybulletin.models.opportunities import Opportunity
+from stuybulletin.core.authentication import require_login, require_role
+from stuybulletin.extensions import db
 from collections import OrderedDict
 import logging
 

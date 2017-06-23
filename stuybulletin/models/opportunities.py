@@ -6,11 +6,11 @@ from sqlalchemy import Column, String, DateTime, Float
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from app.models.helpers import Base
-from app.models.required_material import RequiredMaterial
-from app.models.tag import Tag
-from app.models.relationships import tags, opportunities_following
-from app.extensions import db
+from stuybulletin.models.helpers import Base
+from stuybulletin.models.required_material import RequiredMaterial
+from stuybulletin.models.tag import Tag
+from stuybulletin.models.relationships import tags, opportunities_following
+from stuybulletin.extensions import db
 
 class Opportunity(Base):
     """ Opportunity model to store an opportunity """
@@ -140,7 +140,7 @@ class Opportunity(Base):
         """ Checks for use in a sql query whether an opportunity has a tag.
 
         :param self: The opportunity to test
-        :type self: app.models.opportunities.Opportunity
+        :type self: stuybulletin.models.opportunities.Opportunity
         :param tag: The tag to check
         :type tag: str
         :return: bool -- true if the organization has a tag that's equal to tag, false if not.
@@ -156,7 +156,7 @@ class Opportunity(Base):
         """ Checks for whether any tag in a list of tags has been tagged by the opportunity
 
         :param self: The opportunity to test
-        :type self: app.models.opportunities.Opportunity
+        :type self: stuybulletin.models.opportunities.Opportunity
         :param list_of_tags: The list of tags to check
         :type list_of_tags: list
         :return: bool -- true if the organization has a tag that's equal to any tag in list_of_tags, false if not.

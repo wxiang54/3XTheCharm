@@ -5,14 +5,14 @@ from flask import Blueprint
 def _factory(partial_module_string, url_prefix):
     """ Generates blueprint objects for view modules
 
-    partial_module_string: 'auth.login' instead of 'app.views.auth.login'
+    partial_module_string: 'auth.login' instead of 'stuybulletin.views.auth.login'
     url_prefix: url prefix for the blueprint
 
     Returns:
     Blueprint instance for a view module
     """
     
-    import_name = 'app.views.{}'.format(partial_module_string)
+    import_name = 'stuybulletin.views.{}'.format(partial_module_string)
     template_folder = 'templates'
 
     blueprint = Blueprint(partial_module_string, import_name, template_folder = template_folder, url_prefix = url_prefix)

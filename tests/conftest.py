@@ -45,7 +45,7 @@ def alter_xmlrpc(request):
 
     return func
 
-app = create_app(get_config('app.config.Testing'))
+app = create_app(get_config('stuybulletin.config.Testing'))
 
 # Initialize the application and sets the app context so that we don't have to
-app.app_context().push()
+stuybulletin.app_context().push()

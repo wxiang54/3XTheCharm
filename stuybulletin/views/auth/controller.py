@@ -1,8 +1,8 @@
-from app.blueprints import auth_mod
-from app.core.authentication import require_login, require_role, email_in_organization
-from app.core.oauth_api import get_user_information
-from app.models.users import User
-from app.extensions import db
+from stuybulletin.blueprints import auth_mod
+from stuybulletin.core.authentication import require_login, require_role, email_in_organization
+from stuybulletin.core.oauth_api import get_user_information
+from stuybulletin.models.users import User
+from stuybulletin.extensions import db
 from oauth2client.client import flow_from_clientsecrets, OAuth2Credentials, AccessTokenCredentials
 from flask import g, url_for, request, session, current_app, redirect, render_template, flash
 from httplib2 import Http
@@ -14,7 +14,7 @@ import os
 LOG = logging.getLogger(__name__)
 
 DIR = os.path.dirname(__file__) or '.'
-DIR = DIR[:DIR.find('app')] + "app/"
+DIR = DIR[:DIR.find('stuybulletin')] + "stuybulletin/stuybulletin/"
 
 @auth_mod.route('/')
 def index():

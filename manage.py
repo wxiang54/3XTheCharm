@@ -47,9 +47,9 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 # Application imports
-from app.application import create_app, get_config
-from app.extensions import db
-import app.models
+from stuybulletin.application import create_app, get_config
+from stuybulletin.extensions import db
+import stuybulletin.models
 
 OPTIONS = docopt(__doc__) if __name__ == '__main__' else dict()
 
@@ -101,8 +101,8 @@ def log_messages(app, port):
     log = logging.getLogger(__name__)
     log.info('Server is running at https://0.0.0.0:{}/'.format(port))
     log.info('Flask version: {}'.format(flask.__version__))
-    log.info('DEBUG: {}'.format(app.config['DEBUG']))
-    log.info('STATIC_FOLDER: {}'.format(app.static_folder))
+    log.info('DEBUG: {}'.format(stuybulletin.config['DEBUG']))
+    log.info('STATIC_FOLDER: {}'.format(stuybulletin.static_folder))
 
 def parse_options():
     """ Parses command line options for Flask
@@ -112,9 +112,9 @@ def parse_options():
     """
 
     if OPTIONS['--config_prod']:
-        config_class_string = 'app.config.Production'
+        config_class_string = 'stuybulletin.config.Production'
     else:
-        config_class_string = 'app.config.Testing'
+        config_class_string = 'stuybulletin.config.Testing'
     config_obj = get_config(config_class_string)
 
     return config_obj
@@ -143,7 +143,7 @@ def devserver():
     setup_logging('devserver')
     app = create_app(parse_options())
     log_messages(app, OPTIONS['--port'])
-    app.run(host = '0.0.0.0', port = int(OPTIONS['--port']))
+    stuybulletin.run(host = '0.0.0.0', port = int(OPTIONS['--port']))
 
 @command
 def createdb():
@@ -218,9 +218,9 @@ def shell():
 @command
 def parseopps():
     from PyPDF2 import PdfFileReader
-    from app.models.opportunities import Opportunity
+    from stuybulletin.models.opportunities import Opportunity
 
-    DATA_DIR = "app/static/opp_raw/"
+    DATA_DIR = "stuybulletin/static/opp_raw/"
     
     ### GLOBALS ###
     files = ["opp1.pdf", "opp2.pdf", 'opp3.pdf']
@@ -283,7 +283,7 @@ def parseopps():
                     currentOpp[splitted[lineNum].strip(': ')] = reduce(lambda x,y: x.strip() + ' ' + y.strip()if len(y)<3 else x+y, splitted[lineNum+1:nextKwdIndex]) #dont ask
 
 
-    app = create_app(get_config('app.config.Testing'))
+    app = create_app(get_config('stuybulletin.config.Testing'))
     app.app_context().push()
     for filename in files:
         parsePDF(DATA_DIR + filename)

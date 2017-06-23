@@ -1,4 +1,4 @@
-from app.blueprints import public_mod
+from stuybulletin.blueprints import public_mod
 from flask import g, url_for, request, session, current_app, redirect, render_template, flash
 
 @public_mod.route('/')

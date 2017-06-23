@@ -18,7 +18,7 @@ class CeleryConfig(HardCoded):
 class SQLConfig(CeleryConfig):
     """ Default SQL Alchemy Configuration """
 
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(HardCoded.basedir, 'testing_data/app.db')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(HardCoded.basedir, 'testing_data/stuybulletin.db')
     
     SQLALCHEMY_DATABASE_LOCATION = os.path.join(HardCoded.basedir, 'testing_data')
                                                 
@@ -52,7 +52,7 @@ class Production(Config):
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(HardCoded.basedir, 'data/app.db')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(HardCoded.basedir, 'data/stuybulletin.db')
     SQLALCHEMY_DATABASE_LOCATION = os.path.join(HardCoded.basedir, 'data')
                                                 
     SQLALCHEMY_MIGRATE_REPO = os.path.join(HardCoded.basedir, 'data/migrations')

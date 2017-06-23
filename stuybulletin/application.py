@@ -2,7 +2,7 @@ from importlib import import_module
 import locale
 import os
 
-#import app as app_root
+#import stuybulletin as app_root
 from blueprints import all_blueprints
 from extensions import mail, db
 
@@ -17,9 +17,9 @@ STATIC_FOLDER = os.path.join(APP_ROOT_FOLDER, 'static')
 def get_config(config_class_string):
     """ Load the Flask config from a class.
 
-    :param config_class_string: The name of the config class to use (See :class:`app.config`)
+    :param config_class_string: The name of the config class to use (See :class:`stuybulletin.config`)
     :type config_class_string: str
-    :returns: Config object -- see :class:`app.config`"""
+    :returns: Config object -- see :class:`stuybulletin.config`"""
     config_module, config_class = config_class_string.rsplit('.', 1)
 
     config_class_object = getattr(import_module(config_module), config_class)
@@ -33,7 +33,7 @@ def create_app(config_obj):
     This is where blueprints are registered.
     
     :param config_obj: The configuration object to use to initialize the flask application.
-    :type config_obj: See :class:`app.config`
+    :type config_obj: See :class:`stuybulletin.config`
     :returns: The initialized Flask application.
     """
 
@@ -54,7 +54,7 @@ def create_app(config_obj):
     # Activates the middleware
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
     with app.app_context():
-        import_module('app.middleware')
+        import_module('stuybulletin.middleware')
 
     # Returns the app instance
     return app

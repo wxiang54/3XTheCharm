@@ -5,12 +5,12 @@ Tests all fields for an opportunity
 Tests simple querying
 Tests __repr__ """
 
-from app.models.opportunities import Opportunity
+from stuybulletin.models.opportunities import Opportunity
 # This tests all the fields and the general syntax
 
 from tests.models.helpers import create_test_opportunity, create_test_required_material
 
-from app.extensions import db
+from stuybulletin.extensions import db
 
 def test_opportunities():
     """ Base Opportunity tests
